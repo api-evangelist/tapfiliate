@@ -31,6 +31,8 @@ apis:
         url: https://tapfiliate.com/docs/rest/
       - type: Authentication
         url: https://tapfiliate.com/docs/rest/#authentication
+      - type: OpenAPI
+        url: openapi/tapfiliate-rest-api-openapi.yml
 common:
   - type: Website
     url: https://tapfiliate.com
@@ -54,6 +56,10 @@ common:
     url: rate-limits/tapfiliate-rate-limits.yml
   - type: FinOps
     url: finops/tapfiliate-finops.yml
+  - type: Vocabulary
+    url: vocabulary/tapfiliate-vocabulary.yml
+  - type: JsonLdContext
+    url: json-ld/tapfiliate-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

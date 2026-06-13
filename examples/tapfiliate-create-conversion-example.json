@@ -1,0 +1,63 @@
+{
+  "title": "Create a Conversion",
+  "description": "Example request and response for recording a new conversion in Tapfiliate.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.tapfiliate.com/1.6/conversions/",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Api-Key": "YOUR_API_KEY"
+    },
+    "body": {
+      "program_id": "my-affiliate-program",
+      "external_id": "ORDER-12345",
+      "amount": 99.00,
+      "click_id": "cl_aBcDeFgH",
+      "customer_id": "USER123",
+      "commission_type": "default",
+      "meta_data": {
+        "plan": "professional",
+        "billing_period": "annual"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "cv_eXampl3",
+      "external_id": "ORDER-12345",
+      "amount": 99.00,
+      "program_id": "my-affiliate-program",
+      "affiliate": {
+        "id": "af_eXampl3",
+        "email": "affiliate@example.com",
+        "firstname": "Jane",
+        "lastname": "Doe"
+      },
+      "commissions": [
+        {
+          "id": "co_eXampl3",
+          "amount": 9.90,
+          "approved": false,
+          "commission_type": {
+            "id": "default",
+            "name": "Default Commission",
+            "type": "percentage",
+            "percentage": 10.0,
+            "amount": null
+          },
+          "conversion_id": "cv_eXampl3",
+          "created_at": "2026-06-13T10:00:00+00:00"
+        }
+      ],
+      "created_at": "2026-06-13T10:00:00+00:00",
+      "meta_data": {
+        "plan": "professional",
+        "billing_period": "annual"
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.tapfiliate.com/schemas/affiliate.json",
+  "title": "Affiliate",
+  "description": "An affiliate in the Tapfiliate platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Affiliate ID"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Affiliate's email address"
+    },
+    "firstname": {
+      "type": "string",
+      "description": "Affiliate's first name"
+    },
+    "lastname": {
+      "type": "string",
+      "description": "Affiliate's last name"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "group": {
+      "type": ["object", "null"],
+      "description": "The affiliate group this affiliate belongs to",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "meta_data": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary key-value metadata"
+    },
+    "referral_link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Default referral link for this affiliate"
+    },
+    "coupon": {
+      "type": ["string", "null"],
+      "description": "Coupon code associated with this affiliate"
+    },
+    "parent": {
+      "type": ["object", "null"],
+      "description": "Parent affiliate for MLM structures",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" }
+      }
+    }
+  },
+  "required": ["id", "email", "firstname", "lastname"]
+}

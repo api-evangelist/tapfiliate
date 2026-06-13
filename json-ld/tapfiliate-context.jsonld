@@ -1,0 +1,76 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "tap": "https://tapfiliate.com/vocab#",
+    "api": "https://api.tapfiliate.com/1.6/",
+
+    "Customer": "tap:Customer",
+    "customer_id": "tap:customerId",
+    "status": "tap:status",
+    "meta_data": "tap:metaData",
+
+    "Conversion": "tap:Conversion",
+    "external_id": "tap:externalId",
+    "amount": "tap:amount",
+    "program_id": "tap:programId",
+    "commissions": "tap:commissions",
+    "click_id": "tap:clickId",
+    "commission_type": "tap:commissionType",
+
+    "Commission": "tap:Commission",
+    "approved": "tap:approved",
+    "conversion_id": "tap:conversionId",
+
+    "CommissionType": "tap:CommissionType",
+    "percentage": "tap:percentage",
+
+    "Affiliate": "tap:Affiliate",
+    "email": "schema:email",
+    "firstname": "schema:givenName",
+    "lastname": "schema:familyName",
+    "referral_link": "tap:referralLink",
+    "coupon": "tap:coupon",
+    "parent": "tap:parentAffiliate",
+    "group": "tap:affiliateGroup",
+
+    "AffiliateGroup": "tap:AffiliateGroup",
+    "AffiliateProspect": "tap:AffiliateProspect",
+
+    "Program": "tap:Program",
+    "title": "schema:name",
+    "currency": "tap:currency",
+    "cookie_time": "tap:cookieTime",
+    "default_landing_page_url": "tap:defaultLandingPage",
+    "incrementing_conversions": "tap:incrementingConversions",
+    "recurring_commissions": "tap:recurringCommissions",
+
+    "Affiliation": "tap:Affiliation",
+
+    "Balance": "tap:Balance",
+    "balance": "tap:balanceAmount",
+
+    "Payment": "tap:Payment",
+    "paid_at": "tap:paidAt",
+
+    "Click": "tap:Click",
+    "ip": "tap:ipAddress",
+    "user_agent": "tap:userAgent",
+    "landing_page": "tap:landingPage",
+    "referrer": "tap:referrerUrl",
+    "referral_code": "tap:referralCode",
+
+    "Note": "tap:Note",
+    "note": "tap:noteText",
+
+    "PayoutMethod": "tap:PayoutMethod",
+    "payout_method_id": "tap:payoutMethodId",
+
+    "CustomField": "tap:CustomField",
+    "required": "tap:required",
+
+    "created_at": "schema:dateCreated",
+    "id": "@id",
+    "name": "schema:name",
+    "type": "@type"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.tapfiliate.com/schemas/conversion.json",
+  "title": "Conversion",
+  "description": "A tracked conversion event attributed to an affiliate.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Conversion ID"
+    },
+    "external_id": {
+      "type": ["string", "null"],
+      "description": "Your external reference for this conversion (e.g. order ID)"
+    },
+    "amount": {
+      "type": ["number", "null"],
+      "description": "The conversion amount (for revenue-based commissions)"
+    },
+    "program_id": {
+      "type": "string",
+      "description": "The program this conversion belongs to"
+    },
+    "affiliate": {
+      "type": ["object", "null"],
+      "description": "The affiliate attributed to this conversion",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" }
+      }
+    },
+    "commissions": {
+      "type": "array",
+      "items": {
+        "$ref": "tapfiliate-commission.json"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "meta_data": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

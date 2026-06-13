@@ -1,0 +1,125 @@
+vocabulary:
+  - term: affiliate
+    definition: >-
+      A person or business that promotes a merchant's products or services in
+      exchange for commissions on referred conversions. Affiliates receive a
+      unique referral link and/or coupon code to track their performance.
+
+  - term: affiliate_group
+    definition: >-
+      A named grouping of affiliates used to apply group-level commission
+      rates, reporting filters, or organizational segmentation within a program.
+
+  - term: affiliate_prospect
+    definition: >-
+      A person who has applied to join an affiliate program but has not yet
+      been approved. Prospects can be reviewed and converted into full
+      affiliates or deleted.
+
+  - term: affiliation
+    definition: >-
+      The enrollment relationship between a specific affiliate and a specific
+      program. An affiliate can be enrolled in multiple programs, each
+      producing a separate affiliation record with its own referral link and
+      approval status.
+
+  - term: balance
+    definition: >-
+      The unpaid commission amount owed to an affiliate in a given currency.
+      Balances accumulate from approved commissions and are reduced when
+      payments are created.
+
+  - term: click
+    definition: >-
+      A recorded visit to a merchant's landing page that was attributed to an
+      affiliate via their referral link or coupon. Clicks carry metadata such
+      as IP, user agent, referrer, and landing page URL and are the basis for
+      conversion attribution.
+
+  - term: commission
+    definition: >-
+      A monetary reward earned by an affiliate when a conversion is recorded.
+      Commissions can be percentage-based or fixed-amount and may require
+      approval before being paid out.
+
+  - term: commission_type
+    definition: >-
+      A configured rule within a program that defines how a commission is
+      calculated — either as a percentage of the conversion amount or as a
+      fixed amount. Multiple commission types can exist per program.
+
+  - term: conversion
+    definition: >-
+      A tracked event representing a desired action taken by a referred
+      customer, such as a purchase or a sign-up. Conversions carry an amount
+      (for revenue-based commissions), an optional external ID, and generate
+      commission records for the attributed affiliate.
+
+  - term: coupon
+    definition: >-
+      A discount code associated with a specific affiliate's enrollment in a
+      program. When a customer uses the coupon, the resulting conversion is
+      attributed to that affiliate.
+
+  - term: currency
+    definition: >-
+      ISO 4217 three-letter currency code (e.g. USD, EUR, GBP) used to
+      denominate commission amounts, balances, and payments within a program.
+
+  - term: customer
+    definition: >-
+      An end-user of the merchant's service who was referred by an affiliate.
+      Customers have a status (trial, paid, cancelled) used for recurring
+      commission calculations.
+
+  - term: meta_data
+    definition: >-
+      A flexible key-value store attached to customers, conversions, or
+      affiliates. Used to pass and store arbitrary business data (e.g.
+      subscription plan, order ID) alongside the tracking record.
+
+  - term: MLM_level
+    definition: >-
+      Multi-level marketing tier configuration within a program that assigns
+      commission percentages to affiliates at each level of a referral chain.
+
+  - term: parent_affiliate
+    definition: >-
+      In an MLM program structure, the affiliate that referred another
+      affiliate. Parent affiliates earn commissions from their child
+      affiliates' conversions according to the configured MLM levels.
+
+  - term: payment
+    definition: >-
+      A record of a commission payout made to one or more affiliates.
+      Payments group commissions into a batch and track the paid amount,
+      currency, and payment date.
+
+  - term: payout_method
+    definition: >-
+      The payment channel configured by an affiliate to receive their
+      commissions (e.g. PayPal, wire transfer). Each affiliate can have
+      multiple payout methods per currency.
+
+  - term: program
+    definition: >-
+      An affiliate marketing program configured by a merchant. A program
+      defines commission structures, cookie lifetimes, supported currencies,
+      and the landing page for affiliate-referred traffic.
+
+  - term: referral_code
+    definition: >-
+      A unique short code assigned to an affiliate within a program. Used in
+      referral links and coupon codes to attribute clicks and conversions.
+
+  - term: referral_link
+    definition: >-
+      The unique tracking URL assigned to an affiliate's enrollment in a
+      program. Traffic arriving via this link is attributed to the affiliate
+      for click and conversion tracking.
+
+  - term: x_api_key
+    definition: >-
+      The authentication mechanism used by the Tapfiliate REST API. API keys
+      are passed in the X-Api-Key HTTP request header. Keys are issued per
+      account and provide full access to the account's data.

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.tapfiliate.com/schemas/commission.json",
+  "title": "Commission",
+  "description": "A commission earned by an affiliate from a conversion.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Commission ID"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Commission amount"
+    },
+    "approved": {
+      "type": "boolean",
+      "description": "Whether this commission has been approved for payment"
+    },
+    "commission_type": {
+      "type": "object",
+      "description": "The commission type that generated this commission",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["percentage", "fixed"]
+        },
+        "percentage": { "type": ["number", "null"] },
+        "amount": { "type": ["number", "null"] }
+      }
+    },
+    "affiliate": {
+      "type": "object",
+      "description": "The affiliate who earned this commission",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" }
+      }
+    },
+    "conversion_id": {
+      "type": "string",
+      "description": "The conversion this commission was generated from"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

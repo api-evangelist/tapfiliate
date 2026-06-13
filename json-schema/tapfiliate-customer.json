@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.tapfiliate.com/schemas/customer.json",
+  "title": "Customer",
+  "description": "A customer referred by an affiliate in the Tapfiliate platform.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Tapfiliate's internal customer ID",
+      "example": "cu_eXampl3"
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "Your external customer identifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["trial", "paid", "cancelled"],
+      "description": "Customer billing status"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "click": {
+      "type": ["object", "null"],
+      "description": "The click that attributed this customer",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "referrer": {
+          "type": "string",
+          "format": "uri"
+        },
+        "landing_page": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "meta_data": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Arbitrary key-value metadata"
+    }
+  }
+}
