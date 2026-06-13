@@ -1,0 +1,23 @@
+specificationVersion: "0.1"
+id: tapfiliate-rate-limits
+name: Tapfiliate API Rate Limits
+description: Rate limits for the Tapfiliate REST API v1.6. Limits are communicated via response headers on each request. Specific numeric thresholds are not publicly documented and may vary by plan.
+url: https://tapfiliate.com/docs/rest/
+headers:
+  - name: X-Ratelimit-Limit
+    description: The total number of requests allowed in the current rate limit window.
+  - name: X-Ratelimit-Remaining
+    description: The number of requests remaining before the rate limit is exceeded for the current window.
+  - name: X-Ratelimit-Reset
+    description: Unix timestamp indicating when the current rate limit window resets and the request count is refreshed.
+notes:
+  - Most API endpoints are subject to rate limiting.
+  - When the rate limit is exceeded the API returns an appropriate HTTP error response.
+  - Clients should inspect the X-Ratelimit-Remaining header and back off when approaching zero.
+  - Rate limit thresholds are not published publicly and may differ by subscription plan.
+  - The Enterprise plan advertises "Unlimited tracking capabilities" which may imply higher or negotiated rate limits.
+pagination:
+  defaultPageSize: 25
+  paginationHeader: Link
+  paginationParameter: page
+  paginationStyle: page-number

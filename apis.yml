@@ -1,0 +1,59 @@
+aid: tapfiliate
+name: Tapfiliate
+description: Tapfiliate is an affiliate tracking and management platform with a REST API for creating affiliate programs, managing affiliates, tracking conversions, and handling commission payouts. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/tapfiliate/refs/heads/main/apis.yml
+created: 2026-06-13
+modified: 2026-06-13
+specificationVersion: "0.19"
+tags:
+  - Affiliate Marketing
+  - Affiliate Tracking
+  - Commission Management
+  - Conversion Tracking
+  - Partner Programs
+  - Referral Programs
+  - Influencer Marketing
+apis:
+  - aid: tapfiliate:tapfiliate-rest-api
+    name: Tapfiliate REST API
+    description: REST API for managing affiliate programs, affiliates, conversions, commissions, customers, payments, and click tracking. Base URL is https://api.tapfiliate.com/1.6/ and authentication is via the X-Api-Key header.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://tapfiliate.com/docs/rest/
+    baseURL: https://api.tapfiliate.com/1.6/
+    tags:
+      - Affiliate Marketing
+      - Conversion Tracking
+      - Commission Management
+    properties:
+      - type: Documentation
+        url: https://tapfiliate.com/docs/rest/
+      - type: Authentication
+        url: https://tapfiliate.com/docs/rest/#authentication
+common:
+  - type: Website
+    url: https://tapfiliate.com
+  - type: Documentation
+    url: https://tapfiliate.com/docs/
+  - type: GitHubOrg
+    url: https://github.com/Tapfiliate
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/tapfiliate/
+  - type: Blog
+    url: https://tapfiliate.com/blog/
+  - type: Pricing
+    url: https://tapfiliate.com/pricing/
+  - type: StatusPage
+    url: https://status.tapfiliate.com/
+  - type: X
+    url: https://twitter.com/tapfiliate
+  - type: Plans
+    url: plans/tapfiliate-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/tapfiliate-rate-limits.yml
+  - type: FinOps
+    url: finops/tapfiliate-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

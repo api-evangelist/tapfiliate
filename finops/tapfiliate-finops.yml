@@ -1,0 +1,73 @@
+specificationVersion: "1.0"
+id: tapfiliate-finops
+name: Tapfiliate FinOps Framework
+description: FinOps cost management framework for Tapfiliate API usage. Tapfiliate uses a flat-fee subscription model with no per-transaction or percentage-of-sales fees, simplifying cost forecasting.
+url: https://tapfiliate.com/pricing/
+framework: FOCUS
+costModel: flat-subscription
+currency: USD
+services:
+  - id: tapfiliate-launch
+    name: Tapfiliate Launch Plan
+    description: Entry-level affiliate program management with limited clicks and conversions per month.
+    billingPeriod: monthly
+    unitCost: 89.00
+    annualUnitCost: 74.00
+    costDrivers:
+      - name: Clicks
+        limit: 5000
+        period: monthly
+        overage: false
+        notes: Plan caps at 5,000 clicks per month; upgrade required if limit exceeded.
+      - name: Conversions
+        limit: 500
+        period: monthly
+        overage: false
+        notes: Plan caps at 500 conversions per month; upgrade required if limit exceeded.
+      - name: Affiliates
+        limit: 50
+        period: monthly
+        overage: false
+        notes: Limited to 50 affiliates; upgrade required for more.
+  - id: tapfiliate-scale
+    name: Tapfiliate Scale Plan
+    description: Growth-tier affiliate management with significantly higher click and conversion allowances.
+    billingPeriod: monthly
+    unitCost: 179.00
+    annualUnitCost: 149.00
+    costDrivers:
+      - name: Clicks
+        limit: 100000
+        period: monthly
+        overage: false
+        notes: Plan caps at 100,000 clicks per month; upgrade to Enterprise for more.
+      - name: Conversions
+        limit: 10000
+        period: monthly
+        overage: false
+        notes: Plan caps at 10,000 conversions per month; upgrade to Enterprise for more.
+      - name: Affiliates
+        limit: unlimited
+        period: monthly
+  - id: tapfiliate-enterprise
+    name: Tapfiliate Enterprise Plan
+    description: Custom enterprise pricing with unlimited clicks, conversions, affiliates, and team members.
+    billingPeriod: custom
+    unitCost: 0.00
+    contactForPricing: true
+    costDrivers:
+      - name: Clicks
+        limit: unlimited
+        notes: Tailored limits negotiated with vendor.
+      - name: Conversions
+        limit: unlimited
+        notes: Tailored limits negotiated with vendor.
+costOptimization:
+  - recommendation: Use annual billing to save approximately 17% on Launch (from $89 to $74/month) and 17% on Scale (from $179 to $149/month).
+  - recommendation: Monitor monthly click and conversion usage against plan limits to avoid being forced into a higher tier earlier than necessary.
+  - recommendation: Evaluate whether the Launch plan (50 affiliates, 500 conversions) is sufficient before committing to Scale, as the price difference is $90/month ($1,080/year).
+  - recommendation: Enterprise plan removes percentage-based overage risk; if clicks or conversions frequently approach Scale limits, model the break-even point against Enterprise custom pricing.
+notes:
+  - Tapfiliate charges no percentage of sales — all plans are flat monthly subscriptions.
+  - No per-API-call billing; costs are driven entirely by subscription tier and plan limits.
+  - Free trials available: 7 days (Launch), 14 days (Scale), 30 days (Enterprise).

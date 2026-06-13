@@ -1,0 +1,74 @@
+specificationVersion: "0.1"
+id: tapfiliate-plans-pricing
+name: Tapfiliate Plans and Pricing
+description: Pricing plans for Tapfiliate affiliate tracking and management platform. All plans include REST API access. No percentage is taken from sales — flat monthly subscription only.
+url: https://tapfiliate.com/pricing/
+plans:
+  - name: Launch
+    description: Entry-level plan for small businesses launching their first affiliate program. Includes REST API integration and 30+ pre-built integrations.
+    url: https://tapfiliate.com/pricing/
+    price: 89.00
+    priceCurrency: USD
+    billingPeriod: monthly
+    annualPrice: 74.00
+    annualBillingPeriod: monthly
+    freeTrial: true
+    freeTrialDays: 7
+    features:
+      - 1 affiliate program
+      - 50 affiliates
+      - 5,000 clicks per month
+      - 500 conversions per month
+      - 30+ pre-built integrations
+      - Real-time reporting
+      - Recurring commissions
+      - 1 team member
+      - Coupon code tracking
+      - Affiliate payment methods
+      - REST API integration
+      - S2S/postback integration
+  - name: Scale
+    description: Growth plan for scaling businesses with unlimited affiliates and advanced affiliate management features.
+    url: https://tapfiliate.com/pricing/
+    price: 179.00
+    priceCurrency: USD
+    billingPeriod: monthly
+    annualPrice: 149.00
+    annualBillingPeriod: monthly
+    freeTrial: true
+    freeTrialDays: 14
+    features:
+      - Unlimited affiliate programs
+      - Unlimited affiliates
+      - 100,000 clicks per month
+      - 10,000 conversions per month
+      - All Launch features
+      - Advanced affiliate management
+      - MLM with sales goals
+      - Automated payouts via Trolley
+      - Deeplinks and shortlinks
+      - 5 team members
+      - Product XML feeds
+      - Cap management
+      - REST API integration
+      - S2S/postback integration
+  - name: Enterprise
+    description: Custom plan for large businesses requiring unlimited tracking, white label, and advanced API reporting.
+    url: https://tapfiliate.com/pricing/
+    price: 0.00
+    priceCurrency: USD
+    billingPeriod: custom
+    contactForPricing: true
+    freeTrial: true
+    freeTrialDays: 30
+    features:
+      - Tailored clicks and conversions
+      - Unlimited team members
+      - Unlimited triggered notifications
+      - Full white label
+      - Dedicated personal manager
+      - Detailed API click report
+      - Unlimited tracking capabilities
+      - In-platform messenger
+      - REST API integration
+      - S2S/postback integration
