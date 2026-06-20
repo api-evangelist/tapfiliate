@@ -2,7 +2,7 @@ aid: tapfiliate
 name: Tapfiliate
 description: Tapfiliate is an affiliate tracking and management platform with a REST API for creating affiliate programs, managing affiliates, tracking conversions, and handling commission payouts. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/tapfiliate/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -19,7 +19,7 @@ apis:
   - aid: tapfiliate:tapfiliate-rest-api
     name: Tapfiliate REST API
     description: REST API for managing affiliate programs, affiliates, conversions, commissions, customers, payments, and click tracking. Base URL is https://api.tapfiliate.com/1.6/ and authentication is via the X-Api-Key header.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://tapfiliate.com/docs/rest/
     baseURL: https://api.tapfiliate.com/1.6/
     tags:
