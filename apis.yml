@@ -58,7 +58,7 @@ common:
     url: finops/tapfiliate-finops.yml
   - type: Vocabulary
     url: vocabulary/tapfiliate-vocabulary.yml
-  - type: JsonLdContext
+  - type: JSONLDContext
     url: json-ld/tapfiliate-context.jsonld
 maintainers:
   - FN: Kin Lane
