@@ -34,6 +34,12 @@ apis:
       - type: OpenAPI
         url: openapi/tapfiliate-rest-api-openapi.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/tapfiliate-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/tapfiliate-domain-security.yml
+  - type: Authentication
+    url: authentication/tapfiliate-authentication.yml
   - type: Website
     url: https://tapfiliate.com
   - type: Documentation
