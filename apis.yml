@@ -34,6 +34,8 @@ apis:
       - type: OpenAPI
         url: openapi/tapfiliate-rest-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/tapfiliate-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/tapfiliate-vulnerability-disclosure.yml
   - type: DomainSecurity
