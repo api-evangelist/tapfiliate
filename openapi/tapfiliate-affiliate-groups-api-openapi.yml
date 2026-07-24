@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Affiliate Groups
+  description: Manage affiliate groups
+paths:
+  /affiliate-groups/:
+    get:
+      operationId: listAffiliateGroups
+      summary: List all affiliate groups
+      description: Retrieve a list of all affiliate groups.
+      tags:
+      - Affiliate Groups
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: List of affiliate groups
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AffiliateGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAffiliateGroup
+      summary: Create new affiliate group
+      description: Create a new affiliate group.
+      tags:
+      - Affiliate Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Affiliate group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /affiliate-groups/{affiliate_group_id}/:
+    patch:
+      operationId: updateAffiliateGroup
+      summary: Update affiliate group
+      description: Update an existing affiliate group.
+      tags:
+      - Affiliate Groups
+      parameters:
+      - name: affiliate_group_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Affiliate group ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Affiliate group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  schemas:
+    AffiliateGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

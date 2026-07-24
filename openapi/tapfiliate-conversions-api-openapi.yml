@@ -1,0 +1,481 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Conversions API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Conversions
+  description: Track and manage conversions and commissions
+paths:
+  /conversions/{conversion_id}/:
+    get:
+      operationId: getConversion
+      summary: Retrieve a Conversion
+      description: Retrieve a single conversion by its ID.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      responses:
+        '200':
+          description: Conversion retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateConversion
+      summary: Update a Conversion
+      description: Update an existing conversion record.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                external_id:
+                  type: string
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '200':
+          description: Conversion updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConversion
+      summary: Delete a Conversion
+      description: Delete a conversion record.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      responses:
+        '204':
+          description: Conversion deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /conversions/:
+    get:
+      operationId: listConversions
+      summary: List all conversions
+      description: Retrieve a paginated list of all conversions.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter conversions from this date (YYYY-MM-DD)
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter conversions to this date (YYYY-MM-DD)
+      - name: affiliate_id
+        in: query
+        schema:
+          type: string
+        description: Filter by affiliate ID
+      - name: program_id
+        in: query
+        schema:
+          type: string
+        description: Filter by program ID
+      responses:
+        '200':
+          description: List of conversions
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conversion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createConversion
+      summary: Create a conversion
+      description: Record a new conversion event.
+      tags:
+      - Conversions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - program_id
+              properties:
+                program_id:
+                  type: string
+                  description: The ID of the program for this conversion
+                external_id:
+                  type: string
+                  description: Your unique reference for this conversion
+                amount:
+                  type: number
+                  format: float
+                  description: The conversion amount (for revenue-based commissions)
+                click_id:
+                  type: string
+                  description: The click ID to attribute this conversion to
+                customer_id:
+                  type: string
+                  description: The external customer identifier
+                commission_type:
+                  type: string
+                  description: The commission type to apply
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '201':
+          description: Conversion created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /conversions/{conversion_id}/commissions/:
+    post:
+      operationId: addCommissionsToConversion
+      summary: Add commissions to a conversion
+      description: Add additional commission entries to an existing conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  affiliate_id:
+                    type: string
+                  commission_type:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+      responses:
+        '200':
+          description: Commissions added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /conversions/{conversion_id}/meta-data/:
+    get:
+      operationId: getConversionMetaData
+      summary: Retrieve meta data for a Conversion
+      description: Retrieve all metadata for a given conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      responses:
+        '200':
+          description: Conversion metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceConversionMetaData
+      summary: Update (replace) meta data for a Conversion
+      description: Replace all metadata for a conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Metadata replaced
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /conversions/{conversion_id}/meta-data/{key}/:
+    get:
+      operationId: getConversionMetaDataByKey
+      summary: Retrieve meta data by key for a Conversion
+      description: Retrieve a specific metadata key for a conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        '200':
+          description: Metadata value
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setConversionMetaDataByKey
+      summary: Set meta data by key for a Conversion
+      description: Set a specific metadata key for a conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      - $ref: '#/components/parameters/metaDataKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Metadata set
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConversionMetaDataByKey
+      summary: Delete meta data by key for a Conversion
+      description: Delete a specific metadata key for a conversion.
+      tags:
+      - Conversions
+      parameters:
+      - $ref: '#/components/parameters/conversionId'
+      - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        '204':
+          description: Metadata deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type: number
+          format: float
+          nullable: true
+        amount:
+          type: number
+          format: float
+          nullable: true
+    Commission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Commission ID
+        amount:
+          type: number
+          format: float
+          description: Commission amount
+        approved:
+          type: boolean
+          description: Whether this commission has been approved
+        commission_type:
+          $ref: '#/components/schemas/CommissionType'
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        conversion_id:
+          type: string
+          description: The conversion this commission is for
+        created_at:
+          type: string
+          format: date-time
+    Conversion:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Conversion ID
+        external_id:
+          type: string
+          description: Your external identifier for this conversion
+        amount:
+          type: number
+          format: float
+          description: The conversion amount
+        program_id:
+          type: string
+          description: The program this conversion belongs to
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        commissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Commission'
+        created_at:
+          type: string
+          format: date-time
+        meta_data:
+          type: object
+          additionalProperties: true
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    conversionId:
+      name: conversion_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Conversion ID
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    metaDataKey:
+      name: key
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Metadata key
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

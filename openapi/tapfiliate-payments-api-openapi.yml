@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Payments API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Payments
+  description: Manage affiliate payments
+paths:
+  /payments/{id}/:
+    get:
+      operationId: getPayment
+      summary: Retrieve payment
+      description: Retrieve a single payment by ID.
+      tags:
+      - Payments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Payment ID
+      responses:
+        '200':
+          description: Payment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelPayment
+      summary: Cancel payment
+      description: Cancel a pending payment.
+      tags:
+      - Payments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Payment ID
+      responses:
+        '200':
+          description: Payment cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /payments/:
+    get:
+      operationId: listPayments
+      summary: List all payments
+      description: Retrieve a paginated list of all payments.
+      tags:
+      - Payments
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - name: affiliate_id
+        in: query
+        schema:
+          type: string
+        description: Filter by affiliate ID
+      - name: paid_at_from
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter payments from this date
+      - name: paid_at_to
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter payments to this date
+      responses:
+        '200':
+          description: List of payments
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPayment
+      summary: Create a payment
+      description: Create a new payment batch for affiliates.
+      tags:
+      - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - currency
+              - affiliates
+              properties:
+                currency:
+                  type: string
+                  description: ISO 4217 currency code
+                affiliates:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - affiliate
+                    - amount
+                    properties:
+                      affiliate:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                      amount:
+                        type: number
+                        format: float
+                      commission_ids:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        '201':
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  parameters:
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        amount:
+          type: number
+          format: float
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum:
+          - pending
+          - paid
+          - cancelled
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

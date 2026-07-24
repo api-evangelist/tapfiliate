@@ -1,0 +1,252 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Commissions API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Commissions
+  description: Manage individual commissions
+paths:
+  /commissions/{commission_id}/:
+    get:
+      operationId: getCommission
+      summary: Retrieve a commission
+      description: Retrieve a single commission by its ID.
+      tags:
+      - Commissions
+      parameters:
+      - $ref: '#/components/parameters/commissionId'
+      responses:
+        '200':
+          description: Commission retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCommission
+      summary: Update a commission
+      description: Update an existing commission.
+      tags:
+      - Commissions
+      parameters:
+      - $ref: '#/components/parameters/commissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Commission updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /commissions/:
+    get:
+      operationId: listCommissions
+      summary: List all commissions
+      description: Retrieve a paginated list of all commissions.
+      tags:
+      - Commissions
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - name: affiliate_id
+        in: query
+        schema:
+          type: string
+        description: Filter by affiliate ID
+      - name: approved
+        in: query
+        schema:
+          type: boolean
+        description: Filter by approval status
+      responses:
+        '200':
+          description: List of commissions
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Commission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /commissions/{commission_id}/approved/:
+    put:
+      operationId: approveCommission
+      summary: Approve a commission
+      description: Approve a pending commission.
+      tags:
+      - Commissions
+      parameters:
+      - $ref: '#/components/parameters/commissionId'
+      responses:
+        '200':
+          description: Commission approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: disapproveCommission
+      summary: Disapprove a commission
+      description: Disapprove an approved commission.
+      tags:
+      - Commissions
+      parameters:
+      - $ref: '#/components/parameters/commissionId'
+      responses:
+        '200':
+          description: Commission disapproved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    commissionId:
+      name: commission_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Commission ID
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  schemas:
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type: number
+          format: float
+          nullable: true
+        amount:
+          type: number
+          format: float
+          nullable: true
+    Commission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Commission ID
+        amount:
+          type: number
+          format: float
+          description: Commission amount
+        approved:
+          type: boolean
+          description: Whether this commission has been approved
+        commission_type:
+          $ref: '#/components/schemas/CommissionType'
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        conversion_id:
+          type: string
+          description: The conversion this commission is for
+        created_at:
+          type: string
+          format: date-time
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

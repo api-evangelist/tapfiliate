@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Clicks API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Clicks
+  description: Track and manage clicks
+paths:
+  /clicks/:
+    get:
+      operationId: listClicks
+      summary: List all clicks
+      description: Retrieve a paginated list of all clicks.
+      tags:
+      - Clicks
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      - name: affiliate_id
+        in: query
+        schema:
+          type: string
+        description: Filter by affiliate ID
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter clicks from this date
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filter clicks to this date
+      responses:
+        '200':
+          description: List of clicks
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Click'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createClick
+      summary: Create a Click
+      description: Record a new click event.
+      tags:
+      - Clicks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - referral_code
+              properties:
+                referral_code:
+                  type: string
+                  description: The affiliate's referral code
+                ip:
+                  type: string
+                  description: IP address of the visitor
+                user_agent:
+                  type: string
+                  description: User agent string of the visitor
+                landing_page:
+                  type: string
+                  description: The landing page URL
+                referrer:
+                  type: string
+                  description: The referrer URL
+      responses:
+        '201':
+          description: Click created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Click'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /clicks/{id}/:
+    get:
+      operationId: getClick
+      summary: Get detailed information about click
+      description: Retrieve detailed information about a specific click.
+      tags:
+      - Clicks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Click ID
+      responses:
+        '200':
+          description: Click details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Click'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  schemas:
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Click:
+      type: object
+      properties:
+        id:
+          type: string
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        referral_code:
+          type: string
+        ip:
+          type: string
+        user_agent:
+          type: string
+        landing_page:
+          type: string
+          format: uri
+        referrer:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

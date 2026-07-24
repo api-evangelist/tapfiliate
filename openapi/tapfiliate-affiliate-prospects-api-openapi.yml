@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Affiliate Prospects API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Affiliate Prospects
+  description: Manage affiliate prospects (pending applicants)
+paths:
+  /affiliate-prospects/:
+    get:
+      operationId: listAffiliateProspects
+      summary: List all affiliate prospects
+      description: Retrieve a paginated list of all affiliate prospects.
+      tags:
+      - Affiliate Prospects
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: List of affiliate prospects
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AffiliateProspect'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAffiliateProspect
+      summary: Create an affiliate prospect
+      description: Create a new affiliate prospect application.
+      tags:
+      - Affiliate Prospects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              - firstname
+              - lastname
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '201':
+          description: Affiliate prospect created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateProspect'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /affiliate-prospects/{affiliate_prospect_id}/:
+    get:
+      operationId: getAffiliateProspect
+      summary: Retrieve an affiliate prospect
+      description: Retrieve a single affiliate prospect by ID.
+      tags:
+      - Affiliate Prospects
+      parameters:
+      - name: affiliate_prospect_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Affiliate prospect ID
+      responses:
+        '200':
+          description: Affiliate prospect retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateProspect'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAffiliateProspect
+      summary: Delete an affiliate prospect
+      description: Delete an affiliate prospect record.
+      tags:
+      - Affiliate Prospects
+      parameters:
+      - name: affiliate_prospect_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Affiliate prospect ID
+      responses:
+        '204':
+          description: Affiliate prospect deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    AffiliateProspect:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        meta_data:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

@@ -1,0 +1,449 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Programs API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Programs
+  description: Manage affiliate programs and program affiliates
+paths:
+  /programs/{program_id}/:
+    get:
+      operationId: getProgram
+      summary: Retrieve a Program
+      description: Retrieve a single affiliate program by its ID.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      responses:
+        '200':
+          description: Program retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs/:
+    get:
+      operationId: listPrograms
+      summary: List all programs
+      description: Retrieve a paginated list of all affiliate programs.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: List of programs
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Program'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /programs/{program_id}/affiliates/:
+    get:
+      operationId: listProgramAffiliates
+      summary: List all affiliates in program
+      description: Retrieve all affiliates enrolled in a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: List of affiliates in program
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addAffiliatToProgram
+      summary: Add an affiliate to a program
+      description: Enroll an affiliate in an affiliate program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - affiliate
+              properties:
+                affiliate:
+                  type: object
+                  required:
+                  - id
+                  properties:
+                    id:
+                      type: string
+                      description: Affiliate ID
+                approved:
+                  type: boolean
+                  description: Whether the affiliate is pre-approved
+      responses:
+        '201':
+          description: Affiliate added to program
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /programs/{program_id}/affiliates/{affiliate_id}/:
+    get:
+      operationId: getProgramAffiliate
+      summary: Retrieve an affiliate in a program
+      description: Retrieve a specific affiliate's enrollment in a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      - $ref: '#/components/parameters/affiliateId'
+      responses:
+        '200':
+          description: Affiliation retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateProgramAffiliate
+      summary: Update an affiliate in a program
+      description: Update an affiliate's enrollment details in a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      - $ref: '#/components/parameters/affiliateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coupon:
+                  type: string
+                referral_link:
+                  type: string
+      responses:
+        '200':
+          description: Affiliation updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/affiliates/{affiliate_id}/approved/:
+    put:
+      operationId: approveAffiliate
+      summary: Approve an affiliate
+      description: Approve an affiliate's enrollment in a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      - $ref: '#/components/parameters/affiliateId'
+      responses:
+        '200':
+          description: Affiliate approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: disapproveAffiliate
+      summary: Disapprove an affiliate
+      description: Disapprove an affiliate's enrollment in a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      - $ref: '#/components/parameters/affiliateId'
+      responses:
+        '200':
+          description: Affiliate disapproved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/commission-types/:
+    get:
+      operationId: listProgramCommissionTypes
+      summary: List program commission types
+      description: List all commission types available for a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      responses:
+        '200':
+          description: Commission types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissionType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/levels/:
+    get:
+      operationId: listProgramMLMLevels
+      summary: List program MLM levels
+      description: List multi-level marketing levels for a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      responses:
+        '200':
+          description: MLM levels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    level:
+                      type: integer
+                    percentage:
+                      type: number
+                      format: float
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/bonuses/:
+    get:
+      operationId: listProgramBonuses
+      summary: List program bonuses
+      description: List all bonus tiers for a program.
+      tags:
+      - Programs
+      parameters:
+      - $ref: '#/components/parameters/programId'
+      responses:
+        '200':
+          description: Program bonuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    amount:
+                      type: number
+                      format: float
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Program:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        cookie_time:
+          type: integer
+          description: Cookie lifetime in days
+        default_landing_page_url:
+          type: string
+          format: uri
+        incrementing_conversions:
+          type: boolean
+        recurring_commissions:
+          type: boolean
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type: number
+          format: float
+          nullable: true
+        amount:
+          type: number
+          format: float
+          nullable: true
+    Affiliation:
+      type: object
+      description: An affiliate's enrollment in a program
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type: string
+          nullable: true
+        referral_link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    affiliateId:
+      name: affiliate_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Affiliate ID
+    programId:
+      name: program_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Program ID
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key

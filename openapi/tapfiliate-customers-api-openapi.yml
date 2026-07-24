@@ -1,0 +1,398 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST Affiliate Groups Customers API
+  description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: '1.6'
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+- url: https://api.tapfiliate.com/1.6
+  description: Tapfiliate REST API v1.6
+security:
+- ApiKeyAuth: []
+tags:
+- name: Customers
+  description: Manage customers and their metadata
+paths:
+  /customers/{id}/:
+    get:
+      operationId: getCustomer
+      summary: Retrieve a Customer
+      description: Retrieve a single customer by their ID.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Customer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCustomer
+      summary: Update a Customer
+      description: Update an existing customer's data.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: string
+                  description: The external customer identifier
+                meta_data:
+                  type: object
+                  additionalProperties: true
+                  description: Arbitrary metadata for this customer
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomer
+      summary: Delete a Customer
+      description: Delete a customer record.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '204':
+          description: Customer deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/:
+    get:
+      operationId: listCustomers
+      summary: List all Customers
+      description: Retrieve a paginated list of all customers.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          description: List of customers
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      summary: Create a Customer
+      description: Create a new customer record.
+      tags:
+      - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - customer_id
+              properties:
+                customer_id:
+                  type: string
+                  description: Your unique external identifier for this customer
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /customers/{id}/status/:
+    put:
+      operationId: cancelCustomer
+      summary: Cancel or Uncancel a customer
+      description: Set or update the status of a customer. Use to cancel or uncancel.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                  - trial
+                  - paid
+                  - cancelled
+      responses:
+        '200':
+          description: Customer status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/meta-data/:
+    get:
+      operationId: getCustomerMetaData
+      summary: Retrieve meta data for a Customer
+      description: Retrieve all metadata for a given customer.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      responses:
+        '200':
+          description: Customer metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceCustomerMetaData
+      summary: Update (replace) meta data for a Customer
+      description: Replace all metadata for a customer.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Metadata replaced
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/meta-data/{key}/:
+    get:
+      operationId: getCustomerMetaDataByKey
+      summary: Retrieve meta data by key for a Customer
+      description: Retrieve a specific metadata key for a customer.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        '200':
+          description: Metadata value
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setCustomerMetaDataByKey
+      summary: Set meta data by key for a Customer
+      description: Set a specific metadata key for a customer.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - $ref: '#/components/parameters/metaDataKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Metadata set
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomerMetaDataByKey
+      summary: Delete meta data by key for a Customer
+      description: Delete a specific metadata key for a customer.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        '204':
+          description: Metadata deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    customerId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Customer ID
+    metaDataKey:
+      name: key
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Metadata key
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Tapfiliate's internal customer ID
+          example: cu_eXampl3
+        customer_id:
+          type: string
+          description: Your external customer identifier
+          example: USER123
+        status:
+          type: string
+          enum:
+          - trial
+          - paid
+          - cancelled
+          description: Customer billing status
+          example: trial
+        created_at:
+          type: string
+          format: date-time
+          example: '2021-07-02T09:55:20+00:00'
+        click:
+          type: object
+          nullable: true
+          properties:
+            created_at:
+              type: string
+              format: date-time
+            referrer:
+              type: string
+              format: uri
+            landing_page:
+              type: string
+              format: uri
+        meta_data:
+          type: object
+          additionalProperties: true
+          description: Arbitrary key-value metadata
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
