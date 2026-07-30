@@ -2,7 +2,20 @@ aid: tapfiliate
 name: Tapfiliate
 description: Tapfiliate is an affiliate tracking and management platform with a REST API for creating affiliate programs, managing affiliates, tracking conversions, and handling commission payouts. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tapfiliate.png
 url: https://raw.githubusercontent.com/api-evangelist/tapfiliate/refs/heads/main/apis.yml
 created: 2026-06-13
 modified: 2026-06-13
@@ -16,23 +29,146 @@ tags:
   - Referral Programs
   - Influencer Marketing
 apis:
-  - aid: tapfiliate:tapfiliate-rest-api
-    name: Tapfiliate REST API
-    description: REST API for managing affiliate programs, affiliates, conversions, commissions, customers, payments, and click tracking. Base URL is https://api.tapfiliate.com/1.6/ and authentication is via the X-Api-Key header.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://tapfiliate.com/docs/rest/
-    baseURL: https://api.tapfiliate.com/1.6/
-    tags:
-      - Affiliate Marketing
-      - Conversion Tracking
-      - Commission Management
-    properties:
-      - type: Documentation
-        url: https://tapfiliate.com/docs/rest/
-      - type: Authentication
-        url: https://tapfiliate.com/docs/rest/#authentication
-      - type: OpenAPI
-        url: openapi/tapfiliate-rest-api-openapi.yml
+- aid: tapfiliate:tapfiliate-affiliate-groups-api
+  name: Tapfiliate Affiliate Groups API
+  description: Manage affiliate groups
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Affiliate Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-affiliate-groups-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-affiliate-prospects-api
+  name: Tapfiliate Affiliate Prospects API
+  description: Manage affiliate prospects (pending applicants)
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Affiliate Prospects
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-affiliate-prospects-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-affiliates-api
+  name: Tapfiliate Affiliates API
+  description: Manage affiliates, their groups, notes, and payout methods
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Affiliates
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-affiliates-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-balances-api
+  name: Tapfiliate Balances API
+  description: View affiliate balances
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-balances-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-clicks-api
+  name: Tapfiliate Clicks API
+  description: Track and manage clicks
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Clicks
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-clicks-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-commissions-api
+  name: Tapfiliate Commissions API
+  description: Manage individual commissions
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Commissions
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-commissions-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-conversions-api
+  name: Tapfiliate Conversions API
+  description: Track and manage conversions and commissions
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Conversions
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-conversions-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-customers-api
+  name: Tapfiliate Customers API
+  description: Manage customers and their metadata
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-customers-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-payments-api
+  name: Tapfiliate Payments API
+  description: Manage affiliate payments
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-payments-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-programs-api
+  name: Tapfiliate Programs API
+  description: Manage affiliate programs and program affiliates
+  humanURL: https://tapfiliate.com/docs/rest/
+  baseURL: https://api.tapfiliate.com/1.6/
+  tags:
+  - Programs
+  properties:
+  - type: OpenAPI
+    url: openapi/tapfiliate-programs-api-openapi.yml
+  - type: Documentation
+    url: https://tapfiliate.com/docs/rest/
+  - type: Authentication
+    url: https://tapfiliate.com/docs/rest/#authentication
 common:
   - type: AgenticAccess
     url: agentic-access/tapfiliate-agentic-access.yml
