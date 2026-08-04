@@ -1,0 +1,2532 @@
+openapi: 3.0.3
+info:
+  title: Tapfiliate REST API
+  description: >-
+    Tapfiliate is an affiliate tracking and management platform. This REST API
+    allows you to create and manage affiliate programs, track conversions,
+    manage affiliates, handle commission payouts, and record clicks. The API
+    is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
+  version: "1.6"
+  contact:
+    name: Tapfiliate Support
+    url: https://tapfiliate.com/docs/rest/
+  termsOfService: https://tapfiliate.com/terms/
+servers:
+  - url: https://api.tapfiliate.com/1.6
+    description: Tapfiliate REST API v1.6
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Customers
+    description: Manage customers and their metadata
+  - name: Conversions
+    description: Track and manage conversions and commissions
+  - name: Commissions
+    description: Manage individual commissions
+  - name: Affiliates
+    description: Manage affiliates, their groups, notes, and payout methods
+  - name: Affiliate Groups
+    description: Manage affiliate groups
+  - name: Affiliate Prospects
+    description: Manage affiliate prospects (pending applicants)
+  - name: Programs
+    description: Manage affiliate programs and program affiliates
+  - name: Balances
+    description: View affiliate balances
+  - name: Payments
+    description: Manage affiliate payments
+  - name: Clicks
+    description: Track and manage clicks
+paths:
+  /customers/{id}/:
+    get:
+      operationId: getCustomer
+      summary: Retrieve a Customer
+      description: Retrieve a single customer by their ID.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        "200":
+          description: Customer retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCustomer
+      summary: Update a Customer
+      description: Update an existing customer's data.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: string
+                  description: The external customer identifier
+                meta_data:
+                  type: object
+                  additionalProperties: true
+                  description: Arbitrary metadata for this customer
+      responses:
+        "200":
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomer
+      summary: Delete a Customer
+      description: Delete a customer record.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        "204":
+          description: Customer deleted successfully
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /customers/:
+    get:
+      operationId: listCustomers
+      summary: List all Customers
+      description: Retrieve a paginated list of all customers.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of customers
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      summary: Create a Customer
+      description: Create a new customer record.
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+              properties:
+                customer_id:
+                  type: string
+                  description: Your unique external identifier for this customer
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /customers/{id}/status/:
+    put:
+      operationId: cancelCustomer
+      summary: Cancel or Uncancel a customer
+      description: >-
+        Set or update the status of a customer. Use to cancel or uncancel.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - trial
+                    - paid
+                    - cancelled
+      responses:
+        "200":
+          description: Customer status updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/meta-data/:
+    get:
+      operationId: getCustomerMetaData
+      summary: Retrieve meta data for a Customer
+      description: Retrieve all metadata for a given customer.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      responses:
+        "200":
+          description: Customer metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceCustomerMetaData
+      summary: Update (replace) meta data for a Customer
+      description: Replace all metadata for a customer.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Metadata replaced
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /customers/{id}/meta-data/{key}/:
+    get:
+      operationId: getCustomerMetaDataByKey
+      summary: Retrieve meta data by key for a Customer
+      description: Retrieve a specific metadata key for a customer.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "200":
+          description: Metadata value
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setCustomerMetaDataByKey
+      summary: Set meta data by key for a Customer
+      description: Set a specific metadata key for a customer.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+        - $ref: '#/components/parameters/metaDataKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Metadata set
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomerMetaDataByKey
+      summary: Delete meta data by key for a Customer
+      description: Delete a specific metadata key for a customer.
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "204":
+          description: Metadata deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /conversions/{conversion_id}/:
+    get:
+      operationId: getConversion
+      summary: Retrieve a Conversion
+      description: Retrieve a single conversion by its ID.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      responses:
+        "200":
+          description: Conversion retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateConversion
+      summary: Update a Conversion
+      description: Update an existing conversion record.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+                external_id:
+                  type: string
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "200":
+          description: Conversion updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConversion
+      summary: Delete a Conversion
+      description: Delete a conversion record.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      responses:
+        "204":
+          description: Conversion deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /conversions/:
+    get:
+      operationId: listConversions
+      summary: List all conversions
+      description: Retrieve a paginated list of all conversions.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter conversions from this date (YYYY-MM-DD)
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter conversions to this date (YYYY-MM-DD)
+        - name: affiliate_id
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate ID
+        - name: program_id
+          in: query
+          schema:
+            type: string
+          description: Filter by program ID
+      responses:
+        "200":
+          description: List of conversions
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Conversion'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createConversion
+      summary: Create a conversion
+      description: Record a new conversion event.
+      tags:
+        - Conversions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - program_id
+              properties:
+                program_id:
+                  type: string
+                  description: The ID of the program for this conversion
+                external_id:
+                  type: string
+                  description: Your unique reference for this conversion
+                amount:
+                  type: number
+                  format: float
+                  description: The conversion amount (for revenue-based commissions)
+                click_id:
+                  type: string
+                  description: The click ID to attribute this conversion to
+                customer_id:
+                  type: string
+                  description: The external customer identifier
+                commission_type:
+                  type: string
+                  description: The commission type to apply
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Conversion created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /conversions/{conversion_id}/commissions/:
+    post:
+      operationId: addCommissionsToConversion
+      summary: Add commissions to a conversion
+      description: Add additional commission entries to an existing conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  affiliate_id:
+                    type: string
+                  commission_type:
+                    type: string
+                  amount:
+                    type: number
+                    format: float
+      responses:
+        "200":
+          description: Commissions added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /conversions/{conversion_id}/meta-data/:
+    get:
+      operationId: getConversionMetaData
+      summary: Retrieve meta data for a Conversion
+      description: Retrieve all metadata for a given conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      responses:
+        "200":
+          description: Conversion metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceConversionMetaData
+      summary: Update (replace) meta data for a Conversion
+      description: Replace all metadata for a conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Metadata replaced
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /conversions/{conversion_id}/meta-data/{key}/:
+    get:
+      operationId: getConversionMetaDataByKey
+      summary: Retrieve meta data by key for a Conversion
+      description: Retrieve a specific metadata key for a conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "200":
+          description: Metadata value
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setConversionMetaDataByKey
+      summary: Set meta data by key for a Conversion
+      description: Set a specific metadata key for a conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+        - $ref: '#/components/parameters/metaDataKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Metadata set
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteConversionMetaDataByKey
+      summary: Delete meta data by key for a Conversion
+      description: Delete a specific metadata key for a conversion.
+      tags:
+        - Conversions
+      parameters:
+        - $ref: '#/components/parameters/conversionId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "204":
+          description: Metadata deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /commissions/{commission_id}/:
+    get:
+      operationId: getCommission
+      summary: Retrieve a commission
+      description: Retrieve a single commission by its ID.
+      tags:
+        - Commissions
+      parameters:
+        - $ref: '#/components/parameters/commissionId'
+      responses:
+        "200":
+          description: Commission retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateCommission
+      summary: Update a commission
+      description: Update an existing commission.
+      tags:
+        - Commissions
+      parameters:
+        - $ref: '#/components/parameters/commissionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  format: float
+      responses:
+        "200":
+          description: Commission updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /commissions/:
+    get:
+      operationId: listCommissions
+      summary: List all commissions
+      description: Retrieve a paginated list of all commissions.
+      tags:
+        - Commissions
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: affiliate_id
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate ID
+        - name: approved
+          in: query
+          schema:
+            type: boolean
+          description: Filter by approval status
+      responses:
+        "200":
+          description: List of commissions
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Commission'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+  /commissions/{commission_id}/approved/:
+    put:
+      operationId: approveCommission
+      summary: Approve a commission
+      description: Approve a pending commission.
+      tags:
+        - Commissions
+      parameters:
+        - $ref: '#/components/parameters/commissionId'
+      responses:
+        "200":
+          description: Commission approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: disapproveCommission
+      summary: Disapprove a commission
+      description: Disapprove an approved commission.
+      tags:
+        - Commissions
+      parameters:
+        - $ref: '#/components/parameters/commissionId'
+      responses:
+        "200":
+          description: Commission disapproved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Commission'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/:
+    get:
+      operationId: getAffiliate
+      summary: Retrieve an affiliate
+      description: Retrieve a single affiliate by their ID.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAffiliate
+      summary: Delete an affiliate
+      description: Delete an affiliate record.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "204":
+          description: Affiliate deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/:
+    get:
+      operationId: listAffiliates
+      summary: List all affiliates
+      description: Retrieve a paginated list of all affiliates.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: email
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate email
+        - name: affiliate_group_id
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate group
+      responses:
+        "200":
+          description: List of affiliates
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAffiliate
+      summary: Create an affiliate
+      description: Create a new affiliate.
+      tags:
+        - Affiliates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - firstname
+                - lastname
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Affiliate created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /affiliates/{affiliate_id}/group/:
+    put:
+      operationId: setAffiliateGroup
+      summary: Set affiliate group
+      description: Assign an affiliate to a group.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - group
+              properties:
+                group:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+      responses:
+        "200":
+          description: Affiliate group set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: removeAffiliateGroup
+      summary: Remove affiliate group
+      description: Remove the group assignment from an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate group removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/notes/{id}/:
+    patch:
+      operationId: updateAffiliateNote
+      summary: Update note
+      description: Update an existing note for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Note ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+      responses:
+        "200":
+          description: Note updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAffiliateNote
+      summary: Delete note
+      description: Delete a note from an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Note ID
+      responses:
+        "204":
+          description: Note deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/notes/:
+    get:
+      operationId: listAffiliateNotes
+      summary: List notes
+      description: List all notes for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: List of notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createAffiliateNote
+      summary: Create note
+      description: Create a new note for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - note
+              properties:
+                note:
+                  type: string
+      responses:
+        "201":
+          description: Note created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/meta-data/:
+    get:
+      operationId: getAffiliateMetaData
+      summary: Retrieve meta data for an Affiliate
+      description: Retrieve all metadata for a given affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceAffiliateMetaData
+      summary: Update (replace) meta data for an Affiliate
+      description: Replace all metadata for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        "200":
+          description: Metadata replaced
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/meta-data/{key}/:
+    get:
+      operationId: getAffiliateMetaDataByKey
+      summary: Retrieve meta data by key for an Affiliate
+      description: Retrieve a specific metadata key for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "200":
+          description: Metadata value
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setAffiliateMetaDataByKey
+      summary: Set meta data by key for an Affiliate
+      description: Set a specific metadata key for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - $ref: '#/components/parameters/metaDataKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Metadata set
+          content:
+            application/json:
+              schema:
+                type: object
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAffiliateMetaDataByKey
+      summary: Delete meta data by key for an Affiliate
+      description: Delete a specific metadata key for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - $ref: '#/components/parameters/metaDataKey'
+      responses:
+        "204":
+          description: Metadata deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/payout-methods/{payout_method_id}/:
+    get:
+      operationId: getPayoutMethod
+      summary: Get payout method
+      description: Retrieve a specific payout method for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - name: payout_method_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Payout method ID
+      responses:
+        "200":
+          description: Payout method retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutMethod'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: setPayoutMethod
+      summary: Set payout method
+      description: Set or update a payout method for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - name: payout_method_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Payout method ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Payout method type (e.g. paypal, wire)
+                details:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "200":
+          description: Payout method set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutMethod'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/payout-methods/:
+    get:
+      operationId: listPayoutMethods
+      summary: List payout methods
+      description: List all payout methods for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: List of payout methods
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayoutMethod'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{child_affiliate_id}/parent/:
+    put:
+      operationId: setAffiliateParent
+      summary: Set parent
+      description: Set the parent affiliate for a child affiliate (MLM).
+      tags:
+        - Affiliates
+      parameters:
+        - name: child_affiliate_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Child affiliate ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - parent
+              properties:
+                parent:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+      responses:
+        "200":
+          description: Parent affiliate set
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: removeAffiliateParent
+      summary: Remove parent
+      description: Remove the parent affiliate from a child affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - name: child_affiliate_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Child affiliate ID
+      responses:
+        "200":
+          description: Parent affiliate removed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliate'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/balances/:
+    get:
+      operationId: getAffiliateBalances
+      summary: Retrieve affiliate's balances
+      description: Get all currency balances for an affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate balances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Balance'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{affiliate_id}/payments/:
+    get:
+      operationId: listAffiliatePayments
+      summary: List affiliate's payments
+      description: List all payments made to a specific affiliate.
+      tags:
+        - Affiliates
+      parameters:
+        - $ref: '#/components/parameters/affiliateId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of payments for the affiliate
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/{id}/programs/:
+    get:
+      operationId: getAffiliations
+      summary: Get affiliations
+      description: Get all programs an affiliate is enrolled in.
+      tags:
+        - Affiliates
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Affiliate ID
+      responses:
+        "200":
+          description: List of affiliations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliates/custom-fields/:
+    get:
+      operationId: getCustomFields
+      summary: Get custom fields
+      description: Retrieve custom field definitions for affiliates.
+      tags:
+        - Affiliates
+      responses:
+        "200":
+          description: Custom fields
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomField'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+  /affiliate-groups/:
+    get:
+      operationId: listAffiliateGroups
+      summary: List all affiliate groups
+      description: Retrieve a list of all affiliate groups.
+      tags:
+        - Affiliate Groups
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of affiliate groups
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AffiliateGroup'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAffiliateGroup
+      summary: Create new affiliate group
+      description: Create a new affiliate group.
+      tags:
+        - Affiliate Groups
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        "201":
+          description: Affiliate group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateGroup'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /affiliate-groups/{affiliate_group_id}/:
+    patch:
+      operationId: updateAffiliateGroup
+      summary: Update affiliate group
+      description: Update an existing affiliate group.
+      tags:
+        - Affiliate Groups
+      parameters:
+        - name: affiliate_group_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Affiliate group ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: Affiliate group updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateGroup'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /affiliate-prospects/:
+    get:
+      operationId: listAffiliateProspects
+      summary: List all affiliate prospects
+      description: Retrieve a paginated list of all affiliate prospects.
+      tags:
+        - Affiliate Prospects
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of affiliate prospects
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AffiliateProspect'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAffiliateProspect
+      summary: Create an affiliate prospect
+      description: Create a new affiliate prospect application.
+      tags:
+        - Affiliate Prospects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - firstname
+                - lastname
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstname:
+                  type: string
+                lastname:
+                  type: string
+                meta_data:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Affiliate prospect created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateProspect'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /affiliate-prospects/{affiliate_prospect_id}/:
+    get:
+      operationId: getAffiliateProspect
+      summary: Retrieve an affiliate prospect
+      description: Retrieve a single affiliate prospect by ID.
+      tags:
+        - Affiliate Prospects
+      parameters:
+        - name: affiliate_prospect_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Affiliate prospect ID
+      responses:
+        "200":
+          description: Affiliate prospect retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AffiliateProspect'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAffiliateProspect
+      summary: Delete an affiliate prospect
+      description: Delete an affiliate prospect record.
+      tags:
+        - Affiliate Prospects
+      parameters:
+        - name: affiliate_prospect_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Affiliate prospect ID
+      responses:
+        "204":
+          description: Affiliate prospect deleted
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/:
+    get:
+      operationId: getProgram
+      summary: Retrieve a Program
+      description: Retrieve a single affiliate program by its ID.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+      responses:
+        "200":
+          description: Program retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/:
+    get:
+      operationId: listPrograms
+      summary: List all programs
+      description: Retrieve a paginated list of all affiliate programs.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of programs
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Program'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+  /programs/{program_id}/affiliates/:
+    get:
+      operationId: listProgramAffiliates
+      summary: List all affiliates in program
+      description: Retrieve all affiliates enrolled in a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of affiliates in program
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: addAffiliatToProgram
+      summary: Add an affiliate to a program
+      description: Enroll an affiliate in an affiliate program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - affiliate
+              properties:
+                affiliate:
+                  type: object
+                  required:
+                    - id
+                  properties:
+                    id:
+                      type: string
+                      description: Affiliate ID
+                approved:
+                  type: boolean
+                  description: Whether the affiliate is pre-approved
+      responses:
+        "201":
+          description: Affiliate added to program
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /programs/{program_id}/affiliates/{affiliate_id}/:
+    get:
+      operationId: getProgramAffiliate
+      summary: Retrieve an affiliate in a program
+      description: Retrieve a specific affiliate's enrollment in a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliation retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateProgramAffiliate
+      summary: Update an affiliate in a program
+      description: Update an affiliate's enrollment details in a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+        - $ref: '#/components/parameters/affiliateId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coupon:
+                  type: string
+                referral_link:
+                  type: string
+      responses:
+        "200":
+          description: Affiliation updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/affiliates/{affiliate_id}/approved/:
+    put:
+      operationId: approveAffiliate
+      summary: Approve an affiliate
+      description: Approve an affiliate's enrollment in a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: disapproveAffiliate
+      summary: Disapprove an affiliate
+      description: Disapprove an affiliate's enrollment in a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+        - $ref: '#/components/parameters/affiliateId'
+      responses:
+        "200":
+          description: Affiliate disapproved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/commission-types/:
+    get:
+      operationId: listProgramCommissionTypes
+      summary: List program commission types
+      description: List all commission types available for a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+      responses:
+        "200":
+          description: Commission types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissionType'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/levels/:
+    get:
+      operationId: listProgramMLMLevels
+      summary: List program MLM levels
+      description: List multi-level marketing levels for a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+      responses:
+        "200":
+          description: MLM levels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    level:
+                      type: integer
+                    percentage:
+                      type: number
+                      format: float
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /programs/{program_id}/bonuses/:
+    get:
+      operationId: listProgramBonuses
+      summary: List program bonuses
+      description: List all bonus tiers for a program.
+      tags:
+        - Programs
+      parameters:
+        - $ref: '#/components/parameters/programId'
+      responses:
+        "200":
+          description: Program bonuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    amount:
+                      type: number
+                      format: float
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /balances/:
+    get:
+      operationId: listAllBalances
+      summary: List all balances
+      description: Retrieve all affiliate balances across programs.
+      tags:
+        - Balances
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        "200":
+          description: List of balances
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Balance'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+  /payments/{id}/:
+    get:
+      operationId: getPayment
+      summary: Retrieve payment
+      description: Retrieve a single payment by ID.
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Payment ID
+      responses:
+        "200":
+          description: Payment retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: cancelPayment
+      summary: Cancel payment
+      description: Cancel a pending payment.
+      tags:
+        - Payments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Payment ID
+      responses:
+        "200":
+          description: Payment cancelled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+  /payments/:
+    get:
+      operationId: listPayments
+      summary: List all payments
+      description: Retrieve a paginated list of all payments.
+      tags:
+        - Payments
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: affiliate_id
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate ID
+        - name: paid_at_from
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter payments from this date
+        - name: paid_at_to
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter payments to this date
+      responses:
+        "200":
+          description: List of payments
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createPayment
+      summary: Create a payment
+      description: Create a new payment batch for affiliates.
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currency
+                - affiliates
+              properties:
+                currency:
+                  type: string
+                  description: ISO 4217 currency code
+                affiliates:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - affiliate
+                      - amount
+                    properties:
+                      affiliate:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                      amount:
+                        type: number
+                        format: float
+                      commission_ids:
+                        type: array
+                        items:
+                          type: string
+      responses:
+        "201":
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /clicks/:
+    get:
+      operationId: listClicks
+      summary: List all clicks
+      description: Retrieve a paginated list of all clicks.
+      tags:
+        - Clicks
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - name: affiliate_id
+          in: query
+          schema:
+            type: string
+          description: Filter by affiliate ID
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter clicks from this date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filter clicks to this date
+      responses:
+        "200":
+          description: List of clicks
+          headers:
+            Link:
+              $ref: '#/components/headers/PaginationLink'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Click'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createClick
+      summary: Create a Click
+      description: Record a new click event.
+      tags:
+        - Clicks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - referral_code
+              properties:
+                referral_code:
+                  type: string
+                  description: The affiliate's referral code
+                ip:
+                  type: string
+                  description: IP address of the visitor
+                user_agent:
+                  type: string
+                  description: User agent string of the visitor
+                landing_page:
+                  type: string
+                  description: The landing page URL
+                referrer:
+                  type: string
+                  description: The referrer URL
+      responses:
+        "201":
+          description: Click created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Click'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "422":
+          $ref: '#/components/responses/UnprocessableEntity'
+  /clicks/{id}/:
+    get:
+      operationId: getClick
+      summary: Get detailed information about click
+      description: Retrieve detailed information about a specific click.
+      tags:
+        - Clicks
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Click ID
+      responses:
+        "200":
+          description: Click details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Click'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+  parameters:
+    customerId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Customer ID
+    conversionId:
+      name: conversion_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Conversion ID
+    commissionId:
+      name: commission_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Commission ID
+    affiliateId:
+      name: affiliate_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Affiliate ID
+    programId:
+      name: program_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Program ID
+    metaDataKey:
+      name: key
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Metadata key
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+  headers:
+    PaginationLink:
+      description: >-
+        Links to navigate between pages. Contains rel="next", rel="prev",
+        rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: '<https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"'
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Tapfiliate's internal customer ID
+          example: cu_eXampl3
+        customer_id:
+          type: string
+          description: Your external customer identifier
+          example: USER123
+        status:
+          type: string
+          enum:
+            - trial
+            - paid
+            - cancelled
+          description: Customer billing status
+          example: trial
+        created_at:
+          type: string
+          format: date-time
+          example: "2021-07-02T09:55:20+00:00"
+        click:
+          type: object
+          nullable: true
+          properties:
+            created_at:
+              type: string
+              format: date-time
+            referrer:
+              type: string
+              format: uri
+            landing_page:
+              type: string
+              format: uri
+        meta_data:
+          type: object
+          additionalProperties: true
+          description: Arbitrary key-value metadata
+    Conversion:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Conversion ID
+        external_id:
+          type: string
+          description: Your external identifier for this conversion
+        amount:
+          type: number
+          format: float
+          description: The conversion amount
+        program_id:
+          type: string
+          description: The program this conversion belongs to
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        commissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Commission'
+        created_at:
+          type: string
+          format: date-time
+        meta_data:
+          type: object
+          additionalProperties: true
+    Commission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Commission ID
+        amount:
+          type: number
+          format: float
+          description: Commission amount
+        approved:
+          type: boolean
+          description: Whether this commission has been approved
+        commission_type:
+          $ref: '#/components/schemas/CommissionType'
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        conversion_id:
+          type: string
+          description: The conversion this commission is for
+        created_at:
+          type: string
+          format: date-time
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - percentage
+            - fixed
+        percentage:
+          type: number
+          format: float
+          nullable: true
+        amount:
+          type: number
+          format: float
+          nullable: true
+    Affiliate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Affiliate ID
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        group:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/AffiliateGroup'
+        meta_data:
+          type: object
+          additionalProperties: true
+        referral_link:
+          type: string
+          format: uri
+        coupon:
+          type: string
+          nullable: true
+        parent:
+          nullable: true
+          allOf:
+            - $ref: '#/components/schemas/AffiliateRef'
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    AffiliateGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    AffiliateProspect:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        meta_data:
+          type: object
+          additionalProperties: true
+    Program:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        cookie_time:
+          type: integer
+          description: Cookie lifetime in days
+        default_landing_page_url:
+          type: string
+          format: uri
+        incrementing_conversions:
+          type: boolean
+        recurring_commissions:
+          type: boolean
+    Affiliation:
+      type: object
+      description: An affiliate's enrollment in a program
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type: string
+          nullable: true
+        referral_link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    Balance:
+      type: object
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        amount:
+          type: number
+          format: float
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum:
+            - pending
+            - paid
+            - cancelled
+    Click:
+      type: object
+      properties:
+        id:
+          type: string
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        referral_code:
+          type: string
+        ip:
+          type: string
+        user_agent:
+          type: string
+        landing_page:
+          type: string
+          format: uri
+        referrer:
+          type: string
+          format: uri
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    PayoutMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Payout method type (e.g. paypal, wire)
+        details:
+          type: object
+          additionalProperties: true
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message

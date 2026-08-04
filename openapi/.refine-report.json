@@ -1,0 +1,32 @@
+{
+  "provider": "tapfiliate",
+  "sources": [
+    "tapfiliate-affiliate-groups-api-openapi.yml",
+    "tapfiliate-affiliate-prospects-api-openapi.yml",
+    "tapfiliate-affiliates-api-openapi.yml",
+    "tapfiliate-balances-api-openapi.yml",
+    "tapfiliate-clicks-api-openapi.yml",
+    "tapfiliate-commissions-api-openapi.yml",
+    "tapfiliate-conversions-api-openapi.yml",
+    "tapfiliate-customers-api-openapi.yml",
+    "tapfiliate-payments-api-openapi.yml",
+    "tapfiliate-programs-api-openapi.yml"
+  ],
+  "outputs": [
+    "tapfiliate-affiliate-groups-api-openapi.yml",
+    "tapfiliate-affiliate-prospects-api-openapi.yml",
+    "tapfiliate-affiliates-api-openapi.yml",
+    "tapfiliate-balances-api-openapi.yml",
+    "tapfiliate-clicks-api-openapi.yml",
+    "tapfiliate-commissions-api-openapi.yml",
+    "tapfiliate-conversions-api-openapi.yml",
+    "tapfiliate-customers-api-openapi.yml",
+    "tapfiliate-payments-api-openapi.yml",
+    "tapfiliate-programs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
