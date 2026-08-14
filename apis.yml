@@ -18,7 +18,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tapfiliate.png
 url: https://raw.githubusercontent.com/api-evangelist/tapfiliate/refs/heads/main/apis.yml
 created: 2026-06-13
-modified: 2026-06-13
+modified: 2026-08-13
 specificationVersion: "0.19"
 tags:
   - Affiliate Marketing
@@ -39,6 +39,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-affiliate-groups-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-affiliate-groups-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -53,6 +55,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-affiliate-prospects-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-affiliate-prospects-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -67,6 +71,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-affiliates-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-affiliates-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -81,6 +87,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-balances-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-balances-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -95,6 +103,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-clicks-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-clicks-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -109,6 +119,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-commissions-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-commissions-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -123,6 +135,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-conversions-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-conversions-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -137,6 +151,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-customers-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-customers-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -151,6 +167,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-payments-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-payments-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
@@ -165,10 +183,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/tapfiliate-programs-api-openapi.yml
+  - type: Overlay
+    url: overlays/tapfiliate-programs-overlay.yaml
   - type: Documentation
     url: https://tapfiliate.com/docs/rest/
   - type: Authentication
     url: https://tapfiliate.com/docs/rest/#authentication
+- aid: tapfiliate:tapfiliate-mcp-server
+  name: Tapfiliate MCP Server
+  description: Official remote Model Context Protocol server for Tapfiliate, announced 2026-08-07. A read-only analytics surface over live account data — clicks, conversions, customers, revenue, commissions, payouts, conversion rates, commission plans and affiliate activity. Authorized with OAuth 2.0 (RFC 9728 protected resource) across four scopes; the provider states it cannot create payments or edit affiliate records in this beta release.
+  humanURL: https://tapfiliate.com/mcp/
+  baseURL: https://mcp.tapfiliate.com/mcp
+  tags:
+  - MCP
+  - AI Agents
+  - Analytics
+  properties:
+  - type: MCPServer
+    url: mcp/tapfiliate-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/tapfiliate-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/tapfiliate-scopes.yml
+  - type: Authentication
+    url: authentication/tapfiliate-authentication.yml
+  - type: Documentation
+    url: https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server
+  - type: WellKnown
+    url: well-known/tapfiliate-well-known.yml
 common:
   - type: AgenticAccess
     url: agentic-access/tapfiliate-agentic-access.yml
@@ -204,6 +246,59 @@ common:
     url: vocabulary/tapfiliate-vocabulary.yml
   - type: JSONLDContext
     url: json-ld/tapfiliate-context.jsonld
+  - type: Packages
+    url: packages/tapfiliate-packages.yml
+  - type: SDKs
+    url: packages/tapfiliate-packages.yml
+  - type: MCPServer
+    url: mcp/tapfiliate-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/tapfiliate-tool-crosswalk.yml
+  - type: OAuthScopes
+    url: scopes/tapfiliate-scopes.yml
+  - type: WellKnown
+    url: well-known/tapfiliate-well-known.yml
+  - type: SecurityTxt
+    url: well-known/tapfiliate-security.txt
+  - type: Security
+    url: security/tapfiliate-vulnerability-disclosure.yml
+  - type: Conventions
+    url: conventions/tapfiliate-conventions.yml
+  - type: ErrorCatalog
+    url: errors/tapfiliate-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/tapfiliate-lifecycle.yml
+  - type: Conformance
+    url: conformance/tapfiliate-conformance.yml
+  - type: DataModel
+    url: data-model/tapfiliate-data-model.yml
+  - type: Webhooks
+    url: asyncapi/tapfiliate-webhooks.yml
+  - type: Sandbox
+    url: sandbox/tapfiliate-sandbox.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/tapfiliate-llms.txt
+  - type: DeveloperPortal
+    url: https://tapfiliate.com/docs/
+  - type: APIReference
+    url: https://tapfiliate.com/docs/rest/
+  - type: GettingStarted
+    url: https://tapfiliate.com/docs/integrations/rest-api/
+  - type: Support
+    url: https://support.tapfiliate.com/
+  - type: SignUp
+    url: https://tapfiliate.com/signup/
+  - type: TermsOfService
+    url: https://tapfiliate.com/terms/
+  - type: PrivacyPolicy
+    url: https://tapfiliate.com/privacy/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: 2026-08-13
+  status: enriched
+  artifacts_added: 32
+  pass: local-v1
