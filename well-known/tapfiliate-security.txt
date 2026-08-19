@@ -1,0 +1,3 @@
+Contact: mailto:infosecurity@tapfiliate.com
+Policy: https://tapfiliate.com/bug-bounty/
+Expires: 2035-04-01T00:00:00z

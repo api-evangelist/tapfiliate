@@ -1,0 +1,2567 @@
+{
+  "item": [
+    {
+      "id": "bdf56ba7-32fc-404a-b360-ff8290e1d369",
+      "name": "Conversions",
+      "description": {
+        "content": "Track and manage conversions and commissions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ed584960-8301-4390-b269-a74c58935b69",
+          "name": "Retrieve a Conversion",
+          "request": {
+            "name": "Retrieve a Conversion",
+            "description": {
+              "content": "Retrieve a single conversion by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d712130-f897-4594-8524-c5d4e4ad67f0",
+              "name": "Conversion retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_id\": \"string\",\n  \"amount\": 9836.626979961065,\n  \"program_id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"4oxCvG3LSywV@ppxPJHsddLmcWZFBvGHNUMNyCyVVPkWBy.hsko\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"commissions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 2008.007862406357,\n      \"approved\": true,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"percentage\",\n        \"percentage\": 8638.898757621118,\n        \"amount\": 1305.121831642726\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"xS7jfVU9P5@eKNBAWApuvvySnC.kar\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"1996-11-15T14:22:18.634Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 9825.130840380212,\n      \"approved\": true,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"fixed\",\n        \"percentage\": 1839.5156806604673,\n        \"amount\": 7672.104082345855\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"3mHsMS8oRh@sppqQzydrxqWxMH.uah\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"1949-10-13T03:44:09.676Z\"\n    }\n  ],\n  \"created_at\": \"1971-02-23T01:32:48.508Z\",\n  \"meta_data\": {\n    \"key_0\": 2229.4707109734245\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa95e511-26e7-41ee-b313-42952b25286d",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb2a1746-4fe6-424f-838d-0f217f1f1460",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1813be9-47fb-4487-8df6-5760ded878d3",
+          "name": "Update a Conversion",
+          "request": {
+            "name": "Update a Conversion",
+            "description": {
+              "content": "Update an existing conversion record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<float>\",\n  \"external_id\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": 3549\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cc3679f-89c3-4b98-b80a-cca830eb7780",
+              "name": "Conversion updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<float>\",\n  \"external_id\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": 1347,\n    \"key_1\": 6093\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_id\": \"string\",\n  \"amount\": 9774.753604783155,\n  \"program_id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"i7kCWuHlgE1VG@cEpucWMQh.njz\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"commissions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 4961.3607878985795,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"fixed\",\n        \"percentage\": 7098.032835728528,\n        \"amount\": 7543.954842159226\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"aVDIvhRF@XSHVdAUGjRobJehqsORXVotdThC.dhc\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"2006-03-14T02:51:25.141Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 2341.59130834375,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"percentage\",\n        \"percentage\": 3194.5720178382953,\n        \"amount\": 9762.739027951146\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"wn96JAGow@tBQcSzxoLoMxJYNeyaOSgHBz.be\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"1984-09-09T21:44:46.638Z\"\n    }\n  ],\n  \"created_at\": \"1990-01-29T19:05:29.281Z\",\n  \"meta_data\": {\n    \"key_0\": 8194\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25761599-ffec-467e-b29d-cfc72611f223",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<float>\",\n  \"external_id\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": 1347,\n    \"key_1\": 6093\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c83485e-4ad1-4ae9-bca7-43733cfa2d58",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<float>\",\n  \"external_id\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": 1347,\n    \"key_1\": 6093\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e73bec46-f022-4948-a788-43606f0ae218",
+          "name": "Delete a Conversion",
+          "request": {
+            "name": "Delete a Conversion",
+            "description": {
+              "content": "Delete a conversion record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50b2fba9-a573-452e-aba4-90314cb34161",
+              "name": "Conversion deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "253f4c8a-1e82-478e-9e99-807dfee536f2",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3077fdf3-6a1f-4378-b756-1e5189a3c37c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b6af1e4-69df-4e16-ac79-f4b056229df6",
+          "name": "List all conversions",
+          "request": {
+            "name": "List all conversions",
+            "description": {
+              "content": "Retrieve a paginated list of all conversions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>",
+                  "description": "Filter conversions from this date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>",
+                  "description": "Filter conversions to this date (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "affiliate_id",
+                  "value": "<string>",
+                  "description": "Filter by affiliate ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "program_id",
+                  "value": "<string>",
+                  "description": "Filter by program ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "093ac924-ba07-42c9-adaf-996cbda2ec1a",
+              "name": "List of conversions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "affiliate_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "program_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Links to navigate between pages. Contains rel=\"next\", rel=\"prev\", rel=\"first\", and rel=\"last\" links as per RFC 5988.",
+                  "key": "Link",
+                  "value": "<https://api.tapfiliate.com/1.6/conversions/?page=3>; rel=\"next\", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel=\"last\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"external_id\": \"string\",\n    \"amount\": 6809.279803292696,\n    \"program_id\": \"string\",\n    \"affiliate\": {\n      \"id\": \"string\",\n      \"email\": \"HvKv-szk7@SqHXixpDFchyX.iz\",\n      \"firstname\": \"string\",\n      \"lastname\": \"string\"\n    },\n    \"commissions\": [\n      {\n        \"id\": \"string\",\n        \"amount\": 8762.739759012176,\n        \"approved\": false,\n        \"commission_type\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"percentage\",\n          \"percentage\": 7872.933361608128,\n          \"amount\": 3176.850798366079\n        },\n        \"affiliate\": {\n          \"id\": \"string\",\n          \"email\": \"sH861GWwOkYc@OygBbmmKppUPLGRSEZVydkSYLWWHWxNA.goz\",\n          \"firstname\": \"string\",\n          \"lastname\": \"string\"\n        },\n        \"conversion_id\": \"string\",\n        \"created_at\": \"1969-06-07T06:36:44.966Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"amount\": 8731.2660319252,\n        \"approved\": false,\n        \"commission_type\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"percentage\",\n          \"percentage\": 2052.0738201683453,\n          \"amount\": 8636.010544879757\n        },\n        \"affiliate\": {\n          \"id\": \"string\",\n          \"email\": \"Cevwbx5coaTp@fgMJGNLhN.ftpn\",\n          \"firstname\": \"string\",\n          \"lastname\": \"string\"\n        },\n        \"conversion_id\": \"string\",\n        \"created_at\": \"1997-01-16T16:37:25.516Z\"\n      }\n    ],\n    \"created_at\": \"2006-08-21T17:55:08.486Z\",\n    \"meta_data\": {\n      \"key_0\": 197.52275880323023,\n      \"key_1\": 1802\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"external_id\": \"string\",\n    \"amount\": 80.06844256394862,\n    \"program_id\": \"string\",\n    \"affiliate\": {\n      \"id\": \"string\",\n      \"email\": \"WWyU7ktCyrNOzL@OsTpyMqrOmEMAIfyQvVIBiwEu.sfwy\",\n      \"firstname\": \"string\",\n      \"lastname\": \"string\"\n    },\n    \"commissions\": [\n      {\n        \"id\": \"string\",\n        \"amount\": 9419.333803667716,\n        \"approved\": false,\n        \"commission_type\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"percentage\",\n          \"percentage\": 4437.984445905123,\n          \"amount\": 3219.2847845389106\n        },\n        \"affiliate\": {\n          \"id\": \"string\",\n          \"email\": \"y3BmiH2l4cw312m@MgJUb.xmx\",\n          \"firstname\": \"string\",\n          \"lastname\": \"string\"\n        },\n        \"conversion_id\": \"string\",\n        \"created_at\": \"1947-11-05T07:03:47.145Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"amount\": 11.952774278923828,\n        \"approved\": true,\n        \"commission_type\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"percentage\",\n          \"percentage\": 9311.576429905084,\n          \"amount\": 1496.709962117926\n        },\n        \"affiliate\": {\n          \"id\": \"string\",\n          \"email\": \"FlbGa@JMpzKDAHDQxVE.otcl\",\n          \"firstname\": \"string\",\n          \"lastname\": \"string\"\n        },\n        \"conversion_id\": \"string\",\n        \"created_at\": \"1950-12-09T01:42:08.920Z\"\n      }\n    ],\n    \"created_at\": \"1962-12-28T17:57:57.126Z\",\n    \"meta_data\": {\n      \"key_0\": 6358.213684802852,\n      \"key_1\": true\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0f581c3-5cae-4eaa-826e-4e1d93bf104d",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "affiliate_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "program_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f649b079-7565-4f06-95c8-1823693df414",
+          "name": "Create a conversion",
+          "request": {
+            "name": "Create a conversion",
+            "description": {
+              "content": "Record a new conversion event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"program_id\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"amount\": \"<float>\",\n  \"click_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"commission_type\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": 4184\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ff83f60-1eee-427b-b100-3e350443fb0c",
+              "name": "Conversion created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"program_id\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"amount\": \"<float>\",\n  \"click_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"commission_type\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_id\": \"string\",\n  \"amount\": 9774.753604783155,\n  \"program_id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"i7kCWuHlgE1VG@cEpucWMQh.njz\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"commissions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 4961.3607878985795,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"fixed\",\n        \"percentage\": 7098.032835728528,\n        \"amount\": 7543.954842159226\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"aVDIvhRF@XSHVdAUGjRobJehqsORXVotdThC.dhc\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"2006-03-14T02:51:25.141Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 2341.59130834375,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"percentage\",\n        \"percentage\": 3194.5720178382953,\n        \"amount\": 9762.739027951146\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"wn96JAGow@tBQcSzxoLoMxJYNeyaOSgHBz.be\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"1984-09-09T21:44:46.638Z\"\n    }\n  ],\n  \"created_at\": \"1990-01-29T19:05:29.281Z\",\n  \"meta_data\": {\n    \"key_0\": 8194\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d2687cd-e8aa-4146-99ba-3356465cdb1b",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"program_id\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"amount\": \"<float>\",\n  \"click_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"commission_type\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cddf9b96-9f71-4af9-8539-5211a6897a58",
+              "name": "Validation error — request body is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"program_id\": \"<string>\",\n  \"external_id\": \"<string>\",\n  \"amount\": \"<float>\",\n  \"click_id\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"commission_type\": \"<string>\",\n  \"meta_data\": {\n    \"key_0\": false,\n    \"key_1\": false,\n    \"key_2\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a177a73-9ed1-4cc4-9097-92a1dc1b5317",
+          "name": "Add commissions to a conversion",
+          "request": {
+            "name": "Add commissions to a conversion",
+            "description": {
+              "content": "Add additional commission entries to an existing conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "commissions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  },\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8335144-173f-40ac-9f1e-0e6ac337e890",
+              "name": "Commissions added",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "commissions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  },\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_id\": \"string\",\n  \"amount\": 9774.753604783155,\n  \"program_id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"i7kCWuHlgE1VG@cEpucWMQh.njz\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"commissions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": 4961.3607878985795,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"fixed\",\n        \"percentage\": 7098.032835728528,\n        \"amount\": 7543.954842159226\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"aVDIvhRF@XSHVdAUGjRobJehqsORXVotdThC.dhc\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"2006-03-14T02:51:25.141Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": 2341.59130834375,\n      \"approved\": false,\n      \"commission_type\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"type\": \"percentage\",\n        \"percentage\": 3194.5720178382953,\n        \"amount\": 9762.739027951146\n      },\n      \"affiliate\": {\n        \"id\": \"string\",\n        \"email\": \"wn96JAGow@tBQcSzxoLoMxJYNeyaOSgHBz.be\",\n        \"firstname\": \"string\",\n        \"lastname\": \"string\"\n      },\n      \"conversion_id\": \"string\",\n      \"created_at\": \"1984-09-09T21:44:46.638Z\"\n    }\n  ],\n  \"created_at\": \"1990-01-29T19:05:29.281Z\",\n  \"meta_data\": {\n    \"key_0\": 8194\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "278501ad-7fb6-4d8c-8008-735a8b857734",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "commissions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  },\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fa4d9da-fb6d-41f6-b5f3-7450f0e6455b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "commissions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  },\n  {\n    \"affiliate_id\": \"<string>\",\n    \"commission_type\": \"<string>\",\n    \"amount\": \"<float>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ace1938c-53f1-40f5-a864-5c068134dae3",
+          "name": "Retrieve meta data for a Conversion",
+          "request": {
+            "name": "Retrieve meta data for a Conversion",
+            "description": {
+              "content": "Retrieve all metadata for a given conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "meta-data",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e31d1e34-3269-4f57-8bf7-d1c50b24a6e0",
+              "name": "Conversion metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 1619.9164269392995\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd4a089c-d387-4454-b3c4-a1e0a85fe9c9",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f098667-836f-4d36-a8d1-f3a88f82981d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4152f08-c515-41a4-b1ff-6a08627096c5",
+          "name": "Update (replace) meta data for a Conversion",
+          "request": {
+            "name": "Update (replace) meta data for a Conversion",
+            "description": {
+              "content": "Replace all metadata for a conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "meta-data",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88abae01-eae1-485a-b029-d85cad27c13a",
+              "name": "Metadata replaced",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 1619.9164269392995\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 1619.9164269392995\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "198de9ed-5f38-43fe-a68e-5694636acfc8",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 1619.9164269392995\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "047b541b-e1e3-45e0-a0fb-f44931a2f425",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": 1619.9164269392995\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fe59c61-7834-4a8e-a284-2a556571d034",
+          "name": "Retrieve meta data by key for a Conversion",
+          "request": {
+            "name": "Retrieve meta data by key for a Conversion",
+            "description": {
+              "content": "Retrieve a specific metadata key for a conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "meta-data",
+                ":key",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Metadata key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "97a96eba-9d9a-4fce-af38-6ca7c89798fe",
+              "name": "Metadata value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "048cdda5-4d5a-4e2b-b046-f205a95e8c41",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efab46a8-a968-4235-a95e-0a60fdc16d90",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "617f420c-e565-45ed-bf4f-cb0727dfae84",
+          "name": "Set meta data by key for a Conversion",
+          "request": {
+            "name": "Set meta data by key for a Conversion",
+            "description": {
+              "content": "Set a specific metadata key for a conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "meta-data",
+                ":key",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Metadata key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3113875-78a7-422e-b57d-60dfa0bc3a46",
+              "name": "Metadata set",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b678612-2201-4171-8c3b-c5cb2016e4a2",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b415a9a4-3cb0-4382-aadb-1a5e085713b2",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "267a3aea-1035-4134-bde7-feba80b52a7f",
+          "name": "Delete meta data by key for a Conversion",
+          "request": {
+            "name": "Delete meta data by key for a Conversion",
+            "description": {
+              "content": "Delete a specific metadata key for a conversion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversions",
+                ":conversion_id",
+                "meta-data",
+                ":key",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversion_id",
+                  "description": "(Required) Conversion ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Metadata key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9736ea62-b42f-49b0-9101-931f001f2186",
+              "name": "Metadata deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6169786b-cac7-4483-9bf5-b44f67c24836",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "599d178a-2ef0-451f-be67-7e68f6188a09",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversions",
+                    ":conversion_id",
+                    "meta-data",
+                    ":key",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversion_id",
+                      "description": "(Required) Conversion ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Metadata key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tapfiliate.com/1.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "57282f78-e5ea-4861-82fe-2bd398d5f7ab",
+    "name": "Tapfiliate REST Affiliate Groups Conversions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.\n\nContact Support:\n Name: Tapfiliate Support",
+      "type": "text/plain"
+    }
+  }
+}

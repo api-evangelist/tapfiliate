@@ -1,0 +1,271 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Customers API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single customer by their ID."
+        },
+        {
+          "info": {
+            "name": "Update a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing customer's data."
+        },
+        {
+          "info": {
+            "name": "Delete a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ]
+          },
+          "docs": "Delete a customer record."
+        },
+        {
+          "info": {
+            "name": "List all Customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/customers/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all customers."
+        },
+        {
+          "info": {
+            "name": "Create a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/customers/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new customer record."
+        },
+        {
+          "info": {
+            "name": "Cancel or Uncancel a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/status/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set or update the status of a customer. Use to cancel or uncancel."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data for a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/meta-data/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ]
+          },
+          "docs": "Retrieve all metadata for a given customer."
+        },
+        {
+          "info": {
+            "name": "Update (replace) meta data for a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/meta-data/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all metadata for a customer."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data by key for a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/meta-data/:key/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific metadata key for a customer."
+        },
+        {
+          "info": {
+            "name": "Set meta data by key for a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/meta-data/:key/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a specific metadata key for a customer."
+        },
+        {
+          "info": {
+            "name": "Delete meta data by key for a Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/customers/:id/meta-data/:key/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Customer ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Delete a specific metadata key for a customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,661 @@
+{
+  "item": [
+    {
+      "id": "939d496f-63f3-4a43-9754-4c9a3b9d946b",
+      "name": "Clicks",
+      "description": {
+        "content": "Track and manage clicks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "754b815e-3d79-4c1e-ba96-88b646072e6f",
+          "name": "List all clicks",
+          "request": {
+            "name": "List all clicks",
+            "description": {
+              "content": "Retrieve a paginated list of all clicks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clicks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "affiliate_id",
+                  "value": "<string>",
+                  "description": "Filter by affiliate ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>",
+                  "description": "Filter clicks from this date"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>",
+                  "description": "Filter clicks to this date"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4dc4547a-5199-4350-93d1-5a2689bb9bd7",
+              "name": "List of clicks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "affiliate_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Links to navigate between pages. Contains rel=\"next\", rel=\"prev\", rel=\"first\", and rel=\"last\" links as per RFC 5988.",
+                  "key": "Link",
+                  "value": "<https://api.tapfiliate.com/1.6/conversions/?page=3>; rel=\"next\", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel=\"last\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"affiliate\": {\n      \"id\": \"string\",\n      \"email\": \"W1B@OQnkPBFqIPRdVXJarzAxBPCF.lz\",\n      \"firstname\": \"string\",\n      \"lastname\": \"string\"\n    },\n    \"referral_code\": \"string\",\n    \"ip\": \"string\",\n    \"user_agent\": \"string\",\n    \"landing_page\": \"https://Qpz.widfv3YtvU7wz8yflMlD5VTxYm6dt9YfNAW,cJOM5e\",\n    \"referrer\": \"http://SYucMFOrPZN.xaqIRq99ZR0XXlhU-cBY,3\",\n    \"created_at\": \"1989-08-27T14:48:18.383Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"affiliate\": {\n      \"id\": \"string\",\n      \"email\": \"WoYjYg@BpfmrtwrLGVEuajVrtHzbgxsDsAV.elug\",\n      \"firstname\": \"string\",\n      \"lastname\": \"string\"\n    },\n    \"referral_code\": \"string\",\n    \"ip\": \"string\",\n    \"user_agent\": \"string\",\n    \"landing_page\": \"http://tTWCXdzFvPPFA.pgq6r+so3ZUAvlMSUBdWV,mWRtBydoiL6efiUYDlnpuMtgOy-6+t\",\n    \"referrer\": \"http://yYRjhSRwhyGTuElZQHMUdsSZgSHLW.bonXGlzO5gWJM116+bZisD3Xf0EOLA13tOBL7xaCVC,w.xEV\",\n    \"created_at\": \"1981-11-13T05:02:02.905Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "157dd9b9-1d5c-4bbc-b20b-8b6ac82041b1",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "affiliate_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b789a1e1-6412-4e00-9102-a04b0c6edaa9",
+          "name": "Create a Click",
+          "request": {
+            "name": "Create a Click",
+            "description": {
+              "content": "Record a new click event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clicks",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"referral_code\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"user_agent\": \"<string>\",\n  \"landing_page\": \"<string>\",\n  \"referrer\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf87972a-6003-4547-8eac-44f39931289e",
+              "name": "Click created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referral_code\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"user_agent\": \"<string>\",\n  \"landing_page\": \"<string>\",\n  \"referrer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"fut9Iuf3@PipMurNAnBfmLOBPXWXnmMnqRfJ.wox\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"referral_code\": \"string\",\n  \"ip\": \"string\",\n  \"user_agent\": \"string\",\n  \"landing_page\": \"http://P.txr7grB3,ikax3orNv-W3Vfy+Sx-DRTEMpu5dx-BBNXsu2..tDUbTr5JlFwN.7UWZ\",\n  \"referrer\": \"https://kyHCFdLoxKpeTVwIOIm.alNhenRzbSl.Ydn3DEhI9nGKZ0mW7fU68YMmkg+\",\n  \"created_at\": \"1966-09-06T02:06:21.609Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9094e49-959d-4526-be94-474c980258ff",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referral_code\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"user_agent\": \"<string>\",\n  \"landing_page\": \"<string>\",\n  \"referrer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e744bb0-2f70-475d-b542-990333acecc4",
+              "name": "Validation error — request body is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"referral_code\": \"<string>\",\n  \"ip\": \"<string>\",\n  \"user_agent\": \"<string>\",\n  \"landing_page\": \"<string>\",\n  \"referrer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b256e02a-1c21-44cf-86b6-a1a94a092c04",
+          "name": "Get detailed information about click",
+          "request": {
+            "name": "Get detailed information about click",
+            "description": {
+              "content": "Retrieve detailed information about a specific click.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clicks",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Click ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a0e906e-7855-464c-9507-ba2e4688efd6",
+              "name": "Click details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Click ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"affiliate\": {\n    \"id\": \"string\",\n    \"email\": \"fut9Iuf3@PipMurNAnBfmLOBPXWXnmMnqRfJ.wox\",\n    \"firstname\": \"string\",\n    \"lastname\": \"string\"\n  },\n  \"referral_code\": \"string\",\n  \"ip\": \"string\",\n  \"user_agent\": \"string\",\n  \"landing_page\": \"http://P.txr7grB3,ikax3orNv-W3Vfy+Sx-DRTEMpu5dx-BBNXsu2..tDUbTr5JlFwN.7UWZ\",\n  \"referrer\": \"https://kyHCFdLoxKpeTVwIOIm.alNhenRzbSl.Ydn3DEhI9nGKZ0mW7fU68YMmkg+\",\n  \"created_at\": \"1966-09-06T02:06:21.609Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "937d6961-533d-424c-a3c8-deaf844e837d",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Click ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3f25e3b-aaf5-4288-b48c-d2c896d109e9",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clicks",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Click ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tapfiliate.com/1.6",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aee81af3-fe41-49ec-9b57-714fd0963986",
+    "name": "Tapfiliate REST Affiliate Groups Clicks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.\n\nContact Support:\n Name: Tapfiliate Support",
+      "type": "text/plain"
+    }
+  }
+}

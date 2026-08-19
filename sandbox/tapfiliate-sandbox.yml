@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.tapfiliate.com/general/how-to-test-your-integration-before-inviting-affiliates
+  ("How to Validate Your Tracking"), https://tapfiliate.com/docs/integrations/npm-module/
+  and https://tapfiliate.com/docs/integrations/rest-api/.
+description: >-
+  Tapfiliate publishes NO sandbox in the usual sense — there is no test mode, no
+  separate test/live key prefixes, no test-only base URL and no fixture or
+  trigger tooling. What it publishes instead is a browser-side Integration
+  Tester and a documented "simulate a real conversion in your live account"
+  procedure. Recorded because the provider does publish a testing path, and
+  because the shape of that path is itself the finding: REST API integrations
+  are explicitly excluded from the tester and must be validated against live
+  data.
+modes:
+  - name: live
+    key_prefixes: []
+    note: >-
+      The only mode. One account API key, no prefix convention, no test
+      counterpart. Anything an integration writes lands in the production
+      account.
+test_mode: false
+test_base_url: null
+test_credentials: null
+tools:
+  - name: Tapfiliate Integration Tester
+    type: browser overlay
+    activation: >-
+      Append `tap_test=true` to the query string of a page carrying the
+      Tapfiliate tracking code, or open the tester link from the Help Center. A
+      panel appears at the bottom of the page.
+    verifies:
+      - The tracking codes are present on the page.
+      - No required tracking parameters are missing.
+    writes_data: false
+    note: >-
+      Records nothing in the account — no clicks or conversions appear in
+      statistics.
+    excluded_integrations:
+      - REST API
+      - Wix Stores
+    limitation: >-
+      This is the finding that matters for API consumers: the tester does not
+      work for REST API integrations at all. A developer building against
+      api.tapfiliate.com has no offline or isolated way to verify their
+      integration.
+procedures:
+  - name: Simulate a test conversion
+    applies_to: [REST API, Wix Stores, any integration]
+    steps:
+      - Add yourself as a test affiliate in the Tapfiliate dashboard.
+      - Use your own test affiliate link to confirm click tracking works.
+      - Complete a test conversion — purchase, signup or lead.
+      - Verify in the Tapfiliate dashboard that both the click and the conversion appear.
+    safe_purchase_options:
+      - Apply a 100% discount coupon at checkout.
+      - Create a zero-price product and buy it.
+      - Make a real purchase if the full flow must be exercised.
+    writes_data: true
+    note: >-
+      This writes real records into the production account, which must then be
+      cleaned up manually. There is no test clock, no time simulation and no
+      fixture reset.
+fixtures: null
+test_values: null
+time_simulation: null
+gaps:
+  - No test mode or sandbox environment.
+  - No test/live key separation — a single account key with no prefix.
+  - No test data, fixtures or seeded accounts.
+  - No trigger tooling to force webhook or commission events.
+  - The Integration Tester explicitly excludes REST API integrations.

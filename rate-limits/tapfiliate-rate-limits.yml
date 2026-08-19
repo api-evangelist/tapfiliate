@@ -1,23 +1,55 @@
 specificationVersion: "0.1"
+generated: '2026-08-13'
+method: searched
+source: https://tapfiliate.com/docs/rest/#header-rate-limiting
 id: tapfiliate-rate-limits
 name: Tapfiliate API Rate Limits
-description: Rate limits for the Tapfiliate REST API v1.6. Limits are communicated via response headers on each request. Specific numeric thresholds are not publicly documented and may vary by plan.
+description: >-
+  Rate limits for the Tapfiliate REST API v1.6. Tapfiliate documents the RUNTIME
+  SIGNAL but not the numbers: three response headers are published verbatim,
+  while no threshold, window, burst allowance or exhaustion status code is stated
+  anywhere in the developer documentation. A client can therefore only discover
+  its limit by observing X-Ratelimit-Limit at runtime.
 url: https://tapfiliate.com/docs/rest/
+limit_count: 0
+limit_count_note: >-
+  Zero published numeric limits. The docs say only "Most endpoints have rate
+  limits." No per-key, per-account or per-endpoint figure, and no per-plan
+  figure, is published — including on the pricing page, which advertises click
+  and conversion volume caps but says nothing about API request rate.
+limits: []
 headers:
   - name: X-Ratelimit-Limit
-    description: The total number of requests allowed in the current rate limit window.
+    description: The number of total allowed requests within a given period.
+    source: https://tapfiliate.com/docs/rest/#header-rate-limiting
   - name: X-Ratelimit-Remaining
-    description: The number of requests remaining before the rate limit is exceeded for the current window.
+    description: The number of requests you have left before exceeding the rate limit.
+    source: https://tapfiliate.com/docs/rest/#header-rate-limiting
   - name: X-Ratelimit-Reset
-    description: Unix timestamp indicating when the current rate limit window resets and the request count is refreshed.
+    description: When your number of requests will reset (Unix timestamp in seconds).
+    source: https://tapfiliate.com/docs/rest/#header-rate-limiting
+retry_after_header: false
+exhaustion_status: null
+exhaustion_status_note: >-
+  Not published. No 429 response is declared on any of the 77 operations in
+  openapi/, and the docs do not name the status returned when a limit is hit.
+  Recorded as unknown rather than assumed to be 429.
+scope: unknown
+window: unknown
+burst: unknown
 notes:
-  - Most API endpoints are subject to rate limiting.
-  - When the rate limit is exceeded the API returns an appropriate HTTP error response.
-  - Clients should inspect the X-Ratelimit-Remaining header and back off when approaching zero.
-  - Rate limit thresholds are not published publicly and may differ by subscription plan.
-  - The Enterprise plan advertises "Unlimited tracking capabilities" which may imply higher or negotiated rate limits.
+  - Most API endpoints are subject to rate limiting; the docs do not say which are exempt.
+  - Clients should read X-Ratelimit-Remaining and back off before it reaches zero.
+  - Thresholds are not published and may differ by subscription plan.
+  - >-
+    The Enterprise plan advertises "Unlimited tracking capabilities", which may
+    imply negotiated limits; no figure is published.
 pagination:
   defaultPageSize: 25
   paginationHeader: Link
   paginationParameter: page
   paginationStyle: page-number
+  note: >-
+    Page-number pagination with no total count means a full-collection read costs
+    an unknown number of requests up front, which interacts badly with an
+    unpublished rate limit. See conventions/tapfiliate-conventions.yml.

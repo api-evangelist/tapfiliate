@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://mcp.tapfiliate.com/.well-known/oauth-protected-resource (HTTP 200) and
+  https://mcp.tapfiliate.com/.well-known/oauth-authorization-server (HTTP 200),
+  fetched anonymously. Both saved verbatim under well-known/.
+docs: https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server
+description: >-
+  Tapfiliate's REST API v1.6 does NOT use OAuth — it authenticates with a static
+  X-Api-Key header and the OpenAPI securitySchemes carry no oauth2 entry, so the
+  derive pass over openapi/ finds no scopes. The only OAuth surface Tapfiliate
+  operates is the one fronting its MCP server, and it publishes its scopes in
+  machine-readable form. These four scope names are read verbatim from the
+  provider's own protected-resource metadata document, not inferred.
+schemes:
+  - name: Tapfiliate MCP OAuth
+    type: oauth2
+    resource: https://mcp.tapfiliate.com/mcp
+    issuer: https://api.tapfiliate.com
+    authorizationUrl: https://app.tapfiliate.com/ai/mcp/connect/
+    tokenUrl: https://mcp.tapfiliate.com/oauth/v2/token/
+    registrationUrl: https://app.tapfiliate.com/oauth/v2/register/
+    jwks_uri: https://api.tapfiliate.com/.well-known/jwks.json
+    grant_types: [authorization_code, refresh_token]
+    response_types: [code]
+    pkce: [S256]
+    token_endpoint_auth_methods: [none, client_secret_post, client_secret_basic]
+    dynamic_client_registration: true
+    client_id_metadata_document_supported: true
+    bearer_methods: [header]
+    protected_resource: well-known/tapfiliate-mcp-oauth-protected-resource.json
+    authorization_server: well-known/tapfiliate-mcp-oauth-authorization-server.json
+scopes:
+  - scope: affiliates
+    description: >-
+      Affiliate records and their organisation — affiliates, affiliate groups and
+      affiliate prospects. Covers the Affiliates, Affiliate Groups and Affiliate
+      Prospects tags in openapi/.
+    schemes: [Tapfiliate MCP OAuth]
+  - scope: conversions_commissions
+    description: >-
+      Tracked activity and its earnings — clicks, customers, conversions and the
+      commissions generated from them. Covers the Conversions, Commissions,
+      Clicks and Customers tags in openapi/.
+    schemes: [Tapfiliate MCP OAuth]
+  - scope: programs
+    description: >-
+      Affiliate programs, their settings, commission types, MLM levels and
+      bonuses. Covers the Programs tag in openapi/.
+    schemes: [Tapfiliate MCP OAuth]
+  - scope: payments
+    description: >-
+      Affiliate balances and payouts. Covers the Payments and Balances tags in
+      openapi/.
+    schemes: [Tapfiliate MCP OAuth]
+notes:
+  - >-
+    Scope GRANULARITY is coarse: four scopes across a 77-operation surface, with
+    no read/write split. The write half is currently unreachable regardless —
+    the provider documents the MCP server as read-only in this beta — so the
+    scopes describe data domains rather than permissions.
+  - >-
+    The authorization-server metadata declares issuer https://api.tapfiliate.com
+    but is served from https://mcp.tapfiliate.com; the issuer host itself 404s on
+    /.well-known/oauth-authorization-server. Recorded as observed.
+  - >-
+    The REST API has no OAuth path. An integration that is not an MCP client
+    authenticates with a long-lived account API key and therefore has no scoping
+    at all.

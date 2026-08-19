@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: >-
+  https://tapfiliate.com/mcp/ (product page),
+  https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server
+  (setup guide, carries the endpoint URL verbatim),
+  https://tapfiliate.com/blog/mcp-affiliate-reporting-bf (announcement,
+  2026-08-07), plus a live probe of https://mcp.tapfiliate.com/mcp and its
+  /.well-known/ OAuth metadata.
+description: >-
+  Tapfiliate operates an official REMOTE MCP server at
+  https://mcp.tapfiliate.com/mcp. It is an OAuth 2.0 protected resource (RFC
+  9728) — an anonymous tools/list returns HTTP 401 with a WWW-Authenticate
+  Bearer challenge pointing at the resource metadata document — so the live tool
+  schemas require an authenticated introspection we deliberately did not
+  perform. The server is documented as a read-only analytics surface in beta:
+  it retrieves clicks, conversions, customers, revenue, commissions, payouts,
+  conversion rates, commission plans and affiliate activity, and the provider
+  states it cannot create payments or edit affiliate records. Write actions are
+  described as roadmap, not shipped.
+server:
+  name: tapfiliate
+  transport: streamable-http
+  url: https://mcp.tapfiliate.com/mcp
+  auth: oauth2
+  protected_resource: well-known/tapfiliate-mcp-oauth-protected-resource.json
+  authorization_server: well-known/tapfiliate-mcp-oauth-authorization-server.json
+  scopes: [affiliates, conversions_commissions, programs, payments]
+  read_only: true
+  maturity: beta
+  clients_documented: [Claude Desktop, claude.ai, Cursor, Google Antigravity]
+  prerequisites:
+    - Active Tapfiliate account with Admin-level permissions
+    - API/Zapier access enabled on the account
+deployment:
+  mode: remote
+  endpoint: https://mcp.tapfiliate.com/mcp
+  auth: oauth
+  verified: probed
+  probe: gated
+  probe_detail: >-
+    POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} with Accept:
+    application/json, text/event-stream returned HTTP 401
+    {"error":{"code":-32001,"message":"Unauthorized: Authorization Bearer required"}}
+    and www-authenticate: Bearer realm="mcp",
+    resource_metadata="https://mcp.tapfiliate.com/.well-known/oauth-protected-resource".
+    initialize returned the same 401. The endpoint is live and correctly
+    advertises its authorization server; the tool list is auth-gated.
+  checked: '2026-08-13'
+  note: >-
+    Google Antigravity is documented with an `npx -y mcp-remote
+    https://mcp.tapfiliate.com/mcp` config block. That is the generic mcp-remote
+    bridge to the SAME hosted endpoint, not a Tapfiliate-published stdio
+    package, so mode stays `remote`.
+tools:
+  status: gated
+  note: >-
+    NOT captured. The live tools/list is behind OAuth and Tapfiliate publishes no
+    tool names — the Help Center documents CAPABILITIES in prose, not tool
+    identifiers. The scenarios below are the provider's own descriptions of what
+    the server covers, recorded as capabilities, not invented tool names. Real
+    tool names and inputSchemas require an authenticated tools/list.
+capabilities:
+  - id: affiliates-clicks-no-conversions
+    description: >-
+      Surface affiliates sending clicks but no conversions. Provider-stated
+      default window is the last 30 days with a 100+ click threshold; the
+      timeframe is overridable in the prompt.
+  - id: top-affiliates-by-performance
+    description: >-
+      Rank affiliates by revenue and conversions driven, explicitly not by
+      commission paid out.
+  - id: lapsed-affiliates
+    description: >-
+      Identify affiliates that used to convert and have gone quiet. Default
+      window 30 days with no conversions.
+  - id: conversion-rate-outliers
+    description: Flag affiliates converting well above or below the program average.
+  - id: commission-plan-effectiveness
+    description: >-
+      Compare commission plans by the revenue, conversions and commissions they
+      produce.
+  - id: program-summary
+    description: >-
+      One overview of key numbers, top affiliates, items needing attention and a
+      suggested next step.
+  - id: inactive-new-affiliates
+    description: Surface recently joined affiliates with no traffic or conversions yet.
+  - id: program-trend
+    description: Show program trajectory over an arbitrary period.
+  - id: suspicious-activity-review
+    description: >-
+      Flag traffic patterns worth investigating (rate anomalies, spikes).
+      Provider frames this as a starting point for review, not a verdict.
+  - id: single-affiliate-profile
+    description: >-
+      Full picture for one named affiliate — join date, plan, clicks,
+      conversions, conversion rate, revenue, trend vs previous period.
+crosswalk: mcp/tapfiliate-tool-crosswalk.yml

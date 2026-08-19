@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Affiliate Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all affiliate groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-groups/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all affiliate groups."
+        },
+        {
+          "info": {
+            "name": "Create new affiliate group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-groups/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new affiliate group."
+        },
+        {
+          "info": {
+            "name": "Update affiliate group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-groups/:affiliate_group_id/",
+            "params": [
+              {
+                "name": "affiliate_group_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate group ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing affiliate group."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: derived
+format: bare-message-object
+source: >-
+  Derived from the 4xx responses declared across openapi/ (components.responses
+  Unauthorized / NotFound / UnprocessableEntity, all referencing
+  components.schemas.Error) and cross-checked against
+  https://tapfiliate.com/docs/rest/, which documents no error reference page.
+description: >-
+  Tapfiliate does NOT use RFC 9457 application/problem+json. Every error is a
+  plain JSON object with a single human-readable `message` string, so all
+  machine semantics live in the HTTP status code. There is no error code
+  vocabulary, no field pointer on validation failures, and no documented error
+  reference page — the reference documents status codes per operation and
+  nothing more. An agent cannot branch on an error type; it can only branch on
+  the status.
+envelope:
+  media_type: application/json
+  schema: '#/components/schemas/Error'
+  shape: '{ "message": string }'
+  fields:
+    message: Human-readable error message.
+rfc9457: false
+status_distribution:
+  source: openapi/ across all 77 operations
+  '200': 60
+  '201': 9
+  '204': 8
+  '401': 77
+  '404': 59
+  '422': 8
+problems:
+  - status: 401
+    title: Unauthorized
+    meaning: Authentication failed — missing or invalid API key.
+    envelope: '{ "message": ... }'
+    operations: all 77
+    remediation: >-
+      Send the account key in the X-Api-Key request header over HTTPS. The docs
+      state that plain HTTP calls and unauthenticated requests both fail. Rotate
+      the key from account settings if it may be compromised — Tapfiliate
+      publishes no key expiry or prefix convention.
+  - status: 404
+    title: Not Found
+    meaning: The requested resource does not exist.
+    envelope: '{ "message": ... }'
+    operations: 59 of 77 — every operation that takes a path parameter
+    remediation: >-
+      Verify the id. Tapfiliate ids are opaque; conversions are also addressable
+      by the caller-supplied external_id, so a 404 on a conversion may mean the
+      external_id was never persisted rather than that the id is wrong.
+  - status: 422
+    title: Unprocessable Entity
+    meaning: Validation error — the request body is invalid.
+    envelope: '{ "message": ... }'
+    operations: >-
+      8 — the create/update operations that accept a body (createAffiliate,
+      createAffiliateGroup, createAffiliateProspect, createClick,
+      createConversion, createCustomer, createPayment, addAffiliatToProgram and
+      their siblings).
+    remediation: >-
+      Read `message`; it is the only signal. There is no field pointer, so the
+      offending property must be inferred from the prose. A duplicate
+      `external_id` on createConversion surfaces here — the docs state the
+      external id has to be unique for each conversion.
+undocumented_statuses:
+  - status: 429
+    note: >-
+      NOT declared on any operation in openapi/, yet the docs say "most endpoints
+      have rate limits" and describe X-Ratelimit-* response headers. The status
+      returned on exhaustion is not published. A client must treat any
+      unexpected 4xx as potentially rate-limit related and consult
+      X-Ratelimit-Remaining. See rate-limits/tapfiliate-rate-limits.yml.
+  - status: 5xx
+    note: >-
+      No 5xx responses are declared anywhere in openapi/ and none are documented.
+      Server-error shape is unspecified.
+gaps:
+  - No error code / type vocabulary — status code is the only machine signal.
+  - No published error reference page in the documentation.
+  - No field-level validation pointers on 422.
+  - No 429 or 5xx declared in the contract.
+  - No request id in the envelope or headers to quote to support.

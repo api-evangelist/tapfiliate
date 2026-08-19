@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the schema $ref links and id-reference fields in
+  openapi/_original/tapfiliate-rest-api-openapi.yml (17 component schemas across
+  77 operations), cross-checked against the object descriptions in
+  https://tapfiliate.com/docs/rest/ and the attribution flow documented at
+  https://tapfiliate.com/docs/integrations/rest-api/.
+docs: https://tapfiliate.com/docs/rest/
+description: >-
+  The entity-relationship graph behind Tapfiliate's affiliate-tracking domain.
+  The spine is the attribution chain — a Click carries a referral_code and is
+  claimed by an Affiliate; a Customer or a Conversion is bound to that Click by
+  click_id; a Conversion generates Commissions; approved Commissions accrue to a
+  Balance; a Balance is settled by a Payment. Everything else hangs off
+  Affiliate or Program.
+notation: >-
+  relationships use has_one / has_many / belongs_to with the foreign-key or
+  embedding field name; direction is from the entity that owns the reference.
+id_conventions:
+  note: >-
+    Tapfiliate publishes no id-prefix convention (unlike Stripe's cus_/pi_).
+    Affiliate ids are caller-visible strings, conversion ids are opaque, and a
+    conversion is additionally addressable by the caller-supplied `external_id`,
+    which the docs require to be unique per conversion. Click ids are UUID-shaped
+    in the documented examples.
+entities:
+  - {name: Affiliate, domain: partners, key: id, description: A partner promoting the merchant. Carries email, name, referral_link, coupon, group, parent and meta_data.}
+  - {name: AffiliateRef, domain: partners, key: id, description: Reduced affiliate projection (id, email, firstname, lastname) embedded in Conversion, Commission, Click, Payment and Balance.}
+  - {name: AffiliateGroup, domain: partners, key: id, description: A named grouping of affiliates used for commission structure and segmentation.}
+  - {name: AffiliateProspect, domain: partners, key: id, description: A pending applicant captured by a recruitment source, promoted into an Affiliate.}
+  - {name: Program, domain: programs, key: id, description: An affiliate program with currency, cookie_time, default landing page, incrementing_conversions and recurring_commissions settings.}
+  - {name: Affiliation, domain: programs, key: null, description: The membership of an Affiliate in a Program — approval state, coupon and referral_link are per-affiliation.}
+  - {name: CommissionType, domain: programs, key: id, description: A commission rule on a program — percentage or fixed amount.}
+  - {name: Click, domain: tracking, key: id, description: A tracked visit carrying referral_code, ip, user_agent, landing_page and referrer. The attribution anchor.}
+  - {name: Customer, domain: tracking, key: id, description: A tracked end customer with an external customer_id, a status, the originating Click and meta_data. Used for recurring/lifetime commissions.}
+  - {name: Conversion, domain: revenue, key: id, description: A revenue event with external_id, amount, program_id, the crediting affiliate, its commissions and meta_data.}
+  - {name: Commission, domain: revenue, key: id, description: An amount owed to an affiliate for a conversion, with an approved flag and a commission_type.}
+  - {name: Balance, domain: payouts, key: null, description: Per-affiliate, per-currency accrued amount owed.}
+  - {name: Payment, domain: payouts, key: id, description: Settlement of an affiliate balance — amount, currency, paid_at, status.}
+  - {name: PayoutMethod, domain: payouts, key: id, description: How an affiliate is paid — type plus a details object.}
+  - {name: Note, domain: crm, key: id, description: A free-text note attached to an affiliate.}
+  - {name: CustomField, domain: crm, key: id, description: A merchant-defined field on the affiliate signup form — name, type, required.}
+  - {name: MetaData, domain: crm, key: null, description: Arbitrary key/value map attached to Affiliate, AffiliateProspect, Customer and Conversion, with per-key sub-resources.}
+relationships:
+  - {from: Click, to: Affiliate, kind: belongs_to, via: affiliate, note: Resolved from referral_code at creation.}
+  - {from: Customer, to: Click, kind: belongs_to, via: click, note: Bound by click_id — the lifetime/recurring attribution link.}
+  - {from: Conversion, to: Affiliate, kind: belongs_to, via: affiliate}
+  - {from: Conversion, to: Program, kind: belongs_to, via: program_id}
+  - {from: Conversion, to: Commission, kind: has_many, via: commissions, note: Embedded in the conversion payload; also appendable via addCommissionsToConversion.}
+  - {from: Commission, to: Conversion, kind: belongs_to, via: conversion_id}
+  - {from: Commission, to: Affiliate, kind: belongs_to, via: affiliate}
+  - {from: Commission, to: CommissionType, kind: belongs_to, via: commission_type}
+  - {from: Affiliate, to: AffiliateGroup, kind: belongs_to, via: group}
+  - {from: Affiliate, to: Affiliate, kind: belongs_to, via: parent, note: MLM parent/child chain — setAffiliateParent / removeAffiliateParent.}
+  - {from: Affiliate, to: Note, kind: has_many, via: affiliate_id}
+  - {from: Affiliate, to: PayoutMethod, kind: has_many, via: affiliate_id}
+  - {from: Affiliate, to: Balance, kind: has_many, via: affiliate, note: One per currency.}
+  - {from: Affiliate, to: Payment, kind: has_many, via: affiliate}
+  - {from: Affiliate, to: Affiliation, kind: has_many, via: affiliate, note: getAffiliations returns the programs an affiliate belongs to.}
+  - {from: Affiliation, to: Program, kind: belongs_to, via: program}
+  - {from: Affiliation, to: Affiliate, kind: belongs_to, via: affiliate}
+  - {from: Program, to: Affiliation, kind: has_many, via: program_id, note: listProgramAffiliates / addAffiliatToProgram.}
+  - {from: Program, to: CommissionType, kind: has_many, via: program_id}
+  - {from: Payment, to: Affiliate, kind: belongs_to, via: affiliate}
+  - {from: Balance, to: Affiliate, kind: belongs_to, via: affiliate}
+  - {from: AffiliateProspect, to: Affiliate, kind: has_one, via: promotion, note: A prospect becomes an affiliate; no foreign key is exposed on either object.}
+attribution_chain:
+  description: >-
+    The documented REST-only integration path, in order. Each step names the
+    operationId that performs it.
+  steps:
+    - step: '1'
+      entity: Click
+      operation: createClick
+      input: referral_code taken from the ?ref= query parameter
+      output: click id, to persist in a cookie for at least the program cookie_time
+    - step: '2a'
+      entity: Customer
+      operation: createCustomer
+      input: click_id plus your own customer id
+      note: SaaS / subscription / lead-gen path; enables recurring and lifetime commissions
+    - step: '2b'
+      entity: Conversion
+      operation: createConversion
+      input: click_id plus a unique external_id plus amount
+      note: one-off e-commerce path
+    - step: '3'
+      entity: Commission
+      operation: addCommissionsToConversion
+      note: optional additional commissions on an existing conversion
+    - step: '4'
+      entity: Commission
+      operation: approveCommission
+      note: approval gates payout
+    - step: '5'
+      entity: Balance
+      operation: getAffiliateBalances
+      note: accrued approved commissions, per currency
+    - step: '6'
+      entity: Payment
+      operation: createPayment
+      note: settles the balance
+render: null
+render_note: No subway/ diagram exists for this provider; this is the machine-readable graph only.

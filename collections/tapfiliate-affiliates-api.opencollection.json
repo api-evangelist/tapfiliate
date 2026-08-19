@@ -1,0 +1,570 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Affiliates API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Affiliates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve an affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single affiliate by their ID."
+        },
+        {
+          "info": {
+            "name": "Delete an affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Delete an affiliate record."
+        },
+        {
+          "info": {
+            "name": "List all affiliates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by affiliate email"
+              },
+              {
+                "name": "affiliate_group_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by affiliate group"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all affiliates."
+        },
+        {
+          "info": {
+            "name": "Create an affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new affiliate."
+        },
+        {
+          "info": {
+            "name": "Set affiliate group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/group/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign an affiliate to a group."
+        },
+        {
+          "info": {
+            "name": "Remove affiliate group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/group/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Remove the group assignment from an affiliate."
+        },
+        {
+          "info": {
+            "name": "Update note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/notes/:id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Note ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing note for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Delete note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/notes/:id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Note ID"
+              }
+            ]
+          },
+          "docs": "Delete a note from an affiliate."
+        },
+        {
+          "info": {
+            "name": "List notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/notes/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "List all notes for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Create note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/notes/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new note for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data for an Affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/meta-data/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Retrieve all metadata for a given affiliate."
+        },
+        {
+          "info": {
+            "name": "Update (replace) meta data for an Affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/meta-data/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all metadata for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data by key for an Affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific metadata key for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Set meta data by key for an Affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a specific metadata key for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Delete meta data by key for an Affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Delete a specific metadata key for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Get payout method",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/payout-methods/:payout_method_id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "payout_method_id",
+                "value": "",
+                "type": "path",
+                "description": "Payout method ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific payout method for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Set payout method",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/payout-methods/:payout_method_id/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "payout_method_id",
+                "value": "",
+                "type": "path",
+                "description": "Payout method ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set or update a payout method for an affiliate."
+        },
+        {
+          "info": {
+            "name": "List payout methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/payout-methods/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "List all payout methods for an affiliate."
+        },
+        {
+          "info": {
+            "name": "Set parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:child_affiliate_id/parent/",
+            "params": [
+              {
+                "name": "child_affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Child affiliate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the parent affiliate for a child affiliate (MLM)."
+        },
+        {
+          "info": {
+            "name": "Remove parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:child_affiliate_id/parent/",
+            "params": [
+              {
+                "name": "child_affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Child affiliate ID"
+              }
+            ]
+          },
+          "docs": "Remove the parent affiliate from a child affiliate."
+        },
+        {
+          "info": {
+            "name": "Retrieve affiliate's balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/balances/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Get all currency balances for an affiliate."
+        },
+        {
+          "info": {
+            "name": "List affiliate's payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:affiliate_id/payments/",
+            "params": [
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "List all payments made to a specific affiliate."
+        },
+        {
+          "info": {
+            "name": "Get affiliations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/:id/programs/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Get all programs an affiliate is enrolled in."
+        },
+        {
+          "info": {
+            "name": "Get custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliates/custom-fields/"
+          },
+          "docs": "Retrieve custom field definitions for affiliates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,295 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Conversions API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single conversion by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing conversion record."
+        },
+        {
+          "info": {
+            "name": "Delete a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ]
+          },
+          "docs": "Delete a conversion record."
+        },
+        {
+          "info": {
+            "name": "List all conversions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/conversions/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter conversions from this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter conversions to this date (YYYY-MM-DD)"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by affiliate ID"
+              },
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by program ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all conversions."
+        },
+        {
+          "info": {
+            "name": "Create a conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/conversions/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Record a new conversion event."
+        },
+        {
+          "info": {
+            "name": "Add commissions to a conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/commissions/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add additional commission entries to an existing conversion."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data for a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/meta-data/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ]
+          },
+          "docs": "Retrieve all metadata for a given conversion."
+        },
+        {
+          "info": {
+            "name": "Update (replace) meta data for a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/meta-data/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace all metadata for a conversion."
+        },
+        {
+          "info": {
+            "name": "Retrieve meta data by key for a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific metadata key for a conversion."
+        },
+        {
+          "info": {
+            "name": "Set meta data by key for a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set a specific metadata key for a conversion."
+        },
+        {
+          "info": {
+            "name": "Delete meta data by key for a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/conversions/:conversion_id/meta-data/:key/",
+            "params": [
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion ID"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Metadata key"
+              }
+            ]
+          },
+          "docs": "Delete a specific metadata key for a conversion."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

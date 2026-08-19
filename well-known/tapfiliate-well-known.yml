@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live probe of the /.well-known/ discovery surface on every host Tapfiliate
+  names: the marketing/docs host (tapfiliate.com), the REST API host from
+  apis.yml baseURL and the OpenAPI servers[] block (api.tapfiliate.com), the
+  application host (app.tapfiliate.com), and the MCP host published in the
+  Tapfiliate MCP setup guide (mcp.tapfiliate.com). Status is the HTTP code
+  observed at fetch time.
+description: >-
+  Four real documents are served. tapfiliate.com serves an RFC 9116 security.txt.
+  mcp.tapfiliate.com serves an RFC 9728 OAuth protected-resource document and an
+  RFC 8414 authorization-server metadata document fronting the Tapfiliate MCP
+  server, and api.tapfiliate.com serves the JWKS those tokens are verified
+  against. Everything else 404s, or — on tapfiliate.com — 403s from the edge,
+  which is a refusal rather than a served document.
+hosts:
+  - host: https://tapfiliate.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/plain
+        file: tapfiliate-security.txt
+      - path: /.well-known/openid-configuration
+        status: 403
+        note: Edge returns an nginx 403 for unmapped /.well-known paths; no document served.
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        note: Edge 403, no document served.
+      - path: /.well-known/api-catalog
+        status: 403
+        note: Edge 403, no document served.
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        note: Edge 403, no document served.
+      - path: /.well-known/agent-card.json
+        status: 403
+        note: Edge 403; no A2A agent card served.
+      - path: /.well-known/agent.json
+        status: 403
+        note: Edge 403; no legacy A2A agent card served.
+  - host: https://api.tapfiliate.com
+    documents:
+      - path: /.well-known/jwks.json
+        status: 200
+        type: application/json
+        file: tapfiliate-jwks.json
+        note: >-
+          Referenced as jwks_uri by the MCP authorization-server metadata. One
+          RS256 signing key, kid "mcp-oauth-1".
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        note: >-
+          The AS metadata document declares issuer https://api.tapfiliate.com but
+          is served from mcp.tapfiliate.com, not from the issuer host.
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://mcp.tapfiliate.com
+    documents:
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        type: application/json
+        file: tapfiliate-mcp-oauth-protected-resource.json
+        note: >-
+          RFC 9728. Also served at /.well-known/oauth-protected-resource/mcp with
+          an identical body. Declares scopes affiliates, conversions_commissions,
+          programs, payments.
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        type: application/json
+        file: tapfiliate-mcp-oauth-authorization-server.json
+        note: RFC 8414. PKCE S256, dynamic client registration, authorization_code + refresh_token.
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://app.tapfiliate.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404

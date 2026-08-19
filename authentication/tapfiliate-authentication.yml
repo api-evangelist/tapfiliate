@@ -1,9 +1,22 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/tapfiliate-rest-api-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://tapfiliate.com/docs/rest/#header-authentication (REST reference),
+  https://tapfiliate.com/docs/integrations/rest-api/ (integration guide),
+  https://mcp.tapfiliate.com/.well-known/oauth-authorization-server (live probe,
+  HTTP 200), and the securitySchemes in openapi/.
+docs: https://tapfiliate.com/docs/rest/#header-authentication
+description: >-
+  Tapfiliate has two authentication surfaces that do not share a mechanism. The
+  REST API v1.6 uses a single static account API key sent as a request header —
+  no OAuth, no token exchange, no per-integration scoping, and the key can
+  approve commissions and create payments. The MCP server, announced 2026-08-07,
+  is a proper OAuth 2.0 protected resource with PKCE, dynamic client
+  registration and four declared scopes.
 summary:
   types:
   - apiKey
+  - oauth2
   api_key_in:
   - header
 schemes:
@@ -11,5 +24,55 @@ schemes:
   type: apiKey
   in: header
   parameter: X-Api-Key
+  applies_to: https://api.tapfiliate.com/1.6
+  transport: HTTPS only — plain HTTP calls fail, and unauthenticated requests fail.
+  key_management: Account settings / profile settings in the Tapfiliate dashboard.
+  rotation: No documented rotation policy, expiry or key-prefix convention.
+  scoping: >-
+    None. One account-level key carries the full surface. Tapfiliate's own docs
+    warn the key can approve commissions and must never be exposed in frontend
+    javascript or public repositories.
   sources:
-  - openapi/tapfiliate-rest-api-openapi.yml
+  - openapi/tapfiliate-affiliate-groups-api-openapi.yml
+  - openapi/tapfiliate-affiliate-prospects-api-openapi.yml
+  - openapi/tapfiliate-affiliates-api-openapi.yml
+  - openapi/tapfiliate-balances-api-openapi.yml
+  - openapi/tapfiliate-clicks-api-openapi.yml
+  - openapi/tapfiliate-commissions-api-openapi.yml
+  - openapi/tapfiliate-conversions-api-openapi.yml
+  - openapi/tapfiliate-customers-api-openapi.yml
+  - openapi/tapfiliate-payments-api-openapi.yml
+  - openapi/tapfiliate-programs-api-openapi.yml
+  - https://tapfiliate.com/docs/rest/#header-authentication
+  note: >-
+    The reference documents the header as `X-Api-Key`. The REST integration guide
+    at /docs/integrations/rest-api/ shows curl examples using a bare `Api-Key:`
+    header instead, and the trigger-webhook guide also says to set "your Api-Key
+    in the header field". Recorded as observed; `X-Api-Key` is the form both the
+    reference and the OpenAPI carry.
+- name: TapfiliateMcpOAuth
+  type: oauth2
+  applies_to: https://mcp.tapfiliate.com/mcp
+  flows:
+    authorizationCode:
+      authorizationUrl: https://app.tapfiliate.com/ai/mcp/connect/
+      tokenUrl: https://mcp.tapfiliate.com/oauth/v2/token/
+      refreshUrl: https://mcp.tapfiliate.com/oauth/v2/token/
+      scopes:
+        affiliates: Affiliates, affiliate groups and affiliate prospects
+        conversions_commissions: Clicks, customers, conversions and commissions
+        programs: Affiliate programs, commission types, MLM levels and bonuses
+        payments: Affiliate balances and payouts
+  issuer: https://api.tapfiliate.com
+  jwks_uri: https://api.tapfiliate.com/.well-known/jwks.json
+  pkce: [S256]
+  dynamic_client_registration: https://app.tapfiliate.com/oauth/v2/register/
+  bearer_methods: [header]
+  prerequisites:
+  - Admin-level Tapfiliate account permissions
+  - API/Zapier access enabled on the account
+  detail: scopes/tapfiliate-scopes.yml
+  sources:
+  - https://mcp.tapfiliate.com/.well-known/oauth-authorization-server
+  - https://mcp.tapfiliate.com/.well-known/oauth-protected-resource
+  - https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server

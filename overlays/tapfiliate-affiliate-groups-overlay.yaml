@@ -1,0 +1,67 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Tapfiliate REST Affiliate Groups API
+  version: 1.0.0
+extends: openapi/tapfiliate-affiliate-groups-api-openapi.yml
+generated: '2026-08-13'
+method: generated
+source: openapi/tapfiliate-affiliate-groups-api-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      catalog: https://apis.io/tapfiliate
+      provider: Tapfiliate
+      maintainer: Kin Lane <kin@apievangelist.com>
+      note: Tapfiliate publishes no OpenAPI. This document is API Evangelist's capture of the published
+        HTML reference at https://tapfiliate.com/docs/rest/, split one-per-tag. Every enhancement below
+        lives in this overlay, never in the captured document.
+      artifacts:
+      - apis.yml
+      - authentication/tapfiliate-authentication.yml
+      - scopes/tapfiliate-scopes.yml
+      - conventions/tapfiliate-conventions.yml
+      - errors/tapfiliate-problem-types.yml
+      - lifecycle/tapfiliate-lifecycle.yml
+      - conformance/tapfiliate-conformance.yml
+      - data-model/tapfiliate-data-model.yml
+      - asyncapi/tapfiliate-webhooks.yml
+      - mcp/tapfiliate-mcp.yml
+      - mcp/tapfiliate-tool-crosswalk.yml
+      - packages/tapfiliate-packages.yml
+      - rate-limits/tapfiliate-rate-limits.yml
+      - plans/tapfiliate-plans-pricing.yml
+      - sandbox/tapfiliate-sandbox.yml
+      - vocabulary/tapfiliate-vocabulary.yml
+      - rules/tapfiliate-jsonschema-spectral-rules.yml
+- target: $.info
+  update:
+    x-runtime-semantics:
+      authentication: X-Api-Key header, single static account key, HTTPS only
+      idempotency: NOT SUPPORTED — no idempotency key; use a stable external_id on conversions
+      pagination: ?page 1-based, 25 per page default, Link header rel=next/prev, no total count
+      error_envelope: '{"message": string} — not RFC 9457'
+      rate_limit_headers:
+      - X-Ratelimit-Limit
+      - X-Ratelimit-Remaining
+      - X-Ratelimit-Reset
+      sandbox: none — no test mode, no test keys; writes land in production
+      null_handling: NULL properties are emitted, not omitted (since V1.3)
+      detail: conventions/tapfiliate-conventions.yml
+- target: $.info
+  update:
+    x-agent-surface:
+      mcp: https://mcp.tapfiliate.com/mcp
+      mcp_auth: oauth2 (RFC 9728 protected resource) — read-only beta
+      mcp_scopes:
+      - affiliates
+      - conversions_commissions
+      - programs
+      - payments
+      crosswalk: mcp/tapfiliate-tool-crosswalk.yml
+      agent_card: null
+      llms_txt: not published by the provider; generated index at llms/tapfiliate-llms.txt
+- target: $.tags[*]
+  update:
+    x-vocabulary: vocabulary/tapfiliate-vocabulary.yml
+    x-data-model: data-model/tapfiliate-data-model.yml

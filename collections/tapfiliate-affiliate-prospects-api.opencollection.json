@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Affiliate Prospects API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Affiliate Prospects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all affiliate prospects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-prospects/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all affiliate prospects."
+        },
+        {
+          "info": {
+            "name": "Create an affiliate prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-prospects/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new affiliate prospect application."
+        },
+        {
+          "info": {
+            "name": "Retrieve an affiliate prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-prospects/:affiliate_prospect_id/",
+            "params": [
+              {
+                "name": "affiliate_prospect_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate prospect ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single affiliate prospect by ID."
+        },
+        {
+          "info": {
+            "name": "Delete an affiliate prospect",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/affiliate-prospects/:affiliate_prospect_id/",
+            "params": [
+              {
+                "name": "affiliate_prospect_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate prospect ID"
+              }
+            ]
+          },
+          "docs": "Delete an affiliate prospect record."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

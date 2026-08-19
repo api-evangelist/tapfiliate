@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Commissions API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Commissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a commission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/commissions/:commission_id/",
+            "params": [
+              {
+                "name": "commission_id",
+                "value": "",
+                "type": "path",
+                "description": "Commission ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single commission by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a commission",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/commissions/:commission_id/",
+            "params": [
+              {
+                "name": "commission_id",
+                "value": "",
+                "type": "path",
+                "description": "Commission ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing commission."
+        },
+        {
+          "info": {
+            "name": "List all commissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/commissions/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by affiliate ID"
+              },
+              {
+                "name": "approved",
+                "value": "",
+                "type": "query",
+                "description": "Filter by approval status"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all commissions."
+        },
+        {
+          "info": {
+            "name": "Approve a commission",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/commissions/:commission_id/approved/",
+            "params": [
+              {
+                "name": "commission_id",
+                "value": "",
+                "type": "path",
+                "description": "Commission ID"
+              }
+            ]
+          },
+          "docs": "Approve a pending commission."
+        },
+        {
+          "info": {
+            "name": "Disapprove a commission",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/commissions/:commission_id/approved/",
+            "params": [
+              {
+                "name": "commission_id",
+                "value": "",
+                "type": "path",
+                "description": "Commission ID"
+              }
+            ]
+          },
+          "docs": "Disapprove an approved commission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

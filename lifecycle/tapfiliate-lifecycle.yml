@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://tapfiliate.com/docs/rest/ (Version section),
+  https://tapfiliate.com/pricing/, https://status.tapfiliate.com/ (linked from
+  the site footer and the docs), https://tapfiliate.com/terms/, plus a check of
+  openapi/ for deprecated flags.
+description: >-
+  Tapfiliate versions its REST API in the URL path and is currently on V1.6.
+  Beyond the version number, the lifecycle surface is thin: no published
+  deprecation policy, no Sunset/Deprecation headers, no dated API changelog
+  reachable from the developer docs, and no numeric uptime SLA. A status page
+  exists and is linked from the footer.
+versioning:
+  scheme: path-segment major.minor
+  mechanism: The version is a path segment of the base URL.
+  current: '1.6'
+  base_url: https://api.tapfiliate.com/1.6
+  header: null
+  docs: https://tapfiliate.com/docs/rest/#header-version
+  notes: >-
+    The docs state "The current version of the API is V1.6." Older minor versions
+    are referenced in passing — the Misc section notes NULL properties have been
+    emitted "as of V1.3" — which implies earlier paths existed, but no version
+    history, migration guide or supported-version list is published.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notes: >-
+    No deprecation policy, no announced end-of-life dates, and no RFC 8594
+    Sunset/Deprecation response headers are documented anywhere in the developer
+    docs. A consumer has no published notice period.
+changelog:
+  url: null
+  published: false
+  notes: >-
+    The REST overview says "We keep our customers up to date on new changes on
+    the Tapfiliate API through our changelog" but does not link one, and no
+    changelog page exists under /docs/. The site footer's "Product Updates" link
+    points at https://blog.admitad.com/en/category/tapfiliate/, which redirects
+    to the Admitad corporate blog (Tapfiliate B.V. is part of Admitad) — a
+    marketing blog, not a dated API changelog. No changelog artifact was written
+    because there is no dated source to capture. HTTP 200 on the redirect target
+    https://www.admitad.com/blog/, checked 2026-08-13.
+sla:
+  url: https://tapfiliate.com/terms/
+  public_uptime_target: null
+  notes: >-
+    No numeric uptime commitment is published. The Enterprise tier advertises a
+    dedicated personal manager and "unlimited tracking capabilities" but no
+    availability figure.
+status_page: https://status.tapfiliate.com/
+status_page_note: >-
+  Linked from the site footer and the docs. The host answers HTTP 406 to
+  automated clients (including a browser User-Agent and an explicit Accept
+  header), so its content and any machine-readable summary endpoint could not be
+  read for this pass. Recorded as present-but-unreadable, not as absent.
+support:
+  help_center: https://support.tapfiliate.com/
+  email: support@tapfiliate.com
+  security_email: infosecurity@tapfiliate.com
+deprecated_operations: []
+deprecated_operations_note: >-
+  Zero operations in openapi/ carry deprecated:true.
+lifecycle_stage_notes:
+  - >-
+    The MCP server (mcp/tapfiliate-mcp.yml) is explicitly labelled a beta by the
+    provider and is read-only in this release; write actions are described as
+    planned for a future release.
+  - >-
+    First-party SDK releases have gone quiet — the newest first-party package in
+    any registry dates to 2022-12-14 (packages/tapfiliate-packages.yml), while
+    the platform shipped a new agent surface in 2026.

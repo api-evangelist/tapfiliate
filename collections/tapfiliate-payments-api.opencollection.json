@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Payments API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/payments/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single payment by ID."
+        },
+        {
+          "info": {
+            "name": "Cancel payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/payments/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment ID"
+              }
+            ]
+          },
+          "docs": "Cancel a pending payment."
+        },
+        {
+          "info": {
+            "name": "List all payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/payments/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by affiliate ID"
+              },
+              {
+                "name": "paid_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments from this date"
+              },
+              {
+                "name": "paid_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Filter payments to this date"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all payments."
+        },
+        {
+          "info": {
+            "name": "Create a payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/payments/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new payment batch for affiliates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

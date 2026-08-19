@@ -1,0 +1,34 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Packaged Agent Skills generated from openapi/ (77 operations, split one per
+  tag) plus the flows Tapfiliate documents at
+  https://tapfiliate.com/docs/integrations/rest-api/ and
+  https://tapfiliate.com/docs/guides/. Every operationId cited in a skill was
+  verified verbatim against openapi/; cross-cutting rules cite
+  ../conventions/, ../errors/, ../authentication/ and ../sandbox/. Tapfiliate
+  publishes no skills, AGENTS.md or llms.txt of its own — searched first, all
+  404.
+description: >-
+  Four marquee flows covering the Tapfiliate REST surface: the two attribution
+  paths (one-off conversion, recurring customer), affiliate recruitment and
+  approval, and the payout chain. Each carries the retry-safety warning the API
+  demands, because Tapfiliate ships no idempotency mechanism on an API whose
+  primary job is creating revenue and payment records.
+skills:
+  - file: tapfiliate-track-click-and-conversion.md
+    name: Track a click and a conversion over REST
+    api: openapi/tapfiliate-clicks-api-openapi.yml
+    operations: [createClick, createConversion, getConversion]
+  - file: tapfiliate-track-customer-for-recurring-commissions.md
+    name: Track a customer for recurring and lifetime commissions
+    api: openapi/tapfiliate-customers-api-openapi.yml
+    operations: [createClick, createCustomer, createConversion, getCustomer, cancelCustomer]
+  - file: tapfiliate-recruit-and-approve-affiliate.md
+    name: Recruit an affiliate and approve them for a program
+    api: openapi/tapfiliate-affiliates-api-openapi.yml
+    operations: [createAffiliate, listAffiliateGroups, setAffiliateGroup, addAffiliatToProgram, approveAffiliate, getAffiliations, getAffiliate]
+  - file: tapfiliate-approve-commissions-and-pay-affiliates.md
+    name: Approve commissions and pay affiliates
+    api: openapi/tapfiliate-payments-api-openapi.yml
+    operations: [listCommissions, getCommission, approveCommission, disapproveCommission, listAllBalances, getAffiliateBalances, listPayoutMethods, createPayment, listPayments, cancelPayment]

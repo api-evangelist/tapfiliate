@@ -1,0 +1,112 @@
+# Tapfiliate
+
+> generated: 2026-08-13
+> method: generated
+> source: apis.yml plus the artifacts in this repository. Tapfiliate does not
+> publish an llms.txt — https://tapfiliate.com/llms.txt, /docs/llms.txt and
+> https://mcp.tapfiliate.com/llms.txt all returned HTTP 404 on 2026-08-13.
+> This file is API Evangelist's generated index, not a provider artifact.
+
+Tapfiliate is an affiliate, referral, influencer and partner marketing platform
+operated by Tapfiliate B.V. (Netherlands, part of Admitad). It exposes a REST
+API at version 1.6 for creating affiliate programs, managing affiliates and
+groups, tracking clicks, customers, conversions and commissions, and settling
+affiliate payouts. In August 2026 it added an official remote MCP server for
+read-only analytics over the same data.
+
+## Base facts
+
+- REST base URL: https://api.tapfiliate.com/1.6
+- REST auth: `X-Api-Key` header, one static account key, HTTPS only. No OAuth on REST.
+- REST version: V1.6, versioned as a path segment.
+- MCP endpoint: https://mcp.tapfiliate.com/mcp — OAuth 2.0, read-only, beta.
+- MCP scopes: affiliates, conversions_commissions, programs, payments.
+- Pagination: `?page` (1-based), 25 items per page by default, `Link` header with rel next/prev.
+- Errors: `{"message": "..."}`. Not RFC 9457. Status code is the only machine signal.
+- Rate limits: signalled by `X-Ratelimit-Limit`, `X-Ratelimit-Remaining`, `X-Ratelimit-Reset`. Numeric thresholds are not published.
+- Idempotency: NOT supported. There is no idempotency key. Use a stable `external_id` on conversions.
+- Webhooks: dashboard-configured "triggers". No signature, no event ids, no retry semantics.
+- Sandbox: none. No test mode and no test keys; the browser Integration Tester explicitly excludes REST API integrations.
+
+## Documentation
+
+- [REST API reference](https://tapfiliate.com/docs/rest/)
+- [Developer docs home](https://tapfiliate.com/docs/)
+- [Integrations](https://tapfiliate.com/docs/integrations/)
+- [REST-only integration guide](https://tapfiliate.com/docs/integrations/rest-api/)
+- [npm module integration](https://tapfiliate.com/docs/integrations/npm-module/)
+- [Tapfiliate.js reference](https://tapfiliate.com/docs/javascript/)
+- [Technical guides](https://tapfiliate.com/docs/guides/)
+- [Trigger webhooks](https://tapfiliate.com/docs/guides/how-to-set-up-trigger-webhooks/)
+- [Tracking conversions using the API](https://tapfiliate.com/docs/guides/tracking-conversions-using-the-api/)
+- [Recurring / lifetime commissions via the REST API](https://tapfiliate.com/docs/guides/how-to-setup-recurring-or-lifetime-commissions-using-the-rest-api/)
+- [Caveats of the conversion API](https://tapfiliate.com/docs/guides/caveats-of-using-the-rest-conversion-api/)
+- [Migrating from referral code to click id tracking](https://tapfiliate.com/docs/guides/migrating-from-referral-code-to-click-id-based-api-tracking/)
+- [Single Sign On](https://tapfiliate.com/docs/guides/how-to-setup-single-sign-on-sso/)
+- [Help Center](https://support.tapfiliate.com/)
+- [Tapfiliate MCP setup guide](https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server)
+- [Tapfiliate MCP product page](https://tapfiliate.com/mcp/)
+
+## The attribution chain
+
+An agent integrating Tapfiliate over REST follows this order:
+
+1. `createClick` — POST /clicks/ with `referral_code` from the `?ref=` query
+   parameter on the landing page. Persist the returned click id in a cookie for
+   at least the program's `cookie_time`.
+2. `createCustomer` — POST /customers/ with the `click_id` and your own customer
+   id, for SaaS/subscription/lead-gen and for recurring or lifetime commissions.
+   Or `createConversion` — POST /conversions/ with `click_id`, a unique
+   `external_id` and `amount`, for one-off e-commerce purchases.
+3. `addCommissionsToConversion` — optional extra commissions on a conversion.
+4. `approveCommission` — approval gates payout.
+5. `getAffiliateBalances` / `listAllBalances` — accrued approved commissions.
+6. `createPayment` — settles an affiliate balance.
+
+## Resources in this repository
+
+- [apis.json / apis.yml](https://raw.githubusercontent.com/api-evangelist/tapfiliate/refs/heads/main/apis.yml)
+- OpenAPI, split one per tag: `openapi/` (77 operations across 10 tags)
+- Authentication profile: `authentication/tapfiliate-authentication.yml`
+- OAuth scopes (MCP): `scopes/tapfiliate-scopes.yml`
+- Runtime conventions: `conventions/tapfiliate-conventions.yml`
+- Error catalogue: `errors/tapfiliate-problem-types.yml`
+- Data model: `data-model/tapfiliate-data-model.yml`
+- Webhook catalogue: `asyncapi/tapfiliate-webhooks.yml`
+- MCP server profile: `mcp/tapfiliate-mcp.yml`
+- MCP-to-REST crosswalk: `mcp/tapfiliate-tool-crosswalk.yml`
+- Packages and SDKs: `packages/tapfiliate-packages.yml`
+- Plans and pricing: `plans/tapfiliate-plans-pricing.yml`
+- Rate limits: `rate-limits/tapfiliate-rate-limits.yml`
+- Lifecycle and versioning: `lifecycle/tapfiliate-lifecycle.yml`
+- Standards conformance: `conformance/tapfiliate-conformance.yml`
+- Testing surface: `sandbox/tapfiliate-sandbox.yml`
+- Discovery probes: `well-known/tapfiliate-well-known.yml`
+- Agent skills: `skills/_index.yml`
+
+## Client libraries
+
+Tapfiliate's first-party client surface is small and dated. Do not assume a
+current SDK exists for your language — check
+`packages/tapfiliate-packages.yml`, which records the registry version and
+publish date for each.
+
+- npm `@tapfiliate/tapfiliate-js` — 1.0.2, published 2021-04-22. Wraps the
+  browser tracker, not the REST API.
+- Packagist `tapfiliate/sdk-php` — 0.1.0, published 2022-12-14. The only
+  first-party REST client in any registry.
+- `Tapfiliate/php-sdk-v2` and `Tapfiliate/sdk-php-laravel` — GitHub only, never
+  published to Packagist.
+- Browser tracker `https://script.tapfiliate.com/tapfiliate.js` — unpinned, no
+  version in the URL.
+- No official Python, Ruby, Go, Java, .NET or Rust SDK.
+
+## Things an agent should not assume
+
+- There is no OpenAPI published by Tapfiliate. The specs in `openapi/` are API
+  Evangelist's capture of the published HTML reference.
+- There is no idempotency key. A retried POST can double-create.
+- There is no test mode. Anything you write lands in the production account.
+- There is no webhook signature. Do not trust an inbound payload on origin alone.
+- The MCP server cannot write. It cannot create payments or edit affiliates.
+- Rate-limit numbers are not published; read the `X-Ratelimit-*` headers.

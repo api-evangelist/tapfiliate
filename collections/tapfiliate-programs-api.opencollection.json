@@ -1,0 +1,285 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapfiliate REST Affiliate Groups Programs API",
+    "version": "1.6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Programs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a single affiliate program by its ID."
+        },
+        {
+          "info": {
+            "name": "List all programs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all affiliate programs."
+        },
+        {
+          "info": {
+            "name": "List all affiliates in program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all affiliates enrolled in a program."
+        },
+        {
+          "info": {
+            "name": "Add an affiliate to a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Enroll an affiliate in an affiliate program."
+        },
+        {
+          "info": {
+            "name": "Retrieve an affiliate in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/:affiliate_id/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific affiliate's enrollment in a program."
+        },
+        {
+          "info": {
+            "name": "Update an affiliate in a program",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/:affiliate_id/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an affiliate's enrollment details in a program."
+        },
+        {
+          "info": {
+            "name": "Approve an affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/:affiliate_id/approved/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Approve an affiliate's enrollment in a program."
+        },
+        {
+          "info": {
+            "name": "Disapprove an affiliate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/affiliates/:affiliate_id/approved/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              },
+              {
+                "name": "affiliate_id",
+                "value": "",
+                "type": "path",
+                "description": "Affiliate ID"
+              }
+            ]
+          },
+          "docs": "Disapprove an affiliate's enrollment in a program."
+        },
+        {
+          "info": {
+            "name": "List program commission types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/commission-types/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              }
+            ]
+          },
+          "docs": "List all commission types available for a program."
+        },
+        {
+          "info": {
+            "name": "List program MLM levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/levels/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              }
+            ]
+          },
+          "docs": "List multi-level marketing levels for a program."
+        },
+        {
+          "info": {
+            "name": "List program bonuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapfiliate.com/1.6/programs/:program_id/bonuses/",
+            "params": [
+              {
+                "name": "program_id",
+                "value": "",
+                "type": "path",
+                "description": "Program ID"
+              }
+            ]
+          },
+          "docs": "List all bonus tiers for a program."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

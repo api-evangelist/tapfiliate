@@ -1,0 +1,200 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived by aligning the capability list Tapfiliate publishes for its MCP server
+  (mcp/tapfiliate-mcp.yml, from
+  https://support.tapfiliate.com/en/articles/16011230-how-to-use-your-new-affiliate-analyst-the-tapfiliate-mcp-server
+  and https://tapfiliate.com/mcp/) with the REST operations in openapi/ (77
+  operations, split one-per-tag; source at
+  openapi/_original/tapfiliate-rest-api-openapi.yml) and with the OAuth scopes
+  the MCP protected-resource document declares.
+purpose: >-
+  Bind each agent-facing MCP capability to the REST operationId(s) that can back
+  it, so the MCP surface is inspectable the way an OpenAPI operation is. This
+  crosswalk also measures the gap: the MCP server is a READ-ONLY ANALYTICS
+  projection over roughly a third of the REST surface, and the REST API's entire
+  write half — creating clicks, conversions, customers, affiliates, payments —
+  has no agent surface at all.
+confidence_note: >-
+  Every row is confidence medium or low BY CONSTRUCTION. Tapfiliate publishes no
+  MCP tool names and the live tools/list is OAuth-gated (HTTP 401), so the
+  left-hand column holds provider-described CAPABILITIES, not verified tool
+  identifiers, and the binding is semantic rather than observed. No row should be
+  read as a confirmed tool-to-operation mapping. Nothing here is invented: every
+  capability text is the provider's, every operationId is verbatim from openapi/.
+surfaces:
+  openapi: openapi/
+  openapi_source: openapi/_original/tapfiliate-rest-api-openapi.yml
+  openapi_operations: 77
+  rest_base: https://api.tapfiliate.com/1.6
+  rest_auth: X-Api-Key header (see authentication/tapfiliate-authentication.yml)
+  mcp: https://mcp.tapfiliate.com/mcp
+  mcp_auth: OAuth 2.0 (RFC 9728 protected resource) — tools/list gated, 401 on anonymous POST
+  graphql: null
+  asyncapi: null
+oauth_scope_map:
+  description: >-
+    The four scopes the MCP protected-resource document declares, mapped to the
+    OpenAPI tags they cover. Scope names are verbatim from
+    well-known/tapfiliate-mcp-oauth-protected-resource.json.
+  scopes:
+    - scope: affiliates
+      openapi_tags: [Affiliates, Affiliate Groups, Affiliate Prospects]
+    - scope: conversions_commissions
+      openapi_tags: [Conversions, Commissions, Clicks, Customers]
+    - scope: programs
+      openapi_tags: [Programs]
+    - scope: payments
+      openapi_tags: [Payments, Balances]
+crosswalk:
+  - tool: affiliates-clicks-no-conversions
+    category: analytics
+    rest: [listAffiliates, listClicks, listConversions]
+    binding: composite
+    confidence: medium
+    note: >-
+      No single REST operation answers this. It requires joining clicks and
+      conversions per affiliate over a window; the REST surface exposes the
+      inputs, not the aggregate.
+  - tool: top-affiliates-by-performance
+    category: analytics
+    rest: [listAffiliates, listConversions, listCommissions]
+    binding: composite
+    confidence: medium
+    note: >-
+      Provider states ranking is by revenue and conversions driven, which maps to
+      aggregating Conversion.amount and Commission.amount by affiliate.
+  - tool: lapsed-affiliates
+    category: analytics
+    rest: [listAffiliates, listConversions]
+    binding: composite
+    confidence: medium
+  - tool: conversion-rate-outliers
+    category: analytics
+    rest: [listClicks, listConversions, listAffiliates]
+    binding: composite
+    confidence: medium
+  - tool: commission-plan-effectiveness
+    category: analytics
+    rest: [listProgramCommissionTypes, listCommissions, listConversions]
+    binding: composite
+    confidence: medium
+    note: listProgramCommissionTypes returns the CommissionType definitions the comparison groups by.
+  - tool: program-summary
+    category: analytics
+    rest: [listPrograms, getProgram, listAffiliates, listConversions, listCommissions, listAllBalances]
+    binding: composite
+    confidence: low
+    note: Breadth of the summary is provider-defined; the operation set is inferred from the metrics named.
+  - tool: inactive-new-affiliates
+    category: analytics
+    rest: [listAffiliates, listProgramAffiliates, listClicks, listConversions]
+    binding: composite
+    confidence: medium
+  - tool: program-trend
+    category: analytics
+    rest: [listConversions, listCommissions, listClicks]
+    binding: composite
+    confidence: low
+    note: Time-series bucketing is server-side; the REST list endpoints are page-based with no documented aggregation.
+  - tool: suspicious-activity-review
+    category: analytics
+    rest: [listClicks, listConversions, listAffiliates]
+    binding: composite
+    confidence: low
+  - tool: single-affiliate-profile
+    category: lookup
+    rest: [getAffiliate, getAffiliations, getAffiliateBalances, listAffiliatePayments, listConversions, listCommissions]
+    binding: rest
+    confidence: medium
+    note: >-
+      Closest to a direct binding in the set — getAffiliate plus the per-affiliate
+      sub-resources return most of the named fields (join date, plan, revenue,
+      trend still requires aggregation).
+mcp_only: []
+mcp_only_note: >-
+  None identified. Every published MCP capability is an aggregate over data the
+  REST API already exposes; nothing in the documented set reaches data with no
+  REST counterpart. The aggregation itself is server-side and has no REST
+  equivalent, which is why most rows above are `composite` rather than `rest`.
+rest_only:
+  description: >-
+    REST operations with no agent surface. The MCP server is explicitly read-only
+    in this release, so all 38 write operations are unreachable by an agent, as
+    are the read operations covering meta-data, notes, payout methods, custom
+    fields and MLM structure.
+  writes:
+    - createClick
+    - createConversion
+    - addCommissionsToConversion
+    - createCustomer
+    - updateCustomer
+    - deleteCustomer
+    - cancelCustomer
+    - updateConversion
+    - deleteConversion
+    - updateCommission
+    - approveCommission
+    - disapproveCommission
+    - createAffiliate
+    - deleteAffiliate
+    - setAffiliateGroup
+    - removeAffiliateGroup
+    - createAffiliateNote
+    - updateAffiliateNote
+    - deleteAffiliateNote
+    - setPayoutMethod
+    - setAffiliateParent
+    - removeAffiliateParent
+    - createAffiliateGroup
+    - updateAffiliateGroup
+    - createAffiliateProspect
+    - deleteAffiliateProspect
+    - addAffiliatToProgram
+    - updateProgramAffiliate
+    - approveAffiliate
+    - disapproveAffiliate
+    - createPayment
+    - cancelPayment
+    - replaceCustomerMetaData
+    - setCustomerMetaDataByKey
+    - deleteCustomerMetaDataByKey
+    - replaceConversionMetaData
+    - setConversionMetaDataByKey
+    - deleteConversionMetaDataByKey
+    - replaceAffiliateMetaData
+    - setAffiliateMetaDataByKey
+    - deleteAffiliateMetaDataByKey
+  reads_without_capability:
+    - getCustomer
+    - listCustomers
+    - getCustomerMetaData
+    - getCustomerMetaDataByKey
+    - getConversion
+    - getConversionMetaData
+    - getConversionMetaDataByKey
+    - getCommission
+    - getClick
+    - listAffiliateNotes
+    - getAffiliateMetaData
+    - getAffiliateMetaDataByKey
+    - getPayoutMethod
+    - listPayoutMethods
+    - getCustomFields
+    - listAffiliateGroups
+    - listAffiliateProspects
+    - getAffiliateProspect
+    - getProgramAffiliate
+    - listProgramMLMLevels
+    - listProgramBonuses
+    - getPayment
+    - listPayments
+coverage:
+  mcp_capabilities: 10
+  rest_operations: 77
+  rest_operations_referenced: 15
+  rest_operations_unreferenced: 62
+  bindings_high_confidence: 0
+  bindings_medium_confidence: 6
+  bindings_low_confidence: 4
+  mcp_only: 0

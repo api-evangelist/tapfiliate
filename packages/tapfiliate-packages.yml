@@ -1,0 +1,143 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://github.com/Tapfiliate (org repo listing via api.github.com),
+  https://tapfiliate.com/docs/integrations/npm-module/,
+  https://tapfiliate.com/docs/javascript/, and the public package registries
+  (registry.npmjs.org, packagist.org). Version and published date read from the
+  registry metadata endpoint at fetch time. Tapfiliate publishes no central
+  "SDKs" page; the first-party client surface is the GitHub org plus the npm
+  and Packagist entries below.
+description: >-
+  First-party Tapfiliate client libraries, plugins and distributions. Tapfiliate
+  ships a small client surface: one npm wrapper for the browser tracking
+  library, one PHP SDK on Packagist, and a handful of e-commerce plugins
+  distributed only as GitHub repositories. The registry-dated evidence shows a
+  decay signal: the newest first-party release in any package registry is
+  2022-12-14, four years before the API version (V1.6) and the MCP server they
+  currently ship.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@tapfiliate/tapfiliate-js"
+    url: https://www.npmjs.com/package/@tapfiliate/tapfiliate-js
+    source: https://github.com/Tapfiliate/tapfiliate-js
+    install: npm install @tapfiliate/tapfiliate-js
+    docs: https://tapfiliate.com/docs/integrations/npm-module/
+    official: true
+    version: 1.0.2
+    published: '2021-04-22'
+    note: >-
+      Frontend wrapper around the Tapfiliate javascript tracking library
+      (Tap.init / Tap.conversion / Tap.customer). Wraps the browser tracker, not
+      the REST API. Last published 2021-04-22.
+  - language: php
+    registry: packagist
+    name: tapfiliate/sdk-php
+    url: https://packagist.org/packages/tapfiliate/sdk-php
+    source: https://github.com/Tapfiliate/sdk-php
+    install: composer require tapfiliate/sdk-php
+    official: true
+    version: 0.1.0
+    published: '2022-12-14'
+    note: >-
+      Only first-party REST client published to a package registry. Still at a
+      0.x release; last published 2022-12-14.
+  - language: php
+    registry: github
+    name: Tapfiliate/php-sdk-v2
+    url: https://github.com/Tapfiliate/php-sdk-v2
+    source: https://github.com/Tapfiliate/php-sdk-v2
+    official: true
+    version: null
+    published: null
+    note: >-
+      Second-generation PHP SDK. Checked packagist.org/packages/tapfiliate/php-sdk-v2
+      (404) — not published to any registry, so there is no version or release
+      date to record; installable only from the git repository. Last push to the
+      default branch was 2024-06-04.
+  - language: php
+    registry: github
+    name: Tapfiliate/sdk-php-laravel
+    url: https://github.com/Tapfiliate/sdk-php-laravel
+    source: https://github.com/Tapfiliate/sdk-php-laravel
+    official: true
+    version: null
+    published: null
+    note: >-
+      Laravel binding for the PHP SDK. Checked
+      packagist.org/packages/tapfiliate/sdk-php-laravel (404) — not published to
+      a registry. Last push 2022-12-01.
+  - language: javascript
+    registry: cdn
+    name: tapfiliate.js
+    url: https://script.tapfiliate.com/tapfiliate.js
+    source: https://tapfiliate.com/docs/javascript/
+    install: '<script src="https://script.tapfiliate.com/tapfiliate.js"></script>'
+    official: true
+    version: null
+    published: null
+    note: >-
+      The browser tracking library, served from the provider CDN. The documented
+      URL carries no version segment and floats to whatever is current, so a
+      consumer cannot pin or identify the build they are running; there is no
+      CDN metadata endpoint to query either. Recorded as null deliberately.
+  - language: php
+    registry: github
+    name: Tapfiliate/tapfiliate-wordpress
+    url: https://github.com/Tapfiliate/tapfiliate-wordpress
+    source: https://github.com/Tapfiliate/tapfiliate-wordpress
+    docs: https://tapfiliate.com/docs/integrations/wordpress/
+    official: true
+    version: null
+    published: null
+    note: >-
+      First-party WordPress plugin. Distributed from the GitHub repo; no
+      Packagist entry. Last push 2022-01-26.
+  - language: php
+    registry: github
+    name: Tapfiliate/tapfiliate-prestashop
+    url: https://github.com/Tapfiliate/tapfiliate-prestashop
+    source: https://github.com/Tapfiliate/tapfiliate-prestashop
+    docs: https://tapfiliate.com/docs/integrations/prestashop/
+    official: true
+    version: null
+    published: null
+    note: >-
+      First-party PrestaShop module. Distributed from the GitHub repo; no
+      Packagist entry. Last push 2022-04-13.
+third_party_observed:
+  - registry: packagist
+    name: 1ff/tapfiliate-php-sdk
+    url: https://packagist.org/packages/1ff/tapfiliate-php-sdk
+    official: false
+  - registry: packagist
+    name: gentor/tapfiliate
+    url: https://packagist.org/packages/gentor/tapfiliate
+    official: false
+    note: Laravel wrapper for the Tapfiliate REST API, community maintained.
+  - registry: packagist
+    name: llbbl/tapfiliate-php
+    url: https://packagist.org/packages/llbbl/tapfiliate-php
+    official: false
+  - registry: npm
+    name: tapfiliate
+    url: https://www.npmjs.com/package/tapfiliate
+    official: false
+    note: >-
+      Community package (repository github.com/Gabcot/tapfiliate), NOT published
+      by Tapfiliate. Recorded so it is not mistaken for the official npm module,
+      which is the scoped @tapfiliate/tapfiliate-js.
+registries_checked:
+  - {registry: npm, status: 200, result: '@tapfiliate/tapfiliate-js found'}
+  - {registry: packagist, status: 200, result: 'tapfiliate/sdk-php found'}
+  - {registry: pypi, status: 404, result: no tapfiliate package}
+  - {registry: rubygems, status: 404, result: no tapfiliate gem}
+  - {registry: crates.io, status: 403, result: 'registry refused the automated request; no crate expected'}
+languages_without_official_sdk:
+  - python
+  - ruby
+  - go
+  - java
+  - dotnet
+  - rust

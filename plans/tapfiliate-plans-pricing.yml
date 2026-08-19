@@ -1,8 +1,24 @@
 specificationVersion: "0.1"
+generated: '2026-08-13'
+method: searched
+source: https://tapfiliate.com/pricing/
 id: tapfiliate-plans-pricing
 name: Tapfiliate Plans and Pricing
 description: Pricing plans for Tapfiliate affiliate tracking and management platform. All plans include REST API access. No percentage is taken from sales — flat monthly subscription only.
 url: https://tapfiliate.com/pricing/
+plan_count: 3
+notes:
+  - >-
+    Every published tier includes REST API access, so the API is not gated behind
+    an upsell. What the tier gates is VOLUME — monthly click and conversion caps —
+    plus affiliate and team-member counts.
+  - >-
+    The Enterprise tier is contact-for-pricing; its "Detailed API click report"
+    and "Unlimited tracking capabilities" are the only API-adjacent features
+    reserved to a tier.
+  - >-
+    No usage-based or metered API pricing is published, and no overage rate is
+    stated for exceeding a tier's click or conversion cap.
 plans:
   - name: Launch
     description: Entry-level plan for small businesses launching their first affiliate program. Includes REST API integration and 30+ pre-built integrations.

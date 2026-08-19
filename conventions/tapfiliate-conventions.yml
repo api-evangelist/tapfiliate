@@ -1,0 +1,147 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://tapfiliate.com/docs/rest/ — the overview, Version, Authentication,
+  Pagination, Link Header, Rate Limiting and Misc sections that apply to every
+  operation — cross-checked against the parameters and response shapes in
+  openapi/.
+description: >-
+  How the Tapfiliate REST API behaves across every operation: authentication
+  style, versioning, pagination, error envelope, rate-limit signalling, metadata
+  and null handling. This is the runtime-semantics layer OpenAPI does not fully
+  express. Two absences are load-bearing and recorded as such: there is NO
+  idempotency mechanism and NO request-id / correlation header, on an API whose
+  documented primary use is creating conversions and commissions.
+
+base_url: https://api.tapfiliate.com/1.6
+api_style: REST over HTTPS, JSON request and response bodies
+docs: https://tapfiliate.com/docs/rest/
+
+authentication:
+  scheme: apiKey
+  header: X-Api-Key
+  transport: HTTPS required — plain HTTP calls fail
+  cors: >-
+    Cross-origin resource sharing is supported, but the docs warn the secret key
+    must never be used in client-side code.
+  detail: authentication/tapfiliate-authentication.yml
+
+idempotency:
+  supported: false
+  mechanism: null
+  evidence: >-
+    No idempotency key, header or parameter appears anywhere in
+    https://tapfiliate.com/docs/rest/ or in openapi/. Searched the full rendered
+    reference for "idempot" — zero occurrences.
+  consequence: >-
+    Retrying a failed POST /conversions/ or POST /payments/ is not safe at the
+    protocol level. The only guard Tapfiliate documents is application-level:
+    the caller supplies an `external_id` on a conversion that "has to be unique
+    for each conversion", so uniqueness is enforced on a business key rather
+    than a request key. There is no such guard on POST /payments/ or
+    POST /clicks/.
+  workaround:
+    - >-
+      Generate a stable `external_id` per order before the first attempt and
+      reuse it on every retry of createConversion.
+    - >-
+      Before retrying createPayment, call listPayments / listAffiliatePayments to
+      check whether the first attempt landed.
+
+pagination:
+  style: page-number
+  request_params:
+    page: 1-based page number; omitting it returns the first page
+    limit: page size parameter present in openapi/ (components.parameters.limit)
+  default_page_size: 25
+  response_fields: null
+  response_header: Link
+  link_header_relations: [next, prev]
+  link_header_example: 'Link: <https://api.tapfiliate.com/1.6/conversions/?page=2>; rel="next"'
+  note: >-
+    Pagination metadata is carried in the Link header only — there is no
+    envelope, no total count and no has_more field in the body. A client cannot
+    know how many pages exist without walking them.
+  docs: https://tapfiliate.com/docs/rest/#header-pagination
+
+field_expansion:
+  supported: false
+  note: >-
+    No expand/fields/include parameter is documented. Related objects are
+    returned inline as nested objects (Conversion embeds affiliate and
+    commissions; Customer embeds click) with no way to opt out or opt in.
+
+sparse_fieldsets:
+  supported: false
+
+metadata:
+  supported: true
+  mechanism: >-
+    A `meta_data` object of arbitrary key/value pairs on Affiliates, Affiliate
+    Prospects, Customers and Conversions, with dedicated sub-resources for
+    whole-collection replace and per-key get/set/delete.
+  operations:
+    affiliates: [getAffiliateMetaData, replaceAffiliateMetaData, getAffiliateMetaDataByKey, setAffiliateMetaDataByKey, deleteAffiliateMetaDataByKey]
+    conversions: [getConversionMetaData, replaceConversionMetaData, getConversionMetaDataByKey, setConversionMetaDataByKey, deleteConversionMetaDataByKey]
+    customers: [getCustomerMetaData, replaceCustomerMetaData, getCustomerMetaDataByKey, setCustomerMetaDataByKey, deleteCustomerMetaDataByKey]
+  docs: https://tapfiliate.com/docs/guides/adding-metadata-to-conversions/
+
+request_tracing:
+  supported: false
+  note: >-
+    No request-id, correlation-id or trace header is documented on requests or
+    responses. There is nothing to quote back to support when a call misbehaves.
+
+versioning:
+  scheme: path-segment major.minor
+  current: '1.6'
+  mechanism: The version is a path segment — https://api.tapfiliate.com/1.6/...
+  header: null
+  detail: lifecycle/tapfiliate-lifecycle.yml
+  docs: https://tapfiliate.com/docs/rest/#header-version
+
+error_envelope:
+  media_type: application/json
+  shape: '{ "message": string }'
+  rfc9457: false
+  note: >-
+    A single human-readable `message` string. No machine-readable code, no field
+    pointer, no type URI. Status codes carry all the machine semantics. See
+    errors/tapfiliate-problem-types.yml.
+
+rate_limits:
+  signalling: response headers
+  headers:
+    - X-Ratelimit-Limit
+    - X-Ratelimit-Remaining
+    - X-Ratelimit-Reset
+  published_thresholds: false
+  detail: rate-limits/tapfiliate-rate-limits.yml
+  docs: https://tapfiliate.com/docs/rest/#header-rate-limiting
+
+null_handling:
+  behaviour: NULL properties are emitted in responses rather than omitted.
+  since: V1.3
+  source: https://tapfiliate.com/docs/rest/ — "Misc" section, "Note that we do output NULL properties as of V1.3"
+
+webhooks:
+  supported: true
+  mechanism: >-
+    Dashboard-configured "trigger" webhooks. Two modes — a default webhook whose
+    body matches the API doc example format, and a custom webhook where the
+    caller composes headers and a merge-tag body. Outbound authentication is the
+    caller's own Api-Key placed in a header field.
+  signing: null
+  note: >-
+    No payload signature, timestamp or replay protection is documented. A
+    receiver cannot verify a delivery came from Tapfiliate other than by a shared
+    secret it sets itself in the custom-webhook header field.
+  detail: asyncapi/tapfiliate-webhooks.yml
+
+cross_links:
+  authentication: authentication/tapfiliate-authentication.yml
+  errors: errors/tapfiliate-problem-types.yml
+  lifecycle: lifecycle/tapfiliate-lifecycle.yml
+  rate_limits: rate-limits/tapfiliate-rate-limits.yml
+  data_model: data-model/tapfiliate-data-model.yml
+  sandbox: sandbox/tapfiliate-sandbox.yml

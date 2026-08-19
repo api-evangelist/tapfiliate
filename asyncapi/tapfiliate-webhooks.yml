@@ -1,0 +1,129 @@
+generated: '2026-08-13'
+method: searched
+source: https://tapfiliate.com/docs/guides/how-to-set-up-trigger-webhooks/
+description: >-
+  Tapfiliate publishes NO AsyncAPI document — probed the docs host and the API
+  host, nothing served. It does publish an event surface: dashboard-configured
+  "trigger" webhooks that fire on platform events, with optional per-event
+  filters. This is the webhook catalogue captured verbatim from the provider's
+  guide. Event names below are the provider's own labels; Tapfiliate does not
+  publish machine-readable event type identifiers, payload schemas or a
+  signature scheme, so none are invented here.
+asyncapi_published: false
+asyncapi_probe:
+  - {url: 'https://tapfiliate.com/asyncapi.yaml', status: 404}
+  - {url: 'https://api.tapfiliate.com/openapi.json', status: 404}
+delivery:
+  transport: HTTPS POST to a caller-supplied URL
+  configuration: Dashboard — Triggers tab, "New trigger"
+  modes:
+    - name: Webhook
+      description: >-
+        Sends a webhook to a specific URL "using the same format documented in
+        our API doc examples" — i.e. the resource JSON shapes in openapi/.
+    - name: Webhook (custom)
+      description: >-
+        Caller composes the body from merge tags and sets request headers,
+        including their own Api-Key, for a custom downstream format.
+  filters:
+    supported: true
+    description: >-
+      Optional per-event conditions so a webhook fires only when the conditions
+      are met. Available filters vary by event and are surfaced in the dashboard
+      ("Add Filter"). One documented filter is `initiator`, used to distinguish
+      who caused an event.
+  authentication_outbound: >-
+    Custom mode only — the caller sets an Api-Key header value themselves. There
+    is no Tapfiliate-issued secret.
+  signing:
+    supported: false
+    note: >-
+      No payload signature, timestamp header or replay protection is documented.
+      A receiver cannot cryptographically verify a delivery originated with
+      Tapfiliate.
+  retries: null
+  retries_note: No retry, backoff or dead-letter behaviour is documented.
+  ordering: null
+  event_ids: null
+  event_ids_note: >-
+    No event id or delivery id is documented, so a receiver has nothing to
+    deduplicate on.
+events:
+  note: >-
+    The provider's guide introduces this list with "some of them are", so it is
+    explicitly PARTIAL — the authoritative list is the dashboard trigger picker,
+    which is behind a login. Recorded as published.
+  complete: false
+  catalog:
+    - name: Affiliate created
+      entity: Affiliate
+      description: >-
+        An individual who was previously not an affiliate signs up, or is
+        manually added. The `initiator` filter distinguishes who caused it.
+      related_operations: [createAffiliate]
+    - name: Affiliate added to program
+      entity: Affiliation
+      description: An affiliate applies to, or is manually added to, a program. Supports the initiator filter.
+      related_operations: [addAffiliatToProgram]
+    - name: Affiliate approved for program
+      entity: Affiliation
+      description: An affiliate is automatically approved, or manually added, to a program.
+      related_operations: [approveAffiliate]
+    - name: Affiliate disapproved for program
+      entity: Affiliation
+      description: An affiliate is disapproved for a program.
+      related_operations: [disapproveAffiliate]
+    - name: Affiliate prospect created
+      entity: AffiliateProspect
+      description: A prospect is created by an affiliate recruitment source.
+      related_operations: [createAffiliateProspect]
+    - name: Affiliate prospect promoted
+      entity: AffiliateProspect
+      description: A prospect becomes an affiliate.
+      related_operations: []
+    - name: Affiliate added to group
+      entity: AffiliateGroup
+      description: An affiliate is added to an affiliate group.
+      related_operations: [setAffiliateGroup]
+    - name: Conversion created
+      entity: Conversion
+      description: A conversion is created.
+      related_operations: [createConversion]
+    - name: Commission created
+      entity: Commission
+      description: >-
+        A commission is created — from a conversion, an automatic recurring
+        commission, an MLM commission, or one added through the API.
+      related_operations: [createConversion, addCommissionsToConversion]
+    - name: Commission updated
+      entity: Commission
+      description: A commission is approved, disapproved or edited.
+      related_operations: [updateCommission, approveCommission, disapproveCommission]
+    - name: Payment created
+      entity: Payment
+      description: An affiliate's balance is settled in Tapfiliate.
+      related_operations: [createPayment]
+    - name: Customer created
+      entity: Customer
+      description: A customer is created.
+      related_operations: [createCustomer]
+    - name: Customer updated
+      entity: Customer
+      description: >-
+        Documented by the provider as "This event is triggered when a customer is
+        created." — an apparent copy/paste in the source guide. Recorded verbatim
+        rather than corrected.
+      related_operations: [updateCustomer, cancelCustomer]
+other_event_surfaces:
+  - name: S2S / Postback
+    url: https://tapfiliate.com/docs/integrations/s2s-postback/
+    description: Server-to-server postback tracking, an inbound tracking mechanism rather than an outbound event feed.
+  - name: Trigger emails
+    url: https://tapfiliate.com/docs/guides/how-to-set-up-email-triggers/
+    description: The same trigger engine dispatching email instead of a webhook.
+gaps:
+  - No AsyncAPI document.
+  - No payload schemas per event type.
+  - No machine-readable event type identifiers.
+  - No signature, event id or retry semantics.
+  - The published event list is explicitly partial; the full list is behind the dashboard login.
