@@ -1,0 +1,49 @@
+slug: tapfiliate
+provider: Tapfiliate
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Programs
+  spec_file: tapfiliate-programs-api-openapi.yml
+  capability_id: BC-410.60
+  capability_id_l1: BC-410
+  capability_name: Channel Sales Management
+  confidence: 0.8
+  evidence: POST /programs/{program_id}/affiliates/ addAffiliatToProgram "Add an affiliate to a program";
+    "Approve an affiliate"; "List program commission types"
+  reason: The operations manage affiliate programmes, affiliate enrolment/approval and commission structures
+    — i.e. management of an indirect (affiliate) sales channel and its partners, which maps to Channel
+    Sales Management. Not customer loyalty and not payments, since the surface is programme/affiliate
+    membership and commission-type configuration.
+- tag: Affiliates
+  spec_file: tapfiliate-affiliates-api-openapi.yml
+  capability_id: BC-410.60
+  capability_id_l1: BC-410
+  capability_name: Channel Sales Management
+  confidence: 0.78
+  evidence: '"createAffiliate Create an affiliate", "setAffiliateGroup Set affiliate group", schemas "Affiliation",
+    "PayoutMethod", "Balance"'
+  reason: Core CRUD over affiliate partner records including group assignment, notes, payout method and
+    balances — lifecycle management of an indirect/referral sales channel. Clear channel sales fit; some
+    ambiguity remains against partner programme framings.
+- tag: Commissions
+  spec_file: tapfiliate-commissions-api-openapi.yml
+  capability_id: BC-410
+  capability_id_l1: BC-410
+  capability_name: Sales Management
+  confidence: 0.7
+  evidence: '"approveCommission Approve a commission", "disapproveCommission Disapprove a commission",
+    schema "CommissionType"'
+  reason: Operations rate and approve commissions earned by affiliate partners on tracked sales — partner
+    compensation within the sales function. L2 left null because the evidence sits between Channel Sales
+    Management and Sales Performance Management (compensation plans).

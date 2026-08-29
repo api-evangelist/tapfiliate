@@ -224,6 +224,9 @@ apis:
   - type: WellKnown
     url: well-known/tapfiliate-well-known.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/tapfiliate-capability-edges.yml
+    name: Tapfiliate Business Capability Map
   - type: AgenticAccess
     url: agentic-access/tapfiliate-agentic-access.yml
   - type: VulnerabilityDisclosure
