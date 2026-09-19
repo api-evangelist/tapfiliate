@@ -143,6 +143,8 @@ apis:
   humanURL: https://tapfiliate.com/docs/rest/
   baseURL: https://api.tapfiliate.com/1.6/
   tags:
+  - Conversion
+  tags_raw:
   - Conversions
   properties:
   - type: OpenAPI
