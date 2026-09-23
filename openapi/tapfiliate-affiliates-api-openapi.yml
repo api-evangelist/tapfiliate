@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Tapfiliate REST Affiliate Groups Affiliates API
+  title: Tapfiliate REST Affiliates API
   description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
   version: '1.6'
   contact:
@@ -643,39 +643,24 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-    affiliateId:
-      name: affiliate_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Affiliate ID
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
-    metaDataKey:
-      name: key
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Metadata key
   schemas:
+    Balance:
+      type: object
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Note:
       type: object
       properties:
@@ -703,7 +688,6 @@ components:
           type: string
           format: date-time
         group:
-          nullable: true
           allOf:
           - $ref: '#/components/schemas/AffiliateGroup'
         meta_data:
@@ -713,19 +697,12 @@ components:
           type: string
           format: uri
         coupon:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         parent:
-          nullable: true
           allOf:
           - $ref: '#/components/schemas/AffiliateRef'
-    AffiliateGroup:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
     Affiliation:
       type: object
       description: An affiliate's enrollment in a program
@@ -742,48 +719,15 @@ components:
         approved:
           type: boolean
         coupon:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         referral_link:
           type: string
           format: uri
         created_at:
           type: string
           format: date-time
-    PayoutMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          description: Payout method type (e.g. paypal, wire)
-        details:
-          type: object
-          additionalProperties: true
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    Balance:
-      type: object
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        balance:
-          type: number
-          format: float
     Payment:
       type: object
       properties:
@@ -798,21 +742,23 @@ components:
           type: string
           description: ISO 4217 currency code
         paid_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         status:
           type: string
           enum:
           - pending
           - paid
           - cancelled
-    Error:
+    AffiliateGroup:
       type: object
       properties:
-        message:
+        id:
           type: string
-          description: Human-readable error message
+        name:
+          type: string
     CustomField:
       type: object
       properties:
@@ -824,9 +770,70 @@ components:
           type: string
         required:
           type: boolean
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    PayoutMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Payout method type (e.g. paypal, wire)
+        details:
+          type: object
+          additionalProperties: true
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    affiliateId:
+      name: affiliate_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Affiliate ID
+    metaDataKey:
+      name: key
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Metadata key
   responses:
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
       content:
         application/json:
           schema:
@@ -837,18 +844,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

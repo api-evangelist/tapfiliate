@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Tapfiliate REST Affiliate Groups Programs API
+  title: Tapfiliate REST Programs API
   description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
   version: '1.6'
   contact:
@@ -303,6 +303,59 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    Affiliation:
+      type: object
+      description: An affiliate's enrollment in a program
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type:
+          - string
+          - 'null'
+        referral_link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+        amount:
+          type:
+          - number
+          - 'null'
+          format: float
     Program:
       type: object
       properties:
@@ -323,50 +376,6 @@ components:
           type: boolean
         recurring_commissions:
           type: boolean
-    CommissionType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - percentage
-          - fixed
-        percentage:
-          type: number
-          format: float
-          nullable: true
-        amount:
-          type: number
-          format: float
-          nullable: true
-    Affiliation:
-      type: object
-      description: An affiliate's enrollment in a program
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        program:
-          type: object
-          properties:
-            id:
-              type: string
-            title:
-              type: string
-        approved:
-          type: boolean
-        coupon:
-          type: string
-          nullable: true
-        referral_link:
-          type: string
-          format: uri
-        created_at:
-          type: string
-          format: date-time
     AffiliateRef:
       type: object
       properties:
@@ -379,31 +388,12 @@ components:
           type: string
         lastname:
           type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-  responses:
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   parameters:
     page:
       name: page
@@ -413,6 +403,15 @@ components:
         default: 1
         minimum: 1
       description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
     affiliateId:
       name: affiliate_id
       in: path
@@ -427,21 +426,25 @@ components:
       schema:
         type: string
       description: Program ID
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  responses:
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

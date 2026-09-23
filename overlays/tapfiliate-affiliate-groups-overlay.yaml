@@ -3,9 +3,9 @@ info:
   title: API Evangelist enhancements for Tapfiliate REST Affiliate Groups API
   version: 1.0.0
 extends: openapi/tapfiliate-affiliate-groups-api-openapi.yml
-generated: '2026-08-13'
-method: generated
-source: openapi/tapfiliate-affiliate-groups-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/tapfiliate-affiliate-groups-api-openapi.yml
 actions:
 - target: $.info
   update:

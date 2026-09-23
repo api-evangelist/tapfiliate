@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Tapfiliate REST Affiliate Groups Conversions API
+  title: Tapfiliate REST Conversions API
   description: Tapfiliate is an affiliate tracking and management platform. This REST API allows you to create and manage affiliate programs, track conversions, manage affiliates, handle commission payouts, and record clicks. The API is versioned at V1.6 and uses API key authentication via the X-Api-Key header.
   version: '1.6'
   contact:
@@ -328,26 +328,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    CommissionType:
+    Error:
       type: object
       properties:
-        id:
+        message:
           type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - percentage
-          - fixed
-        percentage:
-          type: number
-          format: float
-          nullable: true
-        amount:
-          type: number
-          format: float
-          nullable: true
+          description: Human-readable error message
     Commission:
       type: object
       properties:
@@ -371,6 +357,40 @@ components:
         created_at:
           type: string
           format: date-time
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+        amount:
+          type:
+          - number
+          - 'null'
+          format: float
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
     Conversion:
       type: object
       properties:
@@ -399,43 +419,12 @@ components:
         meta_data:
           type: object
           additionalProperties: true
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-  responses:
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   parameters:
     page:
       name: page
@@ -445,13 +434,6 @@ components:
         default: 1
         minimum: 1
       description: Page number for pagination
-    conversionId:
-      name: conversion_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Conversion ID
     limit:
       name: limit
       in: query
@@ -468,12 +450,32 @@ components:
       schema:
         type: string
       description: Metadata key
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+    conversionId:
+      name: conversion_id
+      in: path
+      required: true
       schema:
         type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+      description: Conversion ID
+  responses:
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -1,16 +1,7 @@
 {
   "provider": "tapfiliate",
   "sources": [
-    "tapfiliate-affiliate-groups-api-openapi.yml",
-    "tapfiliate-affiliate-prospects-api-openapi.yml",
-    "tapfiliate-affiliates-api-openapi.yml",
-    "tapfiliate-balances-api-openapi.yml",
-    "tapfiliate-clicks-api-openapi.yml",
-    "tapfiliate-commissions-api-openapi.yml",
-    "tapfiliate-conversions-api-openapi.yml",
-    "tapfiliate-customers-api-openapi.yml",
-    "tapfiliate-payments-api-openapi.yml",
-    "tapfiliate-programs-api-openapi.yml"
+    "_original/tapfiliate-rest-api-openapi.yml"
   ],
   "outputs": [
     "tapfiliate-affiliate-groups-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tapfiliate-rest-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tapfiliate-affiliate-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-affiliate-prospects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-affiliates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-balances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-clicks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-commissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-conversions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapfiliate-programs-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
