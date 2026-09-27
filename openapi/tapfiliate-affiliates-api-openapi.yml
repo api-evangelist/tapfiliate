@@ -643,7 +643,67 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    PayoutMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Payout method type (e.g. paypal, wire)
+        details:
+          type: object
+          additionalProperties: true
+    AffiliateGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
     Balance:
       type: object
       properties:
@@ -655,19 +715,28 @@ components:
         balance:
           type: number
           format: float
-    Error:
+    Affiliation:
       type: object
+      description: An affiliate's enrollment in a program
       properties:
-        message:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type:
+          - string
+          - 'null'
+        referral_link:
           type: string
-          description: Human-readable error message
-    Note:
-      type: object
-      properties:
-        id:
-          type: string
-        note:
-          type: string
+          format: uri
         created_at:
           type: string
           format: date-time
@@ -703,31 +772,6 @@ components:
         parent:
           allOf:
           - $ref: '#/components/schemas/AffiliateRef'
-    Affiliation:
-      type: object
-      description: An affiliate's enrollment in a program
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        program:
-          type: object
-          properties:
-            id:
-              type: string
-            title:
-              type: string
-        approved:
-          type: boolean
-        coupon:
-          type:
-          - string
-          - 'null'
-        referral_link:
-          type: string
-          format: uri
-        created_at:
-          type: string
-          format: date-time
     Payment:
       type: object
       properties:
@@ -752,62 +796,30 @@ components:
           - pending
           - paid
           - cancelled
-    AffiliateGroup:
+    Note:
       type: object
       properties:
         id:
           type: string
-        name:
+        note:
           type: string
-    CustomField:
+        created_at:
+          type: string
+          format: date-time
+    Error:
       type: object
       properties:
-        id:
+        message:
           type: string
-        name:
-          type: string
-        type:
-          type: string
-        required:
-          type: boolean
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    PayoutMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          description: Payout method type (e.g. paypal, wire)
-        details:
-          type: object
-          additionalProperties: true
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+          description: Human-readable error message
+  parameters:
+    affiliateId:
+      name: affiliate_id
+      in: path
+      required: true
       schema:
         type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
-  parameters:
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
+      description: Affiliate ID
     limit:
       name: limit
       in: query
@@ -817,13 +829,6 @@ components:
         minimum: 1
         maximum: 100
       description: Number of results per page
-    affiliateId:
-      name: affiliate_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Affiliate ID
     metaDataKey:
       name: key
       in: path
@@ -831,25 +836,20 @@ components:
       schema:
         type: string
       description: Metadata key
-  responses:
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
