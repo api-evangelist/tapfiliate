@@ -152,38 +152,36 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
-  parameters:
-    commissionId:
-      name: commission_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Commission ID
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
   schemas:
+    Commission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Commission ID
+        amount:
+          type: number
+          format: float
+          description: Commission amount
+        approved:
+          type: boolean
+          description: Whether this commission has been approved
+        commission_type:
+          $ref: '#/components/schemas/CommissionType'
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        conversion_id:
+          type: string
+          description: The conversion this commission is for
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     AffiliateRef:
       type: object
       properties:
@@ -218,35 +216,37 @@ components:
           - number
           - 'null'
           format: float
-    Commission:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Commission ID
-        amount:
-          type: number
-          format: float
-          description: Commission amount
-        approved:
-          type: boolean
-          description: Whether this commission has been approved
-        commission_type:
-          $ref: '#/components/schemas/CommissionType'
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        conversion_id:
-          type: string
-          description: The conversion this commission is for
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
+  parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    commissionId:
+      name: commission_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Commission ID
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

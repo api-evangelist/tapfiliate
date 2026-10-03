@@ -309,25 +309,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: Validation error — request body is invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
     affiliateId:
       name: affiliate_id
       in: path
@@ -335,6 +337,13 @@ components:
       schema:
         type: string
       description: Affiliate ID
+    programId:
+      name: program_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Program ID
     limit:
       name: limit
       in: query
@@ -344,22 +353,44 @@ components:
         minimum: 1
         maximum: 100
       description: Number of results per page
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
-    programId:
-      name: program_id
-      in: path
-      required: true
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
       schema:
         type: string
-      description: Program ID
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    Affiliation:
+      type: object
+      description: An affiliate's enrollment in a program
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type:
+          - string
+          - 'null'
+        referral_link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
     AffiliateRef:
       type: object
       properties:
@@ -414,37 +445,6 @@ components:
           type: boolean
         recurring_commissions:
           type: boolean
-    Affiliation:
-      type: object
-      description: An affiliate's enrollment in a program
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        program:
-          type: object
-          properties:
-            id:
-              type: string
-            title:
-              type: string
-        approved:
-          type: boolean
-        coupon:
-          type:
-          - string
-          - 'null'
-        referral_link:
-          type: string
-          format: uri
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

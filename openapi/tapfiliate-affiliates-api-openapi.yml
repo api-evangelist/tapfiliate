@@ -650,53 +650,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: Validation error — request body is invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    CustomField:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        required:
-          type: boolean
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    PayoutMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          description: Payout method type (e.g. paypal, wire)
-        details:
-          type: object
-          additionalProperties: true
     AffiliateGroup:
       type: object
       properties:
@@ -704,42 +670,12 @@ components:
           type: string
         name:
           type: string
-    Balance:
+    Error:
       type: object
       properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        currency:
+        message:
           type: string
-          description: ISO 4217 currency code
-        balance:
-          type: number
-          format: float
-    Affiliation:
-      type: object
-      description: An affiliate's enrollment in a program
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        program:
-          type: object
-          properties:
-            id:
-              type: string
-            title:
-              type: string
-        approved:
-          type: boolean
-        coupon:
-          type:
-          - string
-          - 'null'
-        referral_link:
-          type: string
-          format: uri
-        created_at:
-          type: string
-          format: date-time
+          description: Human-readable error message
     Affiliate:
       type: object
       properties:
@@ -772,6 +708,75 @@ components:
         parent:
           allOf:
           - $ref: '#/components/schemas/AffiliateRef'
+    Affiliation:
+      type: object
+      description: An affiliate's enrollment in a program
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        program:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        approved:
+          type: boolean
+        coupon:
+          type:
+          - string
+          - 'null'
+        referral_link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    PayoutMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Payout method type (e.g. paypal, wire)
+        details:
+          type: object
+          additionalProperties: true
     Payment:
       type: object
       properties:
@@ -796,23 +801,26 @@ components:
           - pending
           - paid
           - cancelled
-    Note:
+    Balance:
       type: object
       properties:
-        id:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
           type: string
-        note:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
   parameters:
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
     affiliateId:
       name: affiliate_id
       in: path
@@ -836,14 +844,6 @@ components:
       schema:
         type: string
       description: Metadata key
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
   headers:
     PaginationLink:
       description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
