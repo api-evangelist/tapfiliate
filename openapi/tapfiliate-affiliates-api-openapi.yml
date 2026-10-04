@@ -643,39 +643,17 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    AffiliateGroup:
+    Note:
       type: object
       properties:
         id:
           type: string
-        name:
+        note:
           type: string
-    Error:
-      type: object
-      properties:
-        message:
+        created_at:
           type: string
-          description: Human-readable error message
+          format: date-time
     Affiliate:
       type: object
       properties:
@@ -708,6 +686,76 @@ components:
         parent:
           allOf:
           - $ref: '#/components/schemas/AffiliateRef'
+    AffiliateGroup:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        amount:
+          type: number
+          format: float
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        paid_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        status:
+          type: string
+          enum:
+          - pending
+          - paid
+          - cancelled
+    CustomField:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        required:
+          type: boolean
+    Balance:
+      type: object
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
+    PayoutMethod:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: Payout method type (e.g. paypal, wire)
+        details:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Affiliation:
       type: object
       description: An affiliate's enrollment in a program
@@ -745,73 +793,6 @@ components:
           type: string
         lastname:
           type: string
-    CustomField:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-        required:
-          type: boolean
-    Note:
-      type: object
-      properties:
-        id:
-          type: string
-        note:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    PayoutMethod:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          description: Payout method type (e.g. paypal, wire)
-        details:
-          type: object
-          additionalProperties: true
-    Payment:
-      type: object
-      properties:
-        id:
-          type: string
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        amount:
-          type: number
-          format: float
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        paid_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        status:
-          type: string
-          enum:
-          - pending
-          - paid
-          - cancelled
-    Balance:
-      type: object
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        balance:
-          type: number
-          format: float
   parameters:
     page:
       name: page
@@ -821,13 +802,13 @@ components:
         default: 1
         minimum: 1
       description: Page number for pagination
-    affiliateId:
-      name: affiliate_id
+    metaDataKey:
+      name: key
       in: path
       required: true
       schema:
         type: string
-      description: Affiliate ID
+      description: Metadata key
     limit:
       name: limit
       in: query
@@ -837,19 +818,38 @@ components:
         minimum: 1
         maximum: 100
       description: Number of results per page
-    metaDataKey:
-      name: key
+    affiliateId:
+      name: affiliate_id
       in: path
       required: true
       schema:
         type: string
-      description: Metadata key
+      description: Affiliate ID
   headers:
     PaginationLink:
       description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
       schema:
         type: string
       example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  responses:
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

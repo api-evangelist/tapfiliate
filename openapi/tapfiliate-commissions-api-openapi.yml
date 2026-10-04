@@ -139,83 +139,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    Commission:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Commission ID
-        amount:
-          type: number
-          format: float
-          description: Commission amount
-        approved:
-          type: boolean
-          description: Whether this commission has been approved
-        commission_type:
-          $ref: '#/components/schemas/CommissionType'
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        conversion_id:
-          type: string
-          description: The conversion this commission is for
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    CommissionType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - percentage
-          - fixed
-        percentage:
-          type:
-          - number
-          - 'null'
-          format: float
-        amount:
-          type:
-          - number
-          - 'null'
-          format: float
   parameters:
     page:
       name: page
@@ -241,12 +164,89 @@ components:
       schema:
         type: string
       description: Commission ID
+  schemas:
+    Commission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Commission ID
+        amount:
+          type: number
+          format: float
+          description: Commission amount
+        approved:
+          type: boolean
+          description: Whether this commission has been approved
+        commission_type:
+          $ref: '#/components/schemas/CommissionType'
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        conversion_id:
+          type: string
+          description: The conversion this commission is for
+        created_at:
+          type: string
+          format: date-time
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+        amount:
+          type:
+          - number
+          - 'null'
+          format: float
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
   headers:
     PaginationLink:
       description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
       schema:
         type: string
       example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -65,7 +65,25 @@ components:
       schema:
         type: string
       example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Balance:
+      type: object
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
     Error:
       type: object
       properties:
@@ -84,24 +102,6 @@ components:
           type: string
         lastname:
           type: string
-    Balance:
-      type: object
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        balance:
-          type: number
-          format: float
-  responses:
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
