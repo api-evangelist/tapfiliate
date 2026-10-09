@@ -98,3 +98,21 @@ capabilities:
       Full picture for one named affiliate — join date, plan, clicks,
       conversions, conversion rate, revenue, trend vs previous period.
 crosswalk: mcp/tapfiliate-tool-crosswalk.yml
+rfc9728:
+  endpoint: https://mcp.tapfiliate.com/mcp
+  metadata_url: https://mcp.tapfiliate.com/.well-known/oauth-protected-resource
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://mcp.tapfiliate.com/mcp
+    authorization_servers:
+    - https://mcp.tapfiliate.com
+    scopes_supported:
+    - affiliates
+    - conversions_commissions
+    - programs
+    - payments
+    bearer_methods_supported:
+    - header

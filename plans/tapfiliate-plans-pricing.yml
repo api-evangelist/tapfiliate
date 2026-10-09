@@ -88,3 +88,29 @@ plans:
       - In-platform messenger
       - REST API integration
       - S2S/postback integration
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Launch
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Scale
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
