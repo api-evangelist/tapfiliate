@@ -1,0 +1,615 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/tapfiliate/integrations
+- https://n8n.io/integrations/tapfiliate/
+- https://composio.dev/toolkits/tapfiliate
+checked:
+- https://composio.dev/toolkits/tapfiliate
+- https://monid.ai/tools/tapfiliate
+- https://n8n.io/integrations/tapfiliate/
+- https://zapier.com/apps/tapfiliate/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: tapfiliate
+  url: https://zapier.com/apps/tapfiliate/integrations
+  external_url: https://tapfiliate.com/
+  partner_tier: BRONZE
+  triggers:
+  - key: affiliate_added
+    label: Affiliate Added to Program
+  - key: affiliate_approved
+    label: Affiliate Approved for Program
+  - key: affiliate_created
+    label: New Affiliate
+  - key: affiliate_prospect_created
+    label: New Affiliate Prospect
+  - key: affiliate_prospect_promoted
+    label: Affiliate Prospect Promoted
+  - key: conversion_created
+    label: New Conversion
+  - key: customer_created
+    label: New Customer
+  - key: payment_created
+    label: New Payment
+  actions:
+  - key: add_commission_to_conversion
+    label: Add Commission to Conversion
+  - key: create_conversion_v2
+    label: Create Conversion
+  - key: create_customer
+    label: Create Customer
+  - key: set_affiliate_group
+    label: Set Affiliate Group
+  - key: set_parent_affiliate
+    label: Set Parent Affiliate
+  - key: update_commission_approval
+    label: Update Commission Approval Status
+  - key: update_customer_status
+    label: Update Customer Status
+  searches:
+  - key: find_affiliate
+    label: Find Affiliate
+  - key: find_affiliate_in_program_v2
+    label: Find Affiliate in Program
+  - key: find_affiliate_prospect
+    label: Find Affiliate Prospect
+  - key: find_conversion_v2
+    label: Find Conversion
+  - key: find_customer
+    label: Find Customer
+- marketplace: n8n
+  channel: open-source-node
+  app: tapfiliate
+  url: https://n8n.io/integrations/tapfiliate/
+  identity: title
+  pair_pages: 104
+  pairs:
+  - td-ameritrade
+  - teachable
+  - team-up
+  - teamdeck
+  - teamgate
+  - teknoir
+  - telegram
+  - testmonitor
+  - textcortex-ai
+  - textgain
+  - textkit
+  - textmagic
+  - thankster
+  - the-customer-factor
+  - the-leap
+  - thehive
+  - thehive-5
+  - thoughtfulgpt
+  - thrivecart
+  - tidb-cloud
+  - tierion
+  - tilda
+  - timescaledb
+  - timetonic
+  - tinyurl
+  - tisane-labs
+  - todoist
+  - token-metrics
+  - toket
+  - totango
+  - trackvia
+  - transifex
+  - travisci
+  - trellix-epo
+  - trello
+  - trengo
+  - trevorio
+  - turbohire
+  - tuskr
+  - tuulio
+  - twake
+  - twilio
+  - twist
+  - twitter
+  - unbounce
+  - unisender
+  - unleashed-software
+  - upkeep
+  - uplead
+  - uproc
+  - uptimerobot
+  - uptimetoolbox
+  - urlscanio
+  - uservoice
+  - venafi-tls-protect-cloud
+  - venafi-tls-protect-datacenter
+  - venly
+  - verifalia
+  - vero
+  - vimeo
+  - virustotal
+  - vivifyscrum
+  - voicit
+  - vonage
+  - vowel
+  - watchsignals
+  - waveline-extract
+  - webex-by-cisco
+  - webflow
+  - webscraperio
+  - wekan
+  - whal3s
+  - whatconverts
+  - whatsapp-business-cloud
+  - wise
+  - wizychat
+  - wonderchat
+  - wondercraft
+  - woocommerce
+  - woodpeckerco
+  - wordpress
+  - workast
+  - workboard
+  - woxo
+  - writesonic
+  - wubook-ratechecker
+  - xero
+  - xtractly
+  - ybug
+  - ycode
+  - yodiz
+  - yourls
+  - youtube
+  - zabbix
+  - zammad
+  - zendesk
+  - zenrows
+  - zoho-books
+  - zoho-crm
+  - zoho-desk
+  - zonka-feedback
+  - zoom
+  - zscaler-zia
+  - zulip
+- marketplace: composio
+  channel: agent-gateway
+  app: tapfiliate
+  url: https://composio.dev/toolkits/tapfiliate
+  identity: action-prefix
+  actions:
+  - key: TAPFILIATE_AFFILIATES_LIST_ALL_AFFILIATES
+  - key: TAPFILIATE_AFFILIATES_RETRIEVE_AN_AFFILIATE
+  - key: TAPFILIATE_CANCEL_PAYMENT
+  - key: TAPFILIATE_COMMISSIONS_LIST_ALL_COMMISSIONS
+  - key: TAPFILIATE_CREATE_AFFILIATE
+  - key: TAPFILIATE_CREATE_AFFILIATE_GROUP
+  - key: TAPFILIATE_CREATE_AFFILIATE_NOTE
+  - key: TAPFILIATE_CREATE_AFFILIATE_PROSPECT
+  - key: TAPFILIATE_DELETE_AFFILIATE_META_DATA
+  - key: TAPFILIATE_DELETE_AFFILIATE_PROSPECT
+  - key: TAPFILIATE_DELETE_AN_AFFILIATE
+  - key: TAPFILIATE_GET_AFFILIATE_BALANCES
+  - key: TAPFILIATE_GET_AFFILIATE_META_DATA_BY_KEY
+  - key: TAPFILIATE_GET_AFFILIATE_PROSPECT
+  - key: TAPFILIATE_GET_PROGRAM
+  - key: TAPFILIATE_LIST_AFFILIATE_CUSTOM_FIELDS
+  - key: TAPFILIATE_LIST_AFFILIATE_GROUPS
+  - key: TAPFILIATE_LIST_AFFILIATE_META_DATA
+  - key: TAPFILIATE_LIST_AFFILIATE_NOTES
+  - key: TAPFILIATE_LIST_AFFILIATE_PAYMENTS
+  - key: TAPFILIATE_LIST_AFFILIATE_PROGRAMS
+  - key: TAPFILIATE_LIST_AFFILIATE_PROSPECTS
+  - key: TAPFILIATE_LIST_ALL_AFFILIATES
+  - key: TAPFILIATE_LIST_BALANCES
+  - key: TAPFILIATE_LIST_CONVERSIONS
+  - key: TAPFILIATE_LIST_CUSTOMERS
+  - key: TAPFILIATE_LIST_PROGRAM_AFFILIATES
+  - key: TAPFILIATE_LIST_PROGRAM_BONUSES
+  - key: TAPFILIATE_LIST_PROGRAM_COMMISSION_TYPES
+  - key: TAPFILIATE_LIST_PROGRAM_MLM_LEVELS
+  - key: TAPFILIATE_PAYMENTS_CREATE_A_PAYMENT
+  - key: TAPFILIATE_PAYMENTS_LIST_ALL_PAYMENTS
+  - key: TAPFILIATE_PAYMENTS_RETRIEVE_A_PAYMENT
+  - key: TAPFILIATE_PAYOUT_METHODS_LIST_ALL_PAYOUT_METHODS
+  - key: TAPFILIATE_PROGRAMS_LIST_ALL_PROGRAMS
+  - key: TAPFILIATE_REMOVE_AFFILIATE_GROUP
+  - key: TAPFILIATE_SET_AFFILIATE_GROUP
+  - key: TAPFILIATE_SET_AFFILIATE_META_DATA
+  - key: TAPFILIATE_SET_AFFILIATE_META_DATA_BY_KEY
+  - key: TAPFILIATE_SET_AFFILIATE_PARENT
+  - key: TAPFILIATE_UPDATE_AFFILIATE_GROUP
+edges:
+- partner_name: Chargebee
+  partner: chargebee
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/chargebee
+  direction: third-party
+  category: Payment Processing
+  partner_url: http://www.chargebee.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Kajabi
+  partner: kajabi
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/kajabi
+  direction: third-party
+  category: eCommerce
+  partner_url: http://kajabi.com/
+- partner_name: Sharetribe
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/sharetribe
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.sharetribe.com/
+- partner_name: Jotform
+  partner: jotform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/jotform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://www.jotform.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Eventbrite
+  partner: eventbrite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/eventbrite
+  direction: third-party
+  category: Event Management
+  partner_url: https://eventbrite.com/
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: Intercom
+  partner: intercom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/intercom
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.intercom.com/welcome-to-intercom?utm_source=external-website&utm_medium=partner&utm_campaign=20220503_all_oc_all_global_gl_all_all_par_extmktplc&utm_term=zapier
+- partner_name: Recurly
+  partner: recurly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/recurly
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://recurly.com/
+- partner_name: Billsby
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/billsby
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://www.billsby.com/
+- partner_name: Stripe (Legacy)
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe-legacy
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: Memberful
+  partner: memberful
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/memberful
+  direction: third-party
+  category: eCommerce
+  partner_url: https://memberful.com/
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: MoonClerk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/moonclerk
+  direction: third-party
+  category: Payment Processing
+  partner_url: http://moonclerk.com/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: WebinarJam / EverWebinar
+  partner: webinarjam
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/webinarjam
+  direction: third-party
+  category: Webinars
+  partner_url: http://webinarjam.com/
+- partner_name: WeTravel
+  partner: wetravel
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/wetravel
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://www.wetravel.com/
+- partner_name: GetResponse
+  partner: getresponse
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/getresponse
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.getresponse.com/
+- partner_name: Gmail
+  partner: gmail
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Calendly
+  partner: calendly
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/calendly
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://calendly.com/?utm_medium=partner&utm_source=zapier&utm_campaign=main_partner_page&utm_content=main_inbound_link
+- partner_name: Flodesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/flodesk
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://flodesk.com/
+- partner_name: Stripe
+  partner: stripe
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://stripe.com/
+- partner_name: Braintree
+  partner: braintree
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/braintree
+  direction: third-party
+  category: Payment Processing
+  partner_url: https://www.braintreepayments.com/
+- partner_name: Trello
+  partner: trello
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/trello
+  direction: third-party
+  category: Project Management
+  partner_url: https://trello.com/
+- partner_name: Discord
+  partner: discord
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/discord
+  direction: third-party
+  category: Team Chat
+  partner_url: https://discordapp.com/
+templates:
+- title: Save new Tapfiliate affiliates to rows on Google Sheets
+  url: https://zapier.com/apps/google-sheets/integrations/tapfiliate/12851/save-new-tapfiliate-affiliates-to-rows-on-google-sheets
+  apps:
+  - tapfiliate
+  - google-sheets
+- title: Add new Tapfiliate affiliates to a Mailchimp list
+  url: https://zapier.com/apps/mailchimp/integrations/tapfiliate/12842/add-new-tapfiliate-affiliates-to-a-mailchimp-list
+  apps:
+  - tapfiliate
+  - mailchimp
+- title: Add new Chargebee payments as conversions in Tapfiliate
+  url: https://zapier.com/apps/chargebee/integrations/tapfiliate/58465/add-new-chargebee-payments-as-conversions-in-tapfiliate
+  apps:
+  - chargebee
+  - formatter
+  - tapfiliate
+- title: Post new Tapfiliate conversions to a Slack channel
+  url: https://zapier.com/apps/slack/integrations/tapfiliate/12844/post-new-tapfiliate-conversions-to-a-slack-channel
+  apps:
+  - tapfiliate
+  - slack
+- title: Add new Tapfiliate affiliates to Klaviyo as subscribers when they join your program
+  url: https://zapier.com/apps/klaviyo/integrations/tapfiliate/1402210/add-new-tapfiliate-affiliates-to-klaviyo-as-subscribers-when-they-join-your-program
+  apps:
+  - tapfiliate
+  - klaviyo
+- title: Create conversions in Tapfiliate when new transaction events occur in Sharetribe
+  url: https://zapier.com/apps/sharetribe/integrations/tapfiliate/1570809/create-conversions-in-tapfiliate-when-new-transaction-events-occur-in-sharetribe
+  apps:
+  - sharetribe
+  - tapfiliate
+- title: Post Slack messages with new affiliates on Tapfiliate
+  url: https://zapier.com/apps/slack/integrations/tapfiliate/12846/post-slack-messages-with-new-affiliates-on-tapfiliate
+  apps:
+  - tapfiliate
+  - slack
+- title: Get email notifications for new conversions on Tapfiliate
+  url: https://zapier.com/apps/gmail/integrations/tapfiliate/12847/get-email-notifications-for-new-conversions-on-tapfiliate
+  apps:
+  - tapfiliate
+  - gmail
+- title: Welcome new affiliates on Tapfiliate with an email from Gmail
+  url: https://zapier.com/apps/gmail/integrations/tapfiliate/12848/welcome-new-affiliates-on-tapfiliate-with-an-email-from-gmail
+  apps:
+  - tapfiliate
+  - gmail
+- title: Get emails when new affiliates are added on Tapfiliate
+  url: https://zapier.com/apps/email/integrations/tapfiliate/12850/get-emails-when-new-affiliates-are-added-on-tapfiliate
+  apps:
+  - tapfiliate
+  - email
+- title: Save new Tapfiliate affiliate information to Evernote
+  url: https://zapier.com/apps/evernote/integrations/tapfiliate/12860/save-new-tapfiliate-affiliate-information-to-evernote
+  apps:
+  - tapfiliate
+  - evernote
+- title: Add new MoonClerk payments as commissions to Tapfiliate affiliate conversions
+  url: https://zapier.com/apps/moonclerk/integrations/tapfiliate/16563/add-new-moonclerk-payments-as-commissions-to-tapfiliate-affiliate-conversions
+  apps:
+  - moonclerk
+  - tapfiliate
+  - filter
+template_total: 103
