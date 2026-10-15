@@ -9,6 +9,7 @@ checked:
 - https://monid.ai/tools/tapfiliate
 - https://n8n.io/integrations/tapfiliate/
 - https://zapier.com/apps/tapfiliate/integrations
+- shopify/integrations/shopify-integration-edges.yml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -549,6 +550,24 @@ edges:
   direction: third-party
   category: Team Chat
   partner_url: https://discordapp.com/
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/tapfiliate
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - Tapfiliate Affiliate Marketing
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  publisher_verified:
+  - Built for Shopify
 templates:
 - title: Save new Tapfiliate affiliates to rows on Google Sheets
   url: https://zapier.com/apps/google-sheets/integrations/tapfiliate/12851/save-new-tapfiliate-affiliates-to-rows-on-google-sheets
