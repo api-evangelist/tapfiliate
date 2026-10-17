@@ -157,15 +157,26 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
     limit:
       name: limit
       in: query
@@ -175,13 +186,33 @@ components:
         minimum: 1
         maximum: 100
       description: Number of results per page
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+    page:
+      name: page
+      in: query
       schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
   schemas:
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Payment:
       type: object
       properties:
@@ -206,43 +237,12 @@ components:
           - pending
           - paid
           - cancelled
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

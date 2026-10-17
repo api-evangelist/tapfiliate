@@ -302,63 +302,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    programId:
-      name: program_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Program ID
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-    affiliateId:
-      name: affiliate_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Affiliate ID
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
-  responses:
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     CommissionType:
       type: object
@@ -382,6 +325,38 @@ components:
           - number
           - 'null'
           format: float
+    Program:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        cookie_time:
+          type: integer
+          description: Cookie lifetime in days
+        default_landing_page_url:
+          type: string
+          format: uri
+        incrementing_conversions:
+          type: boolean
+        recurring_commissions:
+          type: boolean
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
     Error:
       type: object
       properties:
@@ -413,38 +388,63 @@ components:
         created_at:
           type: string
           format: date-time
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-    Program:
-      type: object
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        cookie_time:
-          type: integer
-          description: Cookie lifetime in days
-        default_landing_page_url:
-          type: string
-          format: uri
-        incrementing_conversions:
-          type: boolean
-        recurring_commissions:
-          type: boolean
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    affiliateId:
+      name: affiliate_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Affiliate ID
+    programId:
+      name: program_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Program ID
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

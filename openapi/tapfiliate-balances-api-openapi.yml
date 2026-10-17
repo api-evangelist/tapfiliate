@@ -41,15 +41,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
     limit:
       name: limit
       in: query
@@ -59,37 +58,15 @@ components:
         minimum: 1
         maximum: 100
       description: Number of results per page
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+    page:
+      name: page
+      in: query
       schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
-  responses:
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
   schemas:
-    Balance:
-      type: object
-      properties:
-        affiliate:
-          $ref: '#/components/schemas/AffiliateRef'
-        currency:
-          type: string
-          description: ISO 4217 currency code
-        balance:
-          type: number
-          format: float
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
     AffiliateRef:
       type: object
       properties:
@@ -102,6 +79,29 @@ components:
           type: string
         lastname:
           type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    Balance:
+      type: object
+      properties:
+        affiliate:
+          $ref: '#/components/schemas/AffiliateRef'
+        currency:
+          type: string
+          description: ISO 4217 currency code
+        balance:
+          type: number
+          format: float
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

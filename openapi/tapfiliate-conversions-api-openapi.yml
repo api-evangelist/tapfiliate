@@ -327,39 +327,47 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
-    conversionId:
-      name: conversion_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Conversion ID
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-    metaDataKey:
-      name: key
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Metadata key
   schemas:
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+        amount:
+          type:
+          - number
+          - 'null'
+          format: float
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Commission:
       type: object
       properties:
@@ -411,61 +419,47 @@ components:
         meta_data:
           type: object
           additionalProperties: true
-    CommissionType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - percentage
-          - fixed
-        percentage:
-          type:
-          - number
-          - 'null'
-          format: float
-        amount:
-          type:
-          - number
-          - 'null'
-          format: float
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+  parameters:
+    metaDataKey:
+      name: key
+      in: path
+      required: true
       schema:
         type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
+      description: Metadata key
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    conversionId:
+      name: conversion_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Conversion ID
   responses:
-    UnprocessableEntity:
-      description: Validation error — request body is invalid
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed — missing or invalid API key
+    UnprocessableEntity:
+      description: Validation error — request body is invalid
       content:
         application/json:
           schema:
@@ -476,6 +470,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

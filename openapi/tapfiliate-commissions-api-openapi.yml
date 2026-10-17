@@ -139,32 +139,47 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    page:
-      name: page
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: Page number for pagination
-    limit:
-      name: limit
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
-      description: Number of results per page
-    commissionId:
-      name: commission_id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Commission ID
   schemas:
+    CommissionType:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+          - fixed
+        percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+        amount:
+          type:
+          - number
+          - 'null'
+          format: float
+    AffiliateRef:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        firstname:
+          type: string
+        lastname:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Commission:
       type: object
       properties:
@@ -188,65 +203,50 @@ components:
         created_at:
           type: string
           format: date-time
-    CommissionType:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - percentage
-          - fixed
-        percentage:
-          type:
-          - number
-          - 'null'
-          format: float
-        amount:
-          type:
-          - number
-          - 'null'
-          format: float
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-    AffiliateRef:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-          format: email
-        firstname:
-          type: string
-        lastname:
-          type: string
-  headers:
-    PaginationLink:
-      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
-      schema:
-        type: string
-      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed — missing or invalid API key
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+      description: Number of results per page
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: Page number for pagination
+    commissionId:
+      name: commission_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Commission ID
+  headers:
+    PaginationLink:
+      description: Links to navigate between pages. Contains rel="next", rel="prev", rel="first", and rel="last" links as per RFC 5988.
+      schema:
+        type: string
+      example: <https://api.tapfiliate.com/1.6/conversions/?page=3>; rel="next", <https://api.tapfiliate.com/1.6/conversions/?page=51>; rel="last"
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
