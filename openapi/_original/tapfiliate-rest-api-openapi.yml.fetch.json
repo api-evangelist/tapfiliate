@@ -1,0 +1,12 @@
+{
+ "url": "https://developers.tapfiliate.com/api-reference/openapi.json",
+ "requested_url": "https://developers.tapfiliate.com/api-reference/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 285869,
+ "sha256": "6fb6207a9384dcd7c7992fc4c2b205af48b3e1c9052fd79bbf6e46a55ac4e37d",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.938), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
