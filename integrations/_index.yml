@@ -15,6 +15,7 @@
   evidence: https://zapier.com/apps/google-sheets/integrations/tapfiliate/12851/save-new-tapfiliate-affiliates-to-rows-on-google-sheets
   template: https://zapier.com/apps/google-sheets/integrations/tapfiliate/12851/save-new-tapfiliate-affiliates-to-rows-on-google-sheets
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: tapfiliate-add-new-tapfiliate-affiliates-to-a-mailchimp-list
@@ -29,6 +30,7 @@
   evidence: https://zapier.com/apps/mailchimp/integrations/tapfiliate/12842/add-new-tapfiliate-affiliates-to-a-mailchimp-list
   template: https://zapier.com/apps/mailchimp/integrations/tapfiliate/12842/add-new-tapfiliate-affiliates-to-a-mailchimp-list
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: tapfiliate-add-new-chargebee-payments-as-conversions-in-tapfiliate
@@ -43,6 +45,7 @@
   evidence: https://zapier.com/apps/chargebee/integrations/tapfiliate/58465/add-new-chargebee-payments-as-conversions-in-tapfiliate
   template: https://zapier.com/apps/chargebee/integrations/tapfiliate/58465/add-new-chargebee-payments-as-conversions-in-tapfiliate
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: tapfiliate-post-new-tapfiliate-conversions-to-a-slack-channel
@@ -57,6 +60,7 @@
   evidence: https://zapier.com/apps/slack/integrations/tapfiliate/12844/post-new-tapfiliate-conversions-to-a-slack-channel
   template: https://zapier.com/apps/slack/integrations/tapfiliate/12844/post-new-tapfiliate-conversions-to-a-slack-channel
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: tapfiliate-create-conversions-in-tapfiliate-when-new-transaction-events-occur-in-sharetrib
@@ -70,6 +74,7 @@
   evidence: https://zapier.com/apps/sharetribe/integrations/tapfiliate/1570809/create-conversions-in-tapfiliate-when-new-transaction-events-occur-in-sharetribe
   template: https://zapier.com/apps/sharetribe/integrations/tapfiliate/1570809/create-conversions-in-tapfiliate-when-new-transaction-events-occur-in-sharetribe
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: tapfiliate-post-slack-messages-with-new-affiliates-on-tapfiliate
@@ -84,6 +89,7 @@
   evidence: https://zapier.com/apps/slack/integrations/tapfiliate/12846/post-slack-messages-with-new-affiliates-on-tapfiliate
   template: https://zapier.com/apps/slack/integrations/tapfiliate/12846/post-slack-messages-with-new-affiliates-on-tapfiliate
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: tapfiliate-get-email-notifications-for-new-conversions-on-tapfiliate
@@ -98,6 +104,7 @@
   evidence: https://zapier.com/apps/gmail/integrations/tapfiliate/12847/get-email-notifications-for-new-conversions-on-tapfiliate
   template: https://zapier.com/apps/gmail/integrations/tapfiliate/12847/get-email-notifications-for-new-conversions-on-tapfiliate
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: tapfiliate-welcome-new-affiliates-on-tapfiliate-with-an-email-from-gmail
@@ -112,6 +119,7 @@
   evidence: https://zapier.com/apps/gmail/integrations/tapfiliate/12848/welcome-new-affiliates-on-tapfiliate-with-an-email-from-gmail
   template: https://zapier.com/apps/gmail/integrations/tapfiliate/12848/welcome-new-affiliates-on-tapfiliate-with-an-email-from-gmail
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: tapfiliate-add-new-moonclerk-payments-as-commissions-to-tapfiliate-affiliate-conversions
@@ -125,281 +133,8 @@
   evidence: https://zapier.com/apps/moonclerk/integrations/tapfiliate/16563/add-new-moonclerk-payments-as-commissions-to-tapfiliate-affiliate-conversions
   template: https://zapier.com/apps/moonclerk/integrations/tapfiliate/16563/add-new-moonclerk-payments-as-commissions-to-tapfiliate-affiliate-conversions
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-hubspot
-  label: HubSpot
-  partner: hubspot
-  partner_name: HubSpot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/hubspot
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-clickfunnels-classic
-  label: ClickFunnels Classic
-  partner: clickfunnels
-  partner_name: ClickFunnels Classic
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/clickfunnels-classic
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-activecampaign
-  label: ActiveCampaign
-  partner: activecampaign
-  partner_name: ActiveCampaign
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/activecampaign
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-pipedrive
-  label: Pipedrive
-  partner: pipedrive
-  partner_name: Pipedrive
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/pipedrive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-kajabi
-  label: Kajabi
-  partner: kajabi
-  partner_name: Kajabi
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/kajabi
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-jotform
-  label: Jotform
-  partner: jotform
-  partner_name: Jotform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/jotform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-gravity-forms
-  label: Gravity Forms
-  partner: gravity-forms
-  partner_name: Gravity Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/gravity-forms
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-eventbrite
-  label: Eventbrite
-  partner: eventbrite
-  partner_name: Eventbrite
-  category: Event Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/eventbrite
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-intercom
-  label: Intercom
-  partner: intercom
-  partner_name: Intercom
-  category: Customer Support
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/intercom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-recurly
-  label: Recurly
-  partner: recurly
-  partner_name: Recurly
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/recurly
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-billsby
-  label: Billsby
-  partner_name: Billsby
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/billsby
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-stripe-legacy
-  label: Stripe (Legacy)
-  partner: stripe
-  partner_name: Stripe (Legacy)
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe-legacy
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-memberful
-  label: Memberful
-  partner: memberful
-  partner_name: Memberful
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/memberful
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-shopify
-  label: Shopify
-  partner: shopify
-  partner_name: Shopify
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/shopify
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-webinarjam-everwebinar
-  label: WebinarJam / EverWebinar
-  partner: webinarjam
-  partner_name: WebinarJam / EverWebinar
-  category: Webinars
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/webinarjam
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-wetravel
-  label: WeTravel
-  partner: wetravel
-  partner_name: WeTravel
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/wetravel
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-getresponse
-  label: GetResponse
-  partner: getresponse
-  partner_name: GetResponse
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/getresponse
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-calendly
-  label: Calendly
-  partner: calendly
-  partner_name: Calendly
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/calendly
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-flodesk
-  label: Flodesk
-  partner_name: Flodesk
-  category: Email Newsletters
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/flodesk
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: tapfiliate-stripe
-  label: Stripe
-  partner: stripe
-  partner_name: Stripe
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-braintree
-  label: Braintree
-  partner: braintree
-  partner_name: Braintree
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/braintree
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-trello
-  label: Trello
-  partner: trello
-  partner_name: Trello
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/trello
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: tapfiliate-discord
-  label: Discord
-  partner: discord
-  partner_name: Discord
-  category: Team Chat
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/tapfiliate/integrations/discord
-  source: edge
-  status: pending-generation
   arazzo: null
 - slug: tapfiliate-shopify-own
   label: Shopify (own)
@@ -488,4 +223,301 @@
     sources: true
     builder: Pipedream repo (component)
   status: not-a-workflow
+  arazzo: null
+- slug: tapfiliate-hubspot
+  label: HubSpot
+  partner: hubspot
+  partner_name: HubSpot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/hubspot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-clickfunnels-classic
+  label: ClickFunnels Classic
+  partner: clickfunnels
+  partner_name: ClickFunnels Classic
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/clickfunnels-classic
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-activecampaign
+  label: ActiveCampaign
+  partner: activecampaign
+  partner_name: ActiveCampaign
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/activecampaign
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-kajabi
+  label: Kajabi
+  partner: kajabi
+  partner_name: Kajabi
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/kajabi
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-pipedrive
+  label: Pipedrive
+  partner: pipedrive
+  partner_name: Pipedrive
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/pipedrive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-jotform
+  label: Jotform
+  partner: jotform
+  partner_name: Jotform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/jotform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-gravity-forms
+  label: Gravity Forms
+  partner: gravity-forms
+  partner_name: Gravity Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/gravity-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-eventbrite
+  label: Eventbrite
+  partner: eventbrite
+  partner_name: Eventbrite
+  category: Event Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/eventbrite
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-intercom
+  label: Intercom
+  partner: intercom
+  partner_name: Intercom
+  category: Customer Support
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/intercom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-recurly
+  label: Recurly
+  partner: recurly
+  partner_name: Recurly
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/recurly
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: tapfiliate-billsby
+  label: Billsby
+  partner_name: Billsby
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/billsby
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: tapfiliate-stripe-legacy
+  label: Stripe (Legacy)
+  partner: stripe
+  partner_name: Stripe (Legacy)
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe-legacy
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-memberful
+  label: Memberful
+  partner: memberful
+  partner_name: Memberful
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/memberful
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: tapfiliate-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/shopify
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-webinarjam-everwebinar
+  label: WebinarJam / EverWebinar
+  partner: webinarjam
+  partner_name: WebinarJam / EverWebinar
+  category: Webinars
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/webinarjam
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: tapfiliate-wetravel
+  label: WeTravel
+  partner: wetravel
+  partner_name: WeTravel
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/wetravel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-getresponse
+  label: GetResponse
+  partner: getresponse
+  partner_name: GetResponse
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/getresponse
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-calendly
+  label: Calendly
+  partner: calendly
+  partner_name: Calendly
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/calendly
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-flodesk
+  label: Flodesk
+  partner_name: Flodesk
+  category: Email Newsletters
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/flodesk
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: tapfiliate-stripe
+  label: Stripe
+  partner: stripe
+  partner_name: Stripe
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/stripe
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-braintree
+  label: Braintree
+  partner: braintree
+  partner_name: Braintree
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/braintree
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-trello
+  label: Trello
+  partner: trello
+  partner_name: Trello
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/trello
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: tapfiliate-discord
+  label: Discord
+  partner: discord
+  partner_name: Discord
+  category: Team Chat
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/tapfiliate/integrations/discord
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
